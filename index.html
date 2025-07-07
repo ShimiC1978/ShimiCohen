@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Content Craft - S.C</title>
@@ -13,187 +12,326 @@
     gtag('js', new Date());
     gtag('config', 'G-0JD8LKPNXG');
   </script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,600,400&display=swap" rel="stylesheet">
   <style>
     :root {
       --yellow: #FFD600;
       --yellow-dark: #FFC400;
       --black: #111111;
+      --dark-gray: #1a1a1a;
+      --medium-gray: #2a2a2a;
       --white: #fff;
-      --radius: 24px;
-      --shadow: 0 8px 32px rgba(0,0,0,0.18);
+      --radius: 16px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.25);
+      --glow: 0 0 20px rgba(255,214,0,0.3);
     }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
     body {
       margin: 0;
       padding: 0;
       font-family: 'Montserrat', Arial, sans-serif;
-      background: var(--black);
+      background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
       min-height: 100vh;
       color: var(--yellow);
+      line-height: 1.4;
     }
+    
     .header {
-      padding: 38px 8px 18px 8px;
+      padding: 20px 16px;
       text-align: center;
       background: var(--black);
       border-radius: 0 0 var(--radius) var(--radius);
       box-shadow: var(--shadow);
+      margin-bottom: 24px;
     }
-    .logo-img {
-      width: 120px;
-      height: auto;
-      margin-bottom: 12px;
-      border-radius: 16px;
-      background: var(--black);
-      box-shadow: 0 4px 32px rgba(255,214,0,0.10);
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .header-title {
-      font-size: 2.1em;
-      font-weight: 700;
-      color: var(--yellow);
-      letter-spacing: 1px;
-      margin: 0;
-    }
-    .subtitle {
-      font-size: 1.13em;
-      color: var(--yellow-dark);
-      margin-top: 10px;
-      margin-bottom: 0;
-      font-weight: 400;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 22px;
-      max-width: 900px;
-      margin: 40px auto 0 auto;
-      padding: 0 10px;
-    }
-    .card {
-      background: var(--black);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 32px 16px 22px 16px;
+    
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 12px;
+      background: var(--yellow);
+      border-radius: 12px;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      cursor: pointer;
-      transition: 
-        transform 0.3s cubic-bezier(.4,2,.6,1), 
-        box-shadow 0.3s,
-        background 0.3s;
-      border: 2px solid var(--yellow-dark);
+      justify-content: center;
+      box-shadow: var(--glow);
       position: relative;
       overflow: hidden;
     }
+    
+    .logo::before {
+      content: 'S.C';
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: 2px;
+    }
+    
+    .header-title {
+      font-size: 1.8em;
+      font-weight: 700;
+      color: var(--yellow);
+      letter-spacing: 1px;
+      margin: 0 0 8px 0;
+    }
+    
+    .subtitle {
+      font-size: 0.9em;
+      color: var(--yellow-dark);
+      margin: 0;
+      font-weight: 400;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    
+    .category {
+      margin-bottom: 32px;
+    }
+    
+    .category-header {
+      background: linear-gradient(135deg, var(--medium-gray) 0%, var(--dark-gray) 100%);
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+      border-left: 4px solid var(--yellow);
+      box-shadow: var(--shadow);
+    }
+    
+    .category-title {
+      font-size: 1.2em;
+      font-weight: 600;
+      color: var(--yellow);
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .category-count {
+      font-size: 0.8em;
+      color: var(--yellow-dark);
+      font-weight: 400;
+      margin-top: 4px;
+    }
+    
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    
+    .card {
+      background: var(--dark-gray);
+      border-radius: var(--radius);
+      padding: 16px 12px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid var(--medium-gray);
+      position: relative;
+      overflow: hidden;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
     .card::before {
       content: '';
       position: absolute;
-      top: -60%;
-      left: -60%;
-      width: 220%;
-      height: 220%;
-      background: radial-gradient(circle at 70% 30%, var(--yellow-dark) 0%, var(--black) 100%);
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--yellow-dark), transparent);
       opacity: 0;
-      transition: opacity 0.4s;
-      z-index: 0;
+      transition: all 0.5s;
     }
-    .card:hover, .card:focus {
-      transform: translateY(-7px) scale(1.045) rotate(-1deg);
-      box-shadow: 0 16px 40px rgba(255,214,0,0.18);
-      background: var(--yellow);
-      border: 2px solid var(--yellow);
+    
+    .card:hover::before {
+      left: 100%;
+      opacity: 0.1;
     }
-    .card:hover::before, .card:focus::before {
-      opacity: 0.15;
+    
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(255,214,0,0.2);
+      border-color: var(--yellow);
+      background: var(--medium-gray);
     }
-    .card-icon {
-      font-size: 2.5rem;
-      background: var(--yellow);
-      color: var(--black);
-      border-radius: 50%;
-      padding: 18px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 8px rgba(255,214,0,0.10);
-      transition: background 0.3s, color 0.3s;
+    
+    .card:active {
+      transform: translateY(-2px);
+    }
+    
+    .card-title {
+      font-weight: 600;
+      font-size: 0.9em;
+      color: var(--yellow-dark);
+      text-align: center;
+      line-height: 1.3;
       z-index: 1;
+      position: relative;
+      transition: color 0.3s;
     }
-    .card:hover .card-icon, .card:focus .card-icon {
-      background: var(--black);
+    
+    .card:hover .card-title {
       color: var(--yellow);
     }
-    .card-title {
-      margin-top: 10px;
-      font-weight: 700;
-      font-size: 1.0em;
-      color: var(--yellow-dark);
-      letter-spacing: 0.5px;
-      z-index: 1;
-      text-shadow: 0 1px 0 var(--black);
-    }
-    .card:hover .card-title, .card:focus .card-title {
-      color: var(--black);
-    }
+    
     a {
       text-decoration: none;
-      display: block;
       outline: none;
     }
+    
+    .footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--yellow-dark);
+      font-size: 0.8em;
+      border-top: 1px solid var(--medium-gray);
+      margin-top: 40px;
+    }
+    
     @media (max-width: 600px) {
+      .header {
+        padding: 16px 12px;
+        margin-bottom: 20px;
+      }
+      
+      .logo {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .logo::before {
+        font-size: 18px;
+      }
+      
       .header-title {
-        font-size: 1.3em;
+        font-size: 1.4em;
       }
-      .grid {
-        gap: 14px;
-        margin-top: 18px;
+      
+      .subtitle {
+        font-size: 0.85em;
       }
+      
+      .container {
+        padding: 0 12px;
+      }
+      
+      .category {
+        margin-bottom: 24px;
+      }
+      
+      .category-header {
+        padding: 12px 16px;
+        margin-bottom: 12px;
+      }
+      
+      .category-title {
+        font-size: 1.1em;
+      }
+      
+      .cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 8px;
+      }
+      
       .card {
-        padding: 18px 8px 16px 8px;
+        padding: 12px 8px;
+        min-height: 60px;
       }
-      .card-icon {
-        font-size: 2.1rem;
-        padding: 12px;
+      
+      .card-title {
+        font-size: 0.8em;
       }
     }
   </style>
 </head>
 <body>
   <div class="header">
-    
+    <div class="logo"></div>
     <div class="header-title">S.C CONTENT CRAFT</div>
-    <div class="subtitle">Tap to open Guides on linkedin.</div>
+    <div class="subtitle">Professional Board Design Guides</div>
   </div>
-  <div class="grid">
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🎛️</div><div class="card-title">OP Amplifiers</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🛡️</div><div class="card-title">Protection</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">💡</div><div class="card-title">LED Drivers</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">📈</div><div class="card-title">PID Control</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7337717775899025409/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🔌</div><div class="card-title">DIODES</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🔩</div><div class="card-title">Components</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🌡️</div><div class="card-title">Thermal</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🎚️</div><div class="card-title">Analog Filters</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7336588127437795328/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🔗</div><div class="card-title">Connectors</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">⚡</div><div class="card-title">Power Design</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7326196854382059521/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🔋</div><div class="card-title">Battery Manage</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🔍</div><div class="card-title">DFT</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">📏</div><div class="card-title">Current Sensing</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🔀</div><div class="card-title">Transistors</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">📡</div><div class="card-title">Oscillators</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🌀</div><div class="card-title">Inductors</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🤖</div><div class="card-title">ARM MCU</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">📽️</div><div class="card-title">Digital Video</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7332269221793394688/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🔊</div><div class="card-title">Waveform</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🔌</div><div class="card-title">Serial COMM</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">📤</div><div class="card-title">HW Eng. Ext.</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🛠️</div><div class="card-title">HW Eng.</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7323212456644767744/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🔥</div><div class="card-title">HW Disasters</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🧭</div><div class="card-title">Gyroscope</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7308697467305263105/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🤖</div><div class="card-title">Train your BOT</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🔊</div><div class="card-title">Class Amplifiers</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7339117734225481729/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">🎥</div><div class="card-title">Tribute VIDEO</div></div></a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7333774652818747392/" target="_blank" rel="noopener"><div class="card" tabindex="0"><div class="card-icon">📊</div><div class="card-title">LTSpice VIDEO</div></div></a>
+  
+  <div class="container">
+    <div class="category">
+      <div class="category-header">
+        <div class="category-title">Digital and Interface</div>
+        <div class="category-count">8 Guides</div>
+      </div>
+      <div class="cards-grid">
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/"><div class="card"><div class="card-title">Communication</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/"><div class="card"><div class="card-title">MCU</div></div></a>
+        <a href="https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">FPGA Architecture</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/"><div class="card"><div class="card-title">VIDEO</div></div></a>
+        <a href="https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">CMOS Sensor</div></div></a>
+        <a href="https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">LOGIC Gates</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/"><div class="card"><div class="card-title">PID Control</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7326196854382059521/"><div class="card"><div class="card-title">Battery Management</div></div></a>
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header">
+        <div class="category-title">Analog and Power</div>
+        <div class="category-count">8 Guides</div>
+      </div>
+      <div class="cards-grid">
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/"><div class="card"><div class="card-title">Analog Filters</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/"><div class="card"><div class="card-title">Class Amplifiers</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/"><div class="card"><div class="card-title">OPAMPs</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/"><div class="card"><div class="card-title">Oscillators</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/"><div class="card"><div class="card-title">Current Sensing</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/"><div class="card"><div class="card-title">LED Drivers</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/"><div class="card"><div class="card-title">Power Design</div></div></a>
+        <a href="https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">RF</div></div></a>
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header">
+        <div class="category-title">Hardware Design</div>
+        <div class="category-count">7 Guides</div>
+      </div>
+      <div class="cards-grid">
+        <a href="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">PCB Design</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/"><div class="card"><div class="card-title">HARDWARE</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/"><div class="card"><div class="card-title">HARDWARE EXTENSION</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/"><div class="card"><div class="card-title">Design For Testability</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/"><div class="card"><div class="card-title">Circuit Protection</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7336588127437795328/"><div class="card"><div class="card-title">Connectors and Cables</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/"><div class="card"><div class="card-title">Thermal Management</div></div></a>
+      </div>
+    </div>
+    
+    <div class="category">
+      <div class="category-header">
+        <div class="category-title">Components</div>
+        <div class="category-count">7 Guides</div>
+      </div>
+      <div class="cards-grid">
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/"><div class="card"><div class="card-title">Component Selection</div></div></a>
+        <a href="https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">Capacitors</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7337717775899025409/"><div class="card"><div class="card-title">Diodes</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/"><div class="card"><div class="card-title">Inductors</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/"><div class="card"><div class="card-title">Transistors</div></div></a>
+        <a href="https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">Sensors</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/"><div class="card"><div class="card-title">MEMS Gyroscope</div></div></a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    © 2025 S.C Content Craft - Professional Board Design Resources
   </div>
 </body>
 </html>
