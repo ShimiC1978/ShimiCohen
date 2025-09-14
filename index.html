@@ -12,117 +12,248 @@
     gtag('js', new Date());
     gtag('config', 'G-0JD8LKPNXG');
   </script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,600,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --yellow: #FFD600;
-      --yellow-dark: #FFC400;
-      --black: #111111;
-      --dark-gray: #1a1a1a;
-      --medium-gray: #2a2a2a;
-      --white: #fff;
-      --radius: 16px;
-      --shadow: 0 4px 20px rgba(0,0,0,0.25);
-      --glow: 0 0 20px rgba(255,214,0,0.3);
+      --primary: #00D4FF;
+      --primary-dark: #00B8E6;
+      --secondary: #6366F1;
+      --accent: #F59E0B;
+      --dark: #0F0F23;
+      --dark-lighter: #1A1A2E;
+      --dark-card: #16213E;
+      --gray-light: #64748B;
+      --white: #FFFFFF;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      --gradient-bg: linear-gradient(135deg, var(--dark) 0%, var(--dark-lighter) 50%, var(--dark-card) 100%);
     }
-    * { box-sizing: border-box; }
-    body {
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Montserrat', Arial, sans-serif;
-      background: linear-gradient(135deg, var(--white) 0%, var(--dark-gray) 100%);
-      min-height: 100vh;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--gradient-bg);
       color: var(--white);
-      line-height: 1.4;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
+
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, var(--primary) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, var(--secondary) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, var(--accent) 0%, transparent 50%);
+      opacity: 0.1;
+      z-index: -1;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-20px) rotate(1deg); }
+      66% { transform: translateY(10px) rotate(-1deg); }
+    }
+
     .header {
-      padding: 20px 16px;
+      padding: 2rem 1rem;
       text-align: center;
-      background: var(--black);
-      border-radius: 0 0 var(--radius) var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 24px;
-    }
-    .logo {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 12px;
-      background: var(--white);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--glow);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
       position: relative;
       overflow: hidden;
     }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .logo {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1.5rem;
+      background: var(--gradient-primary);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-heavy);
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: translateY(-5px) scale(1.05);
+    }
+
     .logo::before {
       content: 'S.C';
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--black);
-      letter-spacing: 2px;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: 3px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
+
+    .logo::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: var(--gradient-primary);
+      border-radius: 26px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .logo:hover::after {
+      opacity: 0.5;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 0.5; }
+    }
+
     .header-title {
-      font-size: 1.8em;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: 1px;
-      margin: 0 0 8px 0;
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+      position: relative;
     }
+
     .subtitle {
-      font-size: 0.9em;
-      color: var(--white);
-      margin: 0;
+      font-size: 1.1rem;
+      color: var(--gray-light);
       font-weight: 400;
-    }
-    .container {
-      max-width: 1000px;
+      max-width: 400px;
       margin: 0 auto;
-      padding: 0 16px;
     }
-    .category { margin-bottom: 32px; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .category {
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .category:nth-child(2) { animation-delay: 0.1s; }
+    .category:nth-child(3) { animation-delay: 0.2s; }
+    .category:nth-child(4) { animation-delay: 0.3s; }
+    .category:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .category-header {
-      background: linear-gradient(135deg, var(--medium-gray) 0%, var(--dark-gray) 100%);
-      padding: 16px 20px;
-      border-radius: var(--radius);
-      margin-bottom: 16px;
-      border-left: 4px solid var(--yellow);
-      box-shadow: var(--shadow);
-    }
-    .category-title {
-      font-size: 1.2em;
-      font-weight: 600;
-      color: var(--yellow);
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .category-count {
-      font-size: 0.8em;
-      color: var(--yellow);
-      font-weight: 400;
-      margin-top: 4px;
-    }
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-    }
-    .card {
-      background: var(--dark-gray);
-      border-radius: var(--radius);
-      padding: 16px 12px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1px solid var(--medium-gray);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      padding: 1.5rem 2rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--glass-border);
       position: relative;
       overflow: hidden;
-      min-height: 70px;
+    }
+
+    .category-header::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: var(--gradient-primary);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .category-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+      letter-spacing: 1px;
+    }
+
+    .category-count {
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 1.5rem 1rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      min-height: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-decoration: none;
+      group: card;
     }
+
     .card::before {
       content: '';
       position: absolute;
@@ -130,100 +261,153 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, var(--white), transparent);
-      opacity: 0;
-      transition: all 0.5s;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s ease;
     }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: var(--shadow-heavy);
+      border-color: var(--primary);
+      background: rgba(0, 212, 255, 0.1);
+    }
+
     .card:hover::before {
       left: 100%;
-      opacity: 0.1;
     }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(255,214,0,0.2);
-      border-color: var(--white);
-      background: var(--medium-gray);
-    }
+
     .card:active {
-      transform: translateY(-2px);
+      transform: translateY(-4px) scale(0.98);
     }
+
     .card-title {
       font-weight: 600;
-      font-size: 0.9em;
+      font-size: 1rem;
       color: var(--white);
       text-align: center;
-      line-height: 1.3;
+      line-height: 1.4;
+      transition: all 0.3s ease;
       z-index: 1;
       position: relative;
-      transition: color 0.3s;
     }
+
     .card:hover .card-title {
-      color: var(--white);
+      color: var(--primary);
+      transform: scale(1.05);
     }
-    a {
-      text-decoration: none;
-      outline: none;
-    }
+
     .footer {
       text-align: center;
-      padding: 24px;
-      color: var(--white);
-      font-size: 0.8em;
-      border-top: 1px solid var(--medium-gray);
-      margin-top: 40px;
+      padding: 2rem;
+      color: var(--gray-light);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--glass-border);
+      margin-top: 3rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
     }
-    @media (max-width: 600px) {
+
+    /* Mobile Optimizations */
+    @media (max-width: 768px) {
       .header {
-        padding: 16px 12px;
-        margin-bottom: 20px;
+        padding: 1.5rem 1rem;
       }
+
       .logo {
-        width: 60px;
-        height: 60px;
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1rem;
       }
+
       .logo::before {
-        font-size: 18px;
+        font-size: 1.5rem;
+        letter-spacing: 2px;
       }
+
       .header-title {
-        font-size: 1.4em;
+        font-size: 1.8rem;
+        letter-spacing: 1px;
       }
+
       .subtitle {
-        font-size: 0.85em;
+        font-size: 1rem;
       }
+
       .container {
-        padding: 0 12px;
+        padding: 1.5rem 0.75rem;
       }
+
       .category {
-        margin-bottom: 24px;
+        margin-bottom: 2rem;
       }
+
       .category-header {
-        padding: 12px 16px;
-        margin-bottom: 12px;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 16px;
       }
+
       .category-title {
-        font-size: 1.1em;
+        font-size: 1.25rem;
       }
+
       .cards-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 8px;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.75rem;
       }
+
       .card {
-        padding: 12px 8px;
-        min-height: 60px;
+        padding: 1rem 0.75rem;
+        min-height: 80px;
+        border-radius: 12px;
       }
+
       .card-title {
-        font-size: 0.8em;
+        font-size: 0.9rem;
+      }
+
+      .footer {
+        padding: 1.5rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-title {
+        font-size: 1.5rem;
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.5rem;
+      }
+
+      .card {
+        padding: 0.75rem 0.5rem;
+        min-height: 70px;
+      }
+
+      .card-title {
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Scroll animations */
+    @media (prefers-reduced-motion: no-preference) {
+      .card {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
     }
   </style>
 </head>
 <body>
   <div class="header">
+    <div class="logo"></div>
     <div class="header-title">S.C CONTENT CRAFT</div>
     <div class="subtitle">Professional Board Design Guides</div>
   </div>
+  
   <div class="container">
-
     <!-- Digital and Interface (12 Guides) -->
     <div class="category">
       <div class="category-header">
@@ -231,19 +415,42 @@
         <div class="category-count">12 Guides</div>
       </div>
       <div class="cards-grid">
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/"><div class="card"><div class="card-title">Communication</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/"><div class="card"><div class="card-title">MCU</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">FPGA Architecture</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/"><div class="card"><div class="card-title">VIDEO</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">CMOS Sensor</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">LOGIC Gates</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/"><div class="card"><div class="card-title">PID Control</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7326196854382059521/"><div class="card"><div class="card-title">Battery Management</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">Wireless COMM</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">DDR Memory</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">FW CODING 1</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">FW CODING 2</div></div></a>
-        
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/" class="card">
+          <div class="card-title">Communication</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/" class="card">
+          <div class="card-title">MCU</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">FPGA Architecture</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/" class="card">
+          <div class="card-title">VIDEO</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">CMOS Sensor</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">LOGIC Gates</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/" class="card">
+          <div class="card-title">PID Control</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7326196854382059521/" class="card">
+          <div class="card-title">Battery Management</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">Wireless COMM</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">DDR Memory</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">FW CODING 1</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">FW CODING 2</div>
+        </a>
       </div>
     </div>
 
@@ -254,18 +461,42 @@
         <div class="category-count">12 Guides</div>
       </div>
       <div class="cards-grid">
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/"><div class="card"><div class="card-title">Analog Filters</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/"><div class="card"><div class="card-title">Class Amplifiers</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/"><div class="card"><div class="card-title">OPAMPs</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/"><div class="card"><div class="card-title">Oscillators</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/"><div class="card"><div class="card-title">Current Sensing</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/"><div class="card"><div class="card-title">LED Drivers</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/"><div class="card"><div class="card-title">Power Design</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">RF</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">Power Tree</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">Test Equipment</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">ADC</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_motors-activity-7354376761544949760-JDx_?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">Electric Motors</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/" class="card">
+          <div class="card-title">Analog Filters</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/" class="card">
+          <div class="card-title">Class Amplifiers</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/" class="card">
+          <div class="card-title">OPAMPs</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/" class="card">
+          <div class="card-title">Oscillators</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/" class="card">
+          <div class="card-title">Current Sensing</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/" class="card">
+          <div class="card-title">LED Drivers</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/" class="card">
+          <div class="card-title">Power Design</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">RF</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">Power Tree</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">Test Equipment</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">ADC</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_motors-activity-7354376761544949760-JDx_?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">Electric Motors</div>
+        </a>
       </div>
     </div>
     
@@ -276,15 +507,33 @@
         <div class="category-count">9 Guides</div>
       </div>
       <div class="cards-grid">
-        <a href="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">PCB Design</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/"><div class="card"><div class="card-title">HARDWARE</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/"><div class="card"><div class="card-title">HARDWARE EXTENSION</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/"><div class="card"><div class="card-title">Design For Testability</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/"><div class="card"><div class="card-title">Circuit Protection</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7336588127437795328/"><div class="card"><div class="card-title">Connectors and Cables</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/"><div class="card"><div class="card-title">Thermal Management</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">Bring UP</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">HW Buffers</div></div></a>
+        <a href="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">PCB Design</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/" class="card">
+          <div class="card-title">HARDWARE</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/" class="card">
+          <div class="card-title">HARDWARE EXTENSION</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/" class="card">
+          <div class="card-title">Design For Testability</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/" class="card">
+          <div class="card-title">Circuit Protection</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7336588127437795328/" class="card">
+          <div class="card-title">Connectors and Cables</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/" class="card">
+          <div class="card-title">Thermal Management</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">Bring UP</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">HW Buffers</div>
+        </a>
       </div>
     </div>
     
@@ -295,26 +544,36 @@
         <div class="category-count">8 Guides</div>
       </div>
       <div class="cards-grid">
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/"><div class="card"><div class="card-title">Component Selection</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">Capacitors</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7337717775899025409/"><div class="card"><div class="card-title">Diodes</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/"><div class="card"><div class="card-title">Inductors</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/"><div class="card"><div class="card-title">Transistors</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">Sensors</div></div></a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/"><div class="card"><div class="card-title">MEMS Gyroscope</div></div></a>
-        <a href="https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc"><div class="card"><div class="card-title">Resistors</div></div></a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/" class="card">
+          <div class="card-title">Component Selection</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">Capacitors</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7337717775899025409/" class="card">
+          <div class="card-title">Diodes</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/" class="card">
+          <div class="card-title">Inductors</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/" class="card">
+          <div class="card-title">Transistors</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">Sensors</div>
+        </a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/" class="card">
+          <div class="card-title">MEMS Gyroscope</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
+          <div class="card-title">Resistors</div>
+        </a>
       </div>
     </div>
   </div>
+  
   <div class="footer">
     © 2025 S.C Content Craft - Professional Board Design Resources
   </div>
 </body>
 </html>
-
-
-
-
-
-
-
