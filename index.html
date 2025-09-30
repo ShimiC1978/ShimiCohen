@@ -1,557 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Content Craft - S.C</title>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0JD8LKPNXG"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-0JD8LKPNXG');
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #00D4FF;
-      --primary-dark: #00B8E6;
-      --secondary: #6366F1;
-      --accent: #F59E0B;
-      --dark: #0F0F23;
-      --dark-lighter: #1A1A2E;
-      --dark-card: #16213E;
-      --gray-light: #64748B;
-      --white: #FFFFFF;
-      --glass-bg: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      --gradient-bg: linear-gradient(135deg, var(--dark) 0%, var(--dark-lighter) 50%, var(--dark-card) 100%);
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shimi Cohen – Content Craft</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Root colors and accents */
+  :root {
+    --bg-gradient: linear-gradient(135deg, #0f0f23, #1B1B2C, #16213E);
+    --glass-bg: rgba(255 255 255 / 0.1);
+    --glass-border: rgba(255 255 255 / 0.15);
+    --text-light: rgba(255 255 255 / 0.85);
+    --text-muted: rgba(255 255 255 / 0.5);
+    --shadow-glow: 0 0 12px rgb(0 212 255 / 0.6);
+    --anim-duration: 0.3s;
+
+    /* Distinct category colors */
+    --color-digital: #00d4ff;
+    --color-analog: #f59e0b;
+    --color-practical: #6366f1;
+    --color-20series: #4ade80;
+    --color-components: #f87171;
+  }
+
+  /* Base reset & typography */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: var(--bg-gradient);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-light);
+    min-height: 100vh;
+    user-select: none;
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--glass-bg);
+    backdrop-filter: saturate(180%) blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1.75rem 1rem;
+    text-align: center;
+  }
+  header h1 {
+    font-weight: 800;
+    font-size: 2.2rem;
+    background: linear-gradient(135deg, var(--color-digital), var(--color-practical));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: default;
+    letter-spacing: 0.05em;
+    user-select: text;
+  }
+  header p {
+    margin-top: 0.45rem;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-muted);
+    user-select: text;
+  }
+
+  /* Container for all categories */
+  main.container {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  /* Accordion style category block */
+  section.category {
+    margin-bottom: 1.5rem;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: saturate(180%) blur(20px);
+    box-shadow: 0 6px 15px rgba(0 0 0 / 0.3);
+    border: 1.5px solid var(--glass-border);
+    color: var(--text-muted);
+    transition:
+      border-color var(--anim-duration) ease,
+      box-shadow var(--anim-duration) ease;
+  }
+
+  /* Highlight category on hover */
+  section.category:hover {
+    border-color: var(--color-digital);
+    box-shadow: 0 8px 24px var(--shadow-glow);
+    color: var(--text-light);
+  }
+  /* Different accent colors per category on hover */
+  section.category.digital:hover {
+    border-color: var(--color-digital);
+    box-shadow: 0 8px 24px rgba(0, 212, 255, 0.6);
+  }
+  section.category.analog:hover {
+    border-color: var(--color-analog);
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.6);
+  }
+  section.category.practical:hover {
+    border-color: var(--color-practical);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.6);
+  }
+  section.category.series20:hover {
+    border-color: var(--color-20series);
+    box-shadow: 0 8px 24px rgba(74, 222, 128, 0.6);
+  }
+  section.category.components:hover {
+    border-color: var(--color-components);
+    box-shadow: 0 8px 24px rgba(248, 113, 113, 0.6);
+  }
+
+  /* Category header clickable area */
+  header.category-header {
+    padding: 1rem 1.25rem;
+    font-weight: 700;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: inherit;
+    user-select:none;
+    transition: color var(--anim-duration);
+  }
+  header.category-header:hover {
+    color: var(--text-light);
+  }
+
+  /* Caret icon next to category title */
+  header.category-header svg {
+    width: 16px;
+    height: 16px;
+    transform-origin: center;
+    transition: transform var(--anim-duration) ease;
+  }
+  section.category.expanded header.category-header svg {
+    transform: rotate(90deg);
+  }
+
+  /* Content under category (topics/cards container) */
+  div.category-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--glass-border);
+  }
+  section.category.expanded div.category-content {
+    max-height: 1000px; /* Big enough for all items */
+    padding-top: 0.75rem;
+    padding-bottom: 1rem;
+    border-color: currentColor; /* Use category text color */
+  }
+
+  /* Topics links inside expanded area */
+  div.category-content a.topic-link {
+    display: block;
+    padding: 0.45rem 1rem;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-muted);
+    border-radius: 10px;
+    text-decoration: none;
+    position: relative;
+    background: rgba(255 255 255 / 0.04);
+    transition:
+      background-color var(--anim-duration),
+      color var(--anim-duration),
+      transform var(--anim-duration);
+    user-select:none;
+  }
+  div.category-content a.topic-link:hover,
+  div.category-content a.topic-link:focus {
+    color: var(--text-light);
+    background-color: var(--glass-border);
+    transform: translateX(5px) scale(1.02);
+    outline: none;
+    text-shadow: 0 0 5px rgba(0 212 255 / 0.7);
+  }
+
+  /* Category color accent for link highlights */
+  section.category.digital a.topic-link:hover,
+  section.category.digital a.topic-link:focus {
+    box-shadow: 0 0 10px var(--color-digital);
+  }
+  section.category.analog a.topic-link:hover,
+  section.category.analog a.topic-link:focus {
+    box-shadow: 0 0 10px var(--color-analog);
+  }
+  section.category.practical a.topic-link:hover,
+  section.category.practical a.topic-link:focus {
+    box-shadow: 0 0 10px var(--color-practical);
+  }
+  section.category.series20 a.topic-link:hover,
+  section.category.series20 a.topic-link:focus {
+    box-shadow: 0 0 10px var(--color-20series);
+  }
+  section.category.components a.topic-link:hover,
+  section.category.components a.topic-link:focus {
+    box-shadow: 0 0 10px var(--color-components);
+  }
+
+  /* Scrollbar styling for topics (if many) */
+  div.category-content {
+    scrollbar-width: thin;
+    scrollbar-color: var(--glass-border) transparent;
+  }
+  div.category-content::-webkit-scrollbar {
+    width: 5px;
+  }
+  div.category-content::-webkit-scrollbar-thumb {
+    background-color: var(--glass-border);
+    border-radius: 10px;
+  }
+
+  /* Responsive */
+  @media (max-width: 650px) {
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--gradient-bg);
-      color: var(--white);
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
+      font-size: 14px;
     }
-    /* Animated background */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        radial-gradient(circle at 20% 50%, var(--primary) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, var(--secondary) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, var(--accent) 0%, transparent 50%);
-      opacity: 0.1;
-      z-index: -1;
-      animation: float 20s ease-in-out infinite;
+    header h1 {
+      font-size: 1.75rem;
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      33% { transform: translateY(-20px) rotate(1deg); }
-      66% { transform: translateY(10px) rotate(-1deg); }
+    div.category-content {
+      margin-left: 0.5rem;
+      padding-left: 0.5rem;
     }
-    .header {
-      padding: 2rem 1rem;
-      text-align: center;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--glass-border);
-      position: relative;
-      overflow: hidden;
+    div.category-content a.topic-link {
+      font-size: 0.95rem;
+      padding: 0.4rem 0.75rem;
     }
-    .header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      animation: shimmer 3s infinite;
-    }
-    @keyframes shimmer {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-    .logo {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 1.5rem;
-      background: var(--gradient-primary);
-      border-radius: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-heavy);
-      position: relative;
-      transition: transform 0.3s ease;
-    }
-    .logo:hover {
-      transform: translateY(-5px) scale(1.05);
-    }
-    .logo::before {
-      content: 'S.C';
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--white);
-      letter-spacing: 3px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
-    .logo::after {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: var(--gradient-primary);
-      border-radius: 26px;
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .logo:hover::after {
-      opacity: 0.5;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.1); opacity: 0.8; }
-      100% { transform: scale(1); opacity: 0.5; }
-    }
-    .header-title {
-      font-size: 2.5rem;
-      font-weight: 800;
-      background: var(--gradient-primary);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 2px;
-      margin-bottom: 0.5rem;
-      position: relative;
-    }
-    .subtitle {
-      font-size: 1.1rem;
-      color: var(--gray-light);
-      font-weight: 400;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-    .category {
-      margin-bottom: 3rem;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.6s ease forwards;
-    }
-    .category:nth-child(2) { animation-delay: 0.1s; }
-    .category:nth-child(3) { animation-delay: 0.2s; }
-    .category:nth-child(4) { animation-delay: 0.3s; }
-    .category:nth-child(5) { animation-delay: 0.4s; }
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    .category-header {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      padding: 1.5rem 2rem;
-      border-radius: 20px;
-      margin-bottom: 1.5rem;
-      border: 1px solid var(--glass-border);
-      position: relative;
-      overflow: hidden;
-    }
-    .category-header::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 4px;
-      background: var(--gradient-primary);
-      border-radius: 0 2px 2px 0;
-    }
-    .category-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.25rem;
-      letter-spacing: 1px;
-    }
-    .category-count {
-      font-size: 0.9rem;
-      color: var(--primary);
-      font-weight: 500;
-    }
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 1rem;
-    }
-    .card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 1.5rem 1rem;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      min-height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      group: card;
-    }
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      transition: left 0.5s ease;
-    }
-    .card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: var(--shadow-heavy);
-      border-color: var(--primary);
-      background: rgba(0, 212, 255, 0.1);
-    }
-    .card:hover::before {
-      left: 100%;
-    }
-    .card:active {
-      transform: translateY(-4px) scale(0.98);
-    }
-    .card-title {
-      font-weight: 600;
-      font-size: 1rem;
-      color: var(--white);
-      text-align: center;
-      line-height: 1.4;
-      transition: all 0.3s ease;
-      z-index: 1;
-      position: relative;
-    }
-    .card:hover .card-title {
-      color: var(--primary);
-      transform: scale(1.05);
-    }
-    .footer {
-      text-align: center;
-      padding: 2rem;
-      color: var(--gray-light);
-      font-size: 0.9rem;
-      border-top: 1px solid var(--glass-border);
-      margin-top: 3rem;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-    }
-    /* Mobile Optimizations */
-    @media (max-width: 768px) {
-      .header {
-        padding: 1.5rem 1rem;
-      }
-      .logo {
-        width: 80px;
-        height: 80px;
-        margin-bottom: 1rem;
-      }
-      .logo::before {
-        font-size: 1.5rem;
-        letter-spacing: 2px;
-      }
-      .header-title {
-        font-size: 1.8rem;
-        letter-spacing: 1px;
-      }
-      .subtitle {
-        font-size: 1rem;
-      }
-      .container {
-        padding: 1.5rem 0.75rem;
-      }
-      .category {
-        margin-bottom: 2rem;
-      }
-      .category-header {
-        padding: 1rem 1.5rem;
-        margin-bottom: 1rem;
-        border-radius: 16px;
-      }
-      .category-title {
-        font-size: 1.25rem;
-      }
-      .cards-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 0.75rem;
-      }
-      .card {
-        padding: 1rem 0.75rem;
-        min-height: 80px;
-        border-radius: 12px;
-      }
-      .card-title {
-        font-size: 0.9rem;
-      }
-      .footer {
-        padding: 1.5rem;
-        font-size: 0.8rem;
-      }
-    }
-    @media (max-width: 480px) {
-      .header-title {
-        font-size: 1.5rem;
-      }
-      .cards-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 0.5rem;
-      }
-      .card {
-        padding: 0.75rem 0.5rem;
-        min-height: 70px;
-      }
-      .card-title {
-        font-size: 0.8rem;
-      }
-    }
-    /* Scroll animations */
-    @media (prefers-reduced-motion: no-preference) {
-      .card {
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <div class="header">
-    <div class="logo"></div>
-    <div class="header-title">S.C CONTENT CRAFT</div>
-    <div class="subtitle">Professional Board Design Guides</div>
-  </div>
-  <div class="container">
-    <!-- Digital and Interface (12 Guides) -->
-    <div class="category">
-      <div class="category-header">
-        <div class="category-title">Digital and Interface</div>
-        <div class="category-count">12 Guides</div>
-      </div>
-      <div class="cards-grid">
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/" class="card">
-          <div class="card-title">Communication</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/" class="card">
-          <div class="card-title">MCU</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">FPGA Architecture</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/" class="card">
-          <div class="card-title">VIDEO</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">CMOS Sensor</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">LOGIC Gates</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/" class="card">
-          <div class="card-title">PID Control</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7326196854382059521/" class="card">
-          <div class="card-title">Battery Management</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">Wireless COMM</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">DDR Memory</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">FW CODING 1</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">FW CODING 2</div>
-        </a>
-      </div>
+<header>
+  <h1>Shimi Cohen – Content Craft</h1>
+  <p>Professional Board Design Guides</p>
+</header>
+<main class="container">
+  <!-- Digital & Comms -->
+  <section class="category digital" tabindex="0">
+    <header class="category-header" aria-expanded="false" role="button" aria-controls="digital-list" id="digital-lead">
+      <span>Digital & Comm</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </header>
+    <div class="category-content" id="digital-list" aria-labelledby="digital-lead" role="region">
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/" class="topic-link">Communication</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/" class="topic-link">MCU</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy" class="topic-link">FPGA Arch</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/" class="topic-link">Video</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX" class="topic-link">CMOS Sensor</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz" class="topic-link">Logic Gates</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/" class="topic-link">PID Ctrl</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d" class="topic-link">Wireless</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn" class="topic-link">DDR Mem</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9" class="topic-link">FW Coding 1</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40" class="topic-link">FW Coding 2</a>
     </div>
-    <!-- Analog and Power (12 Guides) -->
-    <div class="category">
-      <div class="category-header">
-        <div class="category-title">Analog and Power</div>
-        <div class="category-count">12 Guides</div>
-      </div>
-      <div class="cards-grid">
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/" class="card">
-          <div class="card-title">Analog Filters</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/" class="card">
-          <div class="card-title">Class Amplifiers</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/" class="card">
-          <div class="card-title">OPAMPs</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/" class="card">
-          <div class="card-title">Oscillators</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/" class="card">
-          <div class="card-title">Current Sensing</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/" class="card">
-          <div class="card-title">LED Drivers</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/" class="card">
-          <div class="card-title">Power Design</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">RF</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">Power Tree</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">Test Equipment</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">ADC</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">Ground Rules</div>
-        </a>
-      </div>
+  </section>
+
+  <!-- Analog & Power -->
+  <section class="category analog" tabindex="0">
+    <header class="category-header" aria-expanded="false" role="button" aria-controls="analog-list" id="analog-lead">
+      <span>Analog & Power</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </header>
+    <div class="category-content" id="analog-list" aria-labelledby="analog-lead" role="region">
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/" class="topic-link">Analog Flt</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/" class="topic-link">Class Amp</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/" class="topic-link">Op-Amp</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/" class="topic-link">Oscillators</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/" class="topic-link">LED Drivers</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/" class="topic-link">Power Design</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr" class="topic-link">RF</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm" class="topic-link">Power Tree</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O" class="topic-link">Ground Rules</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_battery-management-activity-7326196854382059521" class="topic-link">Batt Manage</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY" class="topic-link">Q&A Pwr/Anlg</a>
     </div>
-    
-    <!-- Hardware Design (12 Guides) -->
-    <div class="category">
-      <div class="category-header">
-        <div class="category-title">Hardware Design</div>
-        <div class="category-count">12 Guides</div>
-      </div>
-      <div class="cards-grid">
-        <a href="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">PCB Design</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/" class="card">
-          <div class="card-title">HARDWARE</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/" class="card">
-          <div class="card-title">HARDWARE EXTENSION</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/" class="card">
-          <div class="card-title">Design For Testability</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/" class="card">
-          <div class="card-title">Circuit Protection</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/" class="card">
-          <div class="card-title">Thermal Management</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">Bring UP</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">HW Buffers</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">20 Capacitor Apps</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">20 Resistor Apps</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">20 Active ICs</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">20 Diode Apps</div>
-        </a>
-      </div>
+  </section>
+
+  <!-- Practical Hardware -->
+  <section class="category practical" tabindex="0">
+    <header class="category-header" aria-expanded="false" role="button" aria-controls="practical-list" id="practical-lead">
+      <span>Practical HW</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </header>
+    <div class="category-content" id="practical-list" aria-labelledby="practical-lead" role="region">
+      <a href="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm" class="topic-link">PCB Design</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/" class="topic-link">Hardware</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/" class="topic-link">HW Extend</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/" class="topic-link">Testability</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/" class="topic-link">Protection</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/" class="topic-link">Thermal Mgmt</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD" class="topic-link">Bring Up</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N" class="topic-link">HW Buffers</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/" class="topic-link">Cur Sensing</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb" class="topic-link">ADC</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq" class="topic-link">Troubleshoot</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH" class="topic-link">Test Equip</a>
     </div>
-    
-    <!-- Components (10 Guides) -->
-    <div class="category">
-      <div class="category-header">
-        <div class="category-title">Components</div>
-        <div class="category-count">10 Guides</div>
-      </div>
-      <div class="cards-grid">
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/" class="card">
-          <div class="card-title">Component Selection</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">Capacitors</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7337717775899025409/" class="card">
-          <div class="card-title">Diodes</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/" class="card">
-          <div class="card-title">Inductors</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/" class="card">
-          <div class="card-title">Transistors</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">Sensors</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/" class="card">
-          <div class="card-title">MEMS Gyroscope</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">Resistors</div>
-        </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7336588127437795328/" class="card">
-          <div class="card-title">CONN & Cables</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_motors-activity-7354376761544949760-JDx_?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">Electric Motors</div>
-        </a>
-      </div>
+  </section>
+
+  <!-- 20 Series -->
+  <section class="category series20" tabindex="0">
+    <header class="category-header" aria-expanded="false" role="button" aria-controls="series20-list" id="series20-lead">
+      <span>20 Series</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </header>
+    <div class="category-content" id="series20-list" aria-labelledby="series20-lead" role="region">
+      <a href="https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f" class="topic-link">20 Capacitors</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11" class="topic-link">20 Resistors</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8" class="topic-link">20 Active ICs</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt" class="topic-link">20 Diodes</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO" class="topic-link">20 Transistors</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe" class="topic-link">20 MCU Tips</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_" class="topic-link">20 Comm Prob</a>
+      <a href="#" class="topic-link" style="opacity:0.55; cursor:default;">20 Inductors <span style="font-size:0.85rem;opacity:0.4;">(coming)</span></a>
     </div>
-    
-    <!-- General (2 Guides) -->
-    <div class="category">
-      <div class="category-header">
-        <div class="category-title">General</div>
-        <div class="category-count">2 Guides</div>
-      </div>
-      <div class="cards-grid">
-        <a href="https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">TroubleShoot</div>
-        </a>
-        <a href="https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="card">
-          <div class="card-title">Q&A: Power/Analog</div>
-        </a>
-      </div>
+  </section>
+
+  <!-- Components -->
+  <section class="category components" tabindex="0">
+    <header class="category-header" aria-expanded="false" role="button" aria-controls="components-list" id="components-lead">
+      <span>Components</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </header>
+    <div class="category-content" id="components-list" aria-labelledby="components-lead" role="region">
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/" class="topic-link">Comp Select</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW" class="topic-link">Capacitors</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7337717775899025409/" class="topic-link">Diodes</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/" class="topic-link">Inductors</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/" class="topic-link">Transistors</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag" class="topic-link">Sensors</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/" class="topic-link">MEMS Gyro</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa" class="topic-link">Resistors</a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7336588127437795328/" class="topic-link">Conns & Cables</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_motors-activity-7354376761544949760-JDx_" class="topic-link">Motors</a>
     </div>
-  </div>
-  <div class="footer">
-    © 2025 S.C Content Craft - Professional Board Design Resources
-  </div>
+  </section>
+</main>
+<footer style="text-align:center; padding:1.5rem 1rem; color:var(--text-muted); font-weight:500; font-size:0.9rem; user-select:none;">
+  © 2025 Shimi Cohen – Content Craft
+</footer>
+<script>
+  // Accordion interaction logic
+  document.querySelectorAll('section.category header.category-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const section = header.parentElement;
+      const expanded = section.classList.contains('expanded');
+      if (expanded) {
+        section.classList.remove('expanded');
+        header.setAttribute('aria-expanded', 'false');
+      } else {
+        section.classList.add('expanded');
+        header.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    // Allow keyboard access with Enter or Space keys
+    header.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        header.click();
+      }
+    });
+  });
+</script>
 </body>
 </html>
