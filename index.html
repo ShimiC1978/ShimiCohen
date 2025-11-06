@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,25 +61,6 @@
     100% { transform: translate(50px, 50px); }
   }
 
-  /* Floating particles */
-  .particle {
-    position: fixed;
-    width: 4px;
-    height: 4px;
-    background: var(--primary-yellow);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 1;
-    animation: float 20s infinite;
-    box-shadow: 0 0 10px var(--primary-yellow);
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translate(calc(100vw - 50vw), calc(100vh - 50vh)) scale(0); opacity: 0; }
-  }
 
   /* Header */
   header {
@@ -117,17 +100,7 @@
     filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
   }
 
-  /* Logo icon */
-  .logo-icon {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    animation: pulse 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
-  }
+  
 
   @keyframes spin {
     from { transform: translateY(-50%) rotate(0deg); }
@@ -411,8 +384,7 @@
   </svg>
 
   <!-- Logo -->
-  <img src="https://media.licdn.com/dms/image/v2/D4D2DAQE6YYlOdYkd7Q/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1737800419663?e=1736222400&v=beta&t=WUnNI5FsQT92CFDh-EFiPcW-YCNBVUYlZDEqj29y_6s" alt="S.C Logo" class="logo-icon" />
-  
+
   <h1>Shimi Cohen</h1>
   <p>Content Craft</p>
 </header>
