@@ -13,37 +13,52 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Shimi Cohen – Content Craft</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
 <style>
-  /* Root colors and accents */
   :root {
-    --bg-gradient: linear-gradient(135deg, #0f0f23, #1B1B2C, #16213E);
-    --glass-bg: rgba(255 255 255 / 0.1);
-    --glass-border: rgba(255 255 255 / 0.15);
-    --text-light: rgba(255 255 255 / 0.85);
-    --text-muted: rgba(255 255 255 / 0.5);
-    --shadow-glow: 0 0 12px rgb(0 212 255 / 0.6);
-    --anim-duration: 0.3s;
-
-    /* Distinct category colors */
-    --color-digital: #00d4ff;
-    --color-analog: #f59e0b;
-    --color-practical: #6366f1;
-    --color-20series: #4ade80;
-    --color-components: #f87171;
+    --primary-yellow: #FFD700;
+    --bright-yellow: #FFEA00;
+    --dark-yellow: #FFA500;
+    --pure-black: #000000;
+    --dark-gray: #0a0a0a;
+    --medium-gray: #1a1a1a;
+    --yellow-glow: 0 0 20px rgba(255, 215, 0, 0.6);
+    --yellow-glow-intense: 0 0 30px rgba(255, 215, 0, 0.9), 0 0 60px rgba(255, 215, 0, 0.5);
   }
 
-  /* Base reset & typography */
   * {
     box-sizing: border-box;
-  }
-  body {
     margin: 0;
-    background: var(--bg-gradient);
-    font-family: 'Inter', sans-serif;
-    color: var(--text-light);
+    padding: 0;
+  }
+
+  body {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    font-family: 'Rajdhani', sans-serif;
+    color: var(--primary-yellow);
     min-height: 100vh;
-    user-select: none;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Animated circuit background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255, 215, 0, 0.03) 50px, rgba(255, 215, 0, 0.03) 51px),
+      repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255, 215, 0, 0.03) 50px, rgba(255, 215, 0, 0.03) 51px);
+    z-index: 0;
+    animation: gridMove 20s linear infinite;
+  }
+
+  @keyframes gridMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
   }
 
   /* Header */
@@ -51,220 +66,300 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--glass-bg);
-    backdrop-filter: saturate(180%) blur(15px);
-    border-bottom: 1px solid var(--glass-border);
-    padding: 1.75rem 1rem;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid var(--primary-yellow);
+    padding: 1.5rem 1rem;
     text-align: center;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
   }
+
   header h1 {
-    font-weight: 800;
-    font-size: 2.2rem;
-    background: linear-gradient(135deg, var(--color-digital), var(--color-practical));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    cursor: default;
-    letter-spacing: 0.05em;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 2.5rem;
+    color: var(--primary-yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4);
+    animation: pulse 3s ease-in-out infinite;
     user-select: text;
   }
+
+  @keyframes pulse {
+    0%, 100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4); }
+    50% { text-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.6); }
+  }
+
   header p {
-    margin-top: 0.45rem;
-    font-weight: 500;
+    margin-top: 0.5rem;
+    font-weight: 600;
     font-size: 1rem;
-    color: var(--text-muted);
+    color: rgba(255, 215, 0, 0.7);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     user-select: text;
   }
 
-  /* Container for all categories */
+  /* Container */
   main.container {
-    max-width: 960px;
-    margin: 2rem auto;
+    max-width: 900px;
+    margin: 1.5rem auto;
     padding: 0 1rem;
+    position: relative;
+    z-index: 1;
   }
 
-  /* Accordion style category block */
+  /* Category blocks */
   section.category {
-    margin-bottom: 1.5rem;
-    border-radius: 14px;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(26, 26, 26, 0.9));
+    border: 2px solid rgba(255, 215, 0, 0.3);
     overflow: hidden;
-    background: var(--glass-bg);
-    backdrop-filter: saturate(180%) blur(20px);
-    box-shadow: 0 6px 15px rgba(0 0 0 / 0.3);
-    border: 1.5px solid var(--glass-border);
-    color: var(--text-muted);
-    transition:
-      border-color var(--anim-duration) ease,
-      box-shadow var(--anim-duration) ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
   }
 
-  /* Highlight category on hover */
+  section.category::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+    transition: left 0.6s;
+  }
+
+  section.category:hover::before {
+    left: 100%;
+  }
+
   section.category:hover {
-    border-color: var(--color-digital);
-    box-shadow: 0 8px 24px var(--shadow-glow);
-    color: var(--text-light);
-  }
-  /* Different accent colors per category on hover */
-  section.category.digital:hover {
-    border-color: var(--color-digital);
-    box-shadow: 0 8px 24px rgba(0, 212, 255, 0.6);
-  }
-  section.category.analog:hover {
-    border-color: var(--color-analog);
-    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.6);
-  }
-  section.category.practical:hover {
-    border-color: var(--color-practical);
-    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.6);
-  }
-  section.category.series20:hover {
-    border-color: var(--color-20series);
-    box-shadow: 0 8px 24px rgba(74, 222, 128, 0.6);
-  }
-  section.category.components:hover {
-    border-color: var(--color-components);
-    box-shadow: 0 8px 24px rgba(248, 113, 113, 0.6);
+    border-color: var(--primary-yellow);
+    box-shadow: var(--yellow-glow-intense);
+    transform: translateY(-2px);
   }
 
-  /* Category header clickable area */
+  /* Category header */
   header.category-header {
     padding: 1rem 1.25rem;
+    font-family: 'Orbitron', sans-serif;
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: inherit;
-    user-select:none;
-    transition: color var(--anim-duration);
+    color: var(--primary-yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    user-select: none;
+    transition: all 0.3s;
+    position: relative;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.05), transparent);
   }
+
   header.category-header:hover {
-    color: var(--text-light);
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.15), transparent);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
   }
 
-  /* Caret icon next to category title */
-  header.category-header svg {
-    width: 16px;
-    height: 16px;
-    transform-origin: center;
-    transition: transform var(--anim-duration) ease;
-  }
-  section.category.expanded header.category-header svg {
-    transform: rotate(90deg);
+  /* Chevron icon */
+  header.category-header .chevron {
+    width: 14px;
+    height: 14px;
+    border-right: 3px solid var(--primary-yellow);
+    border-bottom: 3px solid var(--primary-yellow);
+    transform: rotate(45deg);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.6));
   }
 
-  /* Content under category (topics/cards container) */
+  section.category.expanded header.category-header .chevron {
+    transform: rotate(225deg);
+  }
+
+  /* Content area */
   div.category-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-left: 1rem;
-    padding-left: 1rem;
-    border-left: 2px solid var(--glass-border);
-  }
-  section.category.expanded div.category-content {
-    max-height: 1000px; /* Big enough for all items */
-    padding-top: 0.75rem;
-    padding-bottom: 1rem;
-    border-color: currentColor; /* Use category text color */
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s;
+    background: rgba(0, 0, 0, 0.5);
   }
 
-  /* Topics links inside expanded area */
+  section.category.expanded div.category-content {
+    max-height: 2000px;
+    padding: 0.75rem 0.5rem 1rem 1rem;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+  }
+
+  /* Topic links */
   div.category-content a.topic-link {
     display: block;
-    padding: 0.45rem 1rem;
-    margin-bottom: 0.6rem;
+    padding: 0.6rem 1rem;
+    margin: 0.4rem 0;
     font-weight: 600;
-    font-size: 1rem;
-    color: var(--text-muted);
-    border-radius: 10px;
+    font-size: 0.95rem;
+    color: rgba(255, 215, 0, 0.8);
+    border-radius: 4px;
     text-decoration: none;
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.05), transparent);
+    border-left: 3px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    background: rgba(255 255 255 / 0.04);
-    transition:
-      background-color var(--anim-duration),
-      color var(--anim-duration),
-      transform var(--anim-duration);
-    user-select:none;
+    overflow: hidden;
   }
+
+  div.category-content a.topic-link::before {
+    content: '▸';
+    position: absolute;
+    left: -20px;
+    opacity: 0;
+    transition: all 0.3s;
+    color: var(--pure-black);
+    font-weight: bold;
+  }
+
   div.category-content a.topic-link:hover,
   div.category-content a.topic-link:focus {
-    color: var(--text-light);
-    background-color: var(--glass-border);
-    transform: translateX(5px) scale(1.02);
+    color: var(--pure-black);
+    background: var(--primary-yellow);
+    border-left-color: var(--dark-yellow);
+    transform: translateX(8px);
+    box-shadow: var(--yellow-glow);
     outline: none;
-    text-shadow: 0 0 5px rgba(0 212 255 / 0.7);
+    font-weight: 700;
+    padding-left: 1.5rem;
   }
 
-  /* Category color accent for link highlights */
-  section.category.digital a.topic-link:hover,
-  section.category.digital a.topic-link:focus {
-    box-shadow: 0 0 10px var(--color-digital);
-  }
-  section.category.analog a.topic-link:hover,
-  section.category.analog a.topic-link:focus {
-    box-shadow: 0 0 10px var(--color-analog);
-  }
-  section.category.practical a.topic-link:hover,
-  section.category.practical a.topic-link:focus {
-    box-shadow: 0 0 10px var(--color-practical);
-  }
-  section.category.series20 a.topic-link:hover,
-  section.category.series20 a.topic-link:focus {
-    box-shadow: 0 0 10px var(--color-20series);
-  }
-  section.category.components a.topic-link:hover,
-  section.category.components a.topic-link:focus {
-    box-shadow: 0 0 10px var(--color-components);
+  div.category-content a.topic-link:hover::before {
+    left: 0.5rem;
+    opacity: 1;
   }
 
-  /* Scrollbar styling for topics (if many) */
-  div.category-content {
-    scrollbar-width: thin;
-    scrollbar-color: var(--glass-border) transparent;
-  }
-  div.category-content::-webkit-scrollbar {
-    width: 5px;
-  }
-  div.category-content::-webkit-scrollbar-thumb {
-    background-color: var(--glass-border);
-    border-radius: 10px;
+  /* Category-specific accents */
+  section.category.digital:hover {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.4);
   }
 
-  /* Responsive */
+  section.category.analog:hover {
+    box-shadow: 0 0 30px rgba(255, 170, 0, 0.8), 0 0 60px rgba(255, 170, 0, 0.4);
+  }
+
+  section.category.practical:hover {
+    box-shadow: 0 0 30px rgba(255, 234, 0, 0.8), 0 0 60px rgba(255, 234, 0, 0.4);
+  }
+
+  section.category.series20:hover {
+    box-shadow: 0 0 30px rgba(255, 200, 0, 0.8), 0 0 60px rgba(255, 200, 0, 0.4);
+  }
+
+  section.category.components:hover {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.9), 0 0 60px rgba(255, 215, 0, 0.5);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    color: rgba(255, 215, 0, 0.6);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Mobile optimization */
   @media (max-width: 650px) {
     body {
       font-size: 14px;
     }
-    header h1 {
-      font-size: 1.75rem;
+    
+    header {
+      padding: 1rem 0.75rem;
     }
+    
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 0.1em;
+    }
+    
+    header p {
+      font-size: 0.85rem;
+    }
+    
+    main.container {
+      margin: 1rem auto;
+      padding: 0 0.75rem;
+    }
+    
+    section.category {
+      margin-bottom: 0.75rem;
+    }
+    
+    header.category-header {
+      font-size: 1rem;
+      padding: 0.85rem 1rem;
+    }
+    
     div.category-content {
-      margin-left: 0.5rem;
       padding-left: 0.5rem;
     }
+    
+    section.category.expanded div.category-content {
+      padding: 0.5rem 0.25rem 0.75rem 0.75rem;
+    }
+    
     div.category-content a.topic-link {
+      font-size: 0.9rem;
+      padding: 0.5rem 0.75rem;
+      margin: 0.3rem 0;
+    }
+    
+    div.category-content a.topic-link:hover,
+    div.category-content a.topic-link:focus {
+      transform: translateX(5px);
+      padding-left: 1.25rem;
+    }
+  }
+
+  /* Compact mobile view */
+  @media (max-width: 400px) {
+    header h1 {
+      font-size: 1.5rem;
+    }
+    
+    header.category-header {
       font-size: 0.95rem;
-      padding: 0.4rem 0.75rem;
+      padding: 0.75rem 0.85rem;
+    }
+    
+    div.category-content a.topic-link {
+      font-size: 0.85rem;
+      padding: 0.45rem 0.65rem;
     }
   }
 </style>
 </head>
 <body>
 <header>
-  <h1>Shimi Cohen – Content Craft</h1>
-  <p>Professional Board Design Guides</p>
+  <h1>Shimi Cohen</h1>
+  <p>Content Craft</p>
 </header>
+
 <main class="container">
   <!-- Digital & Comms -->
   <section class="category digital" tabindex="0">
-    <header class="category-header" aria-expanded="false" role="button" aria-controls="digital-list" id="digital-lead">
+    <header class="category-header" aria-expanded="false" role="button" aria-controls="digital-list">
       <span>Digital & Comm</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"/>
-      </svg>
+      <div class="chevron"></div>
     </header>
-    <div class="category-content" id="digital-list" aria-labelledby="digital-lead" role="region">
+    <div class="category-content" id="digital-list" role="region">
       <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/" class="topic-link">Communication</a>
       <a href="https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/" class="topic-link">MCU</a>
       <a href="https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy" class="topic-link">FPGA Architecture</a>
@@ -281,13 +376,11 @@
 
   <!-- Analog & Power -->
   <section class="category analog" tabindex="0">
-    <header class="category-header" aria-expanded="false" role="button" aria-controls="analog-list" id="analog-lead">
+    <header class="category-header" aria-expanded="false" role="button" aria-controls="analog-list">
       <span>Analog & Power</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"/>
-      </svg>
+      <div class="chevron"></div>
     </header>
-    <div class="category-content" id="analog-list" aria-labelledby="analog-lead" role="region">
+    <div class="category-content" id="analog-list" role="region">
       <a href="https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/" class="topic-link">Analog Filters</a>
       <a href="https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/" class="topic-link">Class Amplifiers</a>
       <a href="https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/" class="topic-link">OPAMPs</a>
@@ -304,13 +397,11 @@
 
   <!-- Practical Hardware -->
   <section class="category practical" tabindex="0">
-    <header class="category-header" aria-expanded="false" role="button" aria-controls="practical-list" id="practical-lead">
+    <header class="category-header" aria-expanded="false" role="button" aria-controls="practical-list">
       <span>Practical HW</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"/>
-      </svg>
+      <div class="chevron"></div>
     </header>
-    <div class="category-content" id="practical-list" aria-labelledby="practical-lead" role="region">
+    <div class="category-content" id="practical-list" role="region">
       <a href="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm" class="topic-link">PCB Design</a>
       <a href="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/" class="topic-link">Hardware</a>
       <a href="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/" class="topic-link">Hardware Extended</a>
@@ -323,18 +414,18 @@
       <a href="https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb" class="topic-link">ADC</a>
       <a href="https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq" class="topic-link">Troubleshooting</a>
       <a href="https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH" class="topic-link">Test Equipment</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="topic-link">Hardware Drivers</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="topic-link">Precision Circuits</a>
     </div>
   </section>
 
   <!-- 20 Series -->
   <section class="category series20" tabindex="0">
-    <header class="category-header" aria-expanded="false" role="button" aria-controls="series20-list" id="series20-lead">
+    <header class="category-header" aria-expanded="false" role="button" aria-controls="series20-list">
       <span>20 Series</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"/>
-      </svg>
+      <div class="chevron"></div>
     </header>
-    <div class="category-content" id="series20-list" aria-labelledby="series20-lead" role="region">
+    <div class="category-content" id="series20-list" role="region">
       <a href="https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f" class="topic-link">20 Capacitors Apps</a>
       <a href="https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11" class="topic-link">20 Resistors Apps</a>
       <a href="https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8" class="topic-link">20 Active ICs</a>
@@ -345,19 +436,17 @@
       <a href="https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="topic-link">20 Inductors Apps</a>
       <a href="https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="topic-link">20 OPAMP Apps</a>
       <a href="https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="topic-link">20 DFM Tips</a>
-    </div>
+      <a href="https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="topic-link">20 Signal Conversions</a>
     </div>
   </section>
 
   <!-- Components -->
   <section class="category components" tabindex="0">
-    <header class="category-header" aria-expanded="false" role="button" aria-controls="components-list" id="components-lead">
+    <header class="category-header" aria-expanded="false" role="button" aria-controls="components-list">
       <span>Components</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"/>
-      </svg>
+      <div class="chevron"></div>
     </header>
-    <div class="category-content" id="components-list" aria-labelledby="components-lead" role="region">
+    <div class="category-content" id="components-list" role="region">
       <a href="https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/" class="topic-link">Component Selection</a>
       <a href="https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW" class="topic-link">Capacitors</a>
       <a href="https://www.linkedin.com/feed/update/urn:li:activity:7337717775899025409/" class="topic-link">Diodes</a>
@@ -368,19 +457,24 @@
       <a href="https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa" class="topic-link">Resistors</a>
       <a href="https://www.linkedin.com/feed/update/urn:li:activity:7336588127437795328/" class="topic-link">Connectors & Cables</a>
       <a href="https://www.linkedin.com/posts/shimic1978_motors-activity-7354376761544949760-JDx_" class="topic-link">Motor Types</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="topic-link">Transformers</a>
+      <a href="https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc" class="topic-link">Switches</a>
     </div>
   </section>
 </main>
-<footer style="text-align:center; padding:1.5rem 1rem; color:var(--text-muted); font-weight:500; font-size:0.9rem; user-select:none;">
-  © 2025 Shimi Cohen – Content Craft
+
+<footer>
+  © 2025 SHIMI COHEN – CONTENT CRAFT
 </footer>
+
 <script>
-  // Accordion interaction logic
+  // Accordion interaction
   document.querySelectorAll('section.category header.category-header').forEach(header => {
     header.addEventListener('click', () => {
       const section = header.parentElement;
-      const expanded = section.classList.contains('expanded');
-      if (expanded) {
+      const isExpanded = section.classList.contains('expanded');
+      
+      if (isExpanded) {
         section.classList.remove('expanded');
         header.setAttribute('aria-expanded', 'false');
       } else {
@@ -389,7 +483,6 @@
       }
     });
 
-    // Allow keyboard access with Enter or Space keys
     header.addEventListener('keydown', e => {
       if(e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -400,8 +493,3 @@
 </script>
 </body>
 </html>
-
-
-
-
-
