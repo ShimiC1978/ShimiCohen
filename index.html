@@ -84,6 +84,23 @@
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4);
     animation: pulse 3s ease-in-out infinite;
     user-select: text;
+    position: relative;
+  }
+
+  /* Spinning chip icon */
+  .chip-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    animation: spin 4s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to { transform: translateY(-50%) rotate(360deg); }
   }
 
   @keyframes pulse {
@@ -198,10 +215,10 @@
   /* Topic links */
   div.category-content a.topic-link {
     display: block;
-    padding: 0.6rem 1rem;
+    padding: 0.65rem 1rem;
     margin: 0.4rem 0;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     color: rgba(255, 215, 0, 0.8);
     border-radius: 4px;
     text-decoration: none;
@@ -316,8 +333,8 @@
     }
     
     div.category-content a.topic-link {
-      font-size: 0.9rem;
-      padding: 0.5rem 0.75rem;
+      font-size: 0.95rem;
+      padding: 0.55rem 0.75rem;
       margin: 0.3rem 0;
     }
     
@@ -340,14 +357,69 @@
     }
     
     div.category-content a.topic-link {
-      font-size: 0.85rem;
-      padding: 0.45rem 0.65rem;
+      font-size: 0.9rem;
+      padding: 0.5rem 0.65rem;
+    }
+  }
+
+  /* Hide chip icon on very small screens */
+  @media (max-width: 500px) {
+    .chip-icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .chip-icon {
+      display: none;
     }
   }
 </style>
 </head>
 <body>
 <header>
+  <!-- Spinning MCU chip icon -->
+  <svg class="chip-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <!-- Chip body -->
+    <rect x="25" y="25" width="50" height="50" fill="#FFD700" stroke="#000" stroke-width="2"/>
+    
+    <!-- Inner details -->
+    <rect x="35" y="35" width="30" height="30" fill="#000" stroke="#FFD700" stroke-width="1"/>
+    <circle cx="50" cy="50" r="8" fill="#FFD700"/>
+    
+    <!-- Pins on left -->
+    <rect x="10" y="30" width="15" height="3" fill="#FFD700"/>
+    <rect x="10" y="40" width="15" height="3" fill="#FFD700"/>
+    <rect x="10" y="50" width="15" height="3" fill="#FFD700"/>
+    <rect x="10" y="60" width="15" height="3" fill="#FFD700"/>
+    <rect x="10" y="70" width="15" height="3" fill="#FFD700"/>
+    
+    <!-- Pins on right -->
+    <rect x="75" y="30" width="15" height="3" fill="#FFD700"/>
+    <rect x="75" y="40" width="15" height="3" fill="#FFD700"/>
+    <rect x="75" y="50" width="15" height="3" fill="#FFD700"/>
+    <rect x="75" y="60" width="15" height="3" fill="#FFD700"/>
+    <rect x="75" y="70" width="15" height="3" fill="#FFD700"/>
+    
+    <!-- Pins on top -->
+    <rect x="30" y="10" width="3" height="15" fill="#FFD700"/>
+    <rect x="40" y="10" width="3" height="15" fill="#FFD700"/>
+    <rect x="50" y="10" width="3" height="15" fill="#FFD700"/>
+    <rect x="60" y="10" width="3" height="15" fill="#FFD700"/>
+    <rect x="70" y="10" width="3" height="15" fill="#FFD700"/>
+    
+    <!-- Pins on bottom -->
+    <rect x="30" y="75" width="3" height="15" fill="#FFD700"/>
+    <rect x="40" y="75" width="3" height="15" fill="#FFD700"/>
+    <rect x="50" y="75" width="3" height="15" fill="#FFD700"/>
+    <rect x="60" y="75" width="3" height="15" fill="#FFD700"/>
+    <rect x="70" y="75" width="3" height="15" fill="#FFD700"/>
+    
+    <!-- Corner marker (pin 1 indicator) -->
+    <circle cx="30" cy="30" r="3" fill="#000"/>
+  </svg>
+  
   <h1>Shimi Cohen</h1>
   <p>Content Craft</p>
 </header>
