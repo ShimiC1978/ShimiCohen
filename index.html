@@ -1,17 +1,13 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0JD8LKPNXG"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0JD8LKPNXG"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-0JD8LKPNXG');
 </script>
-
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Shimi Cohen – Content Craft</title>
@@ -25,13 +21,11 @@
     --dark-gray: #0a0a0a;
     --medium-gray: #1a1a1a;
   }
-
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
-
   body {
     background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
     font-family: 'Rajdhani', sans-serif;
@@ -40,7 +34,6 @@
     overflow-x: hidden;
     position: relative;
   }
-
   /* Animated circuit background */
   body::before {
     content: '';
@@ -49,19 +42,16 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
+    background-image:
       repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255, 215, 0, 0.03) 50px, rgba(255, 215, 0, 0.03) 51px),
       repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255, 215, 0, 0.03) 50px, rgba(255, 215, 0, 0.03) 51px);
     z-index: 0;
     animation: gridMove 20s linear infinite;
   }
-
   @keyframes gridMove {
     0% { transform: translate(0, 0); }
     100% { transform: translate(50px, 50px); }
   }
-
-
   /* Header */
   header {
     position: sticky;
@@ -75,7 +65,6 @@
     box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
     position: relative;
   }
-
   header h1 {
     font-family: 'Orbitron', sans-serif;
     font-weight: 900;
@@ -87,7 +76,6 @@
     animation: pulse 3s ease-in-out infinite;
     user-select: text;
   }
-
   /* Spinning chip icon */
   .chip-icon {
     position: absolute;
@@ -100,24 +88,20 @@
     filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
   }
 
-  
-
   @keyframes spin {
     from { transform: translateY(-50%) rotate(0deg); }
     to { transform: translateY(-50%) rotate(360deg); }
   }
-
   @keyframes pulse {
-    0%, 100% { 
+    0%, 100% {
       text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4);
       filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
     }
-    50% { 
+    50% {
       text-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.6);
       filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1));
     }
   }
-
   header p {
     margin-top: 0.5rem;
     font-weight: 600;
@@ -127,7 +111,6 @@
     text-transform: uppercase;
     user-select: text;
   }
-
   /* Container */
   main.container {
     max-width: 1200px;
@@ -136,12 +119,14 @@
     position: relative;
     z-index: 1;
   }
-
   /* Category sections */
   section.category {
-    margin-bottom: 3rem;
+    margin-bottom: 0.5rem; /* Reduced margin for accordion style */
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    background-color: var(--dark-gray);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   }
-
   .category-title {
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
@@ -149,15 +134,39 @@
     color: var(--primary-yellow);
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    margin-bottom: 1.5rem;
+    padding: 1.5rem; /* Padding for the clickable title area */
     text-align: center;
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    cursor: pointer; /* Crucial for indicating clickability */
+    user-select: none;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .category-title:hover {
+    background-color: rgba(255, 215, 0, 0.05);
+  }
+  /* Title animation only runs when the content is open */
+  .category.open .category-title {
+    background-color: rgba(255, 215, 0, 0.1);
+    border-bottom: 2px solid var(--primary-yellow);
     animation: glowPulse 2s ease-in-out infinite;
   }
-
   @keyframes glowPulse {
     0%, 100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
     50% { text-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 50px rgba(255, 215, 0, 0.5); }
+  }
+
+  /* ACCORDION/COLLAPSE STYLES */
+  .book-grid-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    /* Use a large max-height for smooth transition without calculating exact height */
+    transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
+  }
+
+  .category.open .book-grid-wrapper {
+    max-height: 5000px; /* Must be larger than the content height */
+    padding: 1rem; /* Add padding when open */
+    padding-top: 0; /* Adjust padding for visual separation from title */
   }
 
   /* Book grid */
@@ -165,16 +174,14 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 2rem;
-    padding: 1rem;
+    padding: 0 1rem 1rem 1rem; /* Adjust padding to work with wrapper */
   }
-
-  /* Book card */
+  /* Book card (rest of styles remain unchanged) */
   .book-card {
     perspective: 1000px;
     height: 300px;
     cursor: pointer;
   }
-
   .book-inner {
     position: relative;
     width: 100%;
@@ -182,11 +189,9 @@
     transition: transform 0.6s;
     transform-style: preserve-3d;
   }
-
   .book-card:hover .book-inner {
     transform: rotateY(180deg);
   }
-
   .book-front, .book-back {
     position: absolute;
     width: 100%;
@@ -202,33 +207,27 @@
     box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
     transition: all 0.3s;
   }
-
   .book-front {
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(26, 26, 26, 0.95));
   }
-
   .book-back {
     background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 170, 0, 0.95));
     transform: rotateY(180deg);
     color: var(--pure-black);
   }
-
   .book-card:hover .book-front,
   .book-card:hover .book-back {
     box-shadow: 0 15px 50px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4);
   }
-
   .book-icon {
     font-size: 5rem;
     margin-bottom: 1rem;
     animation: iconFloat 3s ease-in-out infinite;
   }
-
   @keyframes iconFloat {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
   }
-
   .book-title {
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
@@ -239,14 +238,12 @@
     color: var(--primary-yellow);
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
   }
-
   .book-back .book-title {
     color: var(--pure-black);
     text-shadow: none;
     font-size: 1rem;
     margin-bottom: 1rem;
   }
-
   .book-link {
     display: inline-block;
     padding: 0.75rem 1.5rem;
@@ -261,14 +258,12 @@
     border: 2px solid var(--pure-black);
     margin-top: 1rem;
   }
-
   .book-link:hover {
     background: transparent;
     color: var(--pure-black);
     border-color: var(--pure-black);
     transform: scale(1.05);
   }
-
   /* Footer */
   footer {
     text-align: center;
@@ -282,61 +277,11 @@
     position: relative;
     z-index: 1;
   }
-
-  /* Mobile optimization */
-  @media (max-width: 650px) {
-    header h1 {
-      font-size: 1.6rem;
-    }
-
-    .chip-icon, .logo-icon {
-      width: 40px;
-      height: 40px;
-    }
-
-    .category-title {
-      font-size: 1.5rem;
-    }
-
-    .book-grid {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .book-card {
-      height: 250px;
-    }
-
-    .book-icon {
-      font-size: 3.5rem;
-    }
-
-    .book-title {
-      font-size: 1rem;
-    }
-  }
-
-  @media (max-width: 380px) {
-    .chip-icon, .logo-icon {
-      width: 35px;
-      height: 35px;
-    }
-
-    header h1 {
-      font-size: 1.3rem;
-    }
-
-    .book-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
   /* Energy pulse effect */
   @keyframes energyPulse {
     0%, 100% { opacity: 0.3; transform: scale(1); }
     50% { opacity: 0.6; transform: scale(1.1); }
   }
-
   .energy-ring {
     position: absolute;
     width: 100%;
@@ -347,15 +292,71 @@
     animation: energyPulse 2s ease-in-out infinite;
     pointer-events: none;
   }
-
   .book-card:hover .energy-ring {
     animation: energyPulse 1s ease-in-out infinite;
+  }
+  /* Mobile optimization */
+  @media (max-width: 650px) {
+    header {
+      padding: 1rem 1rem;
+    }
+    main.container {
+      margin: 1rem auto;
+      padding: 0 0.5rem;
+    }
+    header h1 {
+      font-size: 1.6rem;
+    }
+    .chip-icon {
+      width: 40px;
+      height: 40px;
+      left: 0.5rem;
+    }
+    .category-title {
+      font-size: 1.5rem;
+      padding: 1rem;
+    }
+    .book-grid-wrapper {
+        padding: 0;
+    }
+    .category.open .book-grid-wrapper {
+        padding: 0;
+        padding-bottom: 0.5rem;
+    }
+    .book-grid {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+      padding: 0.5rem;
+    }
+    .book-card {
+      height: 250px;
+    }
+    .book-icon {
+      font-size: 3.5rem;
+    }
+    .book-title {
+      font-size: 1rem;
+    }
+  }
+  @media (max-width: 380px) {
+    .chip-icon {
+      width: 35px;
+      height: 35px;
+    }
+    header h1 {
+      font-size: 1.3rem;
+    }
+    header p {
+      font-size: 0.8rem;
+    }
+    .book-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 </head>
 <body>
 <header>
-  <!-- Spinning MCU chip icon -->
   <svg class="chip-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
     <rect x="25" y="25" width="50" height="50" fill="#FFD700" stroke="#000" stroke-width="2"/>
     <rect x="35" y="35" width="30" height="30" fill="#000" stroke="#FFD700" stroke-width="1"/>
@@ -382,832 +383,815 @@
     <rect x="70" y="75" width="3" height="15" fill="#FFD700"/>
     <circle cx="30" cy="30" r="3" fill="#000"/>
   </svg>
-
-  <!-- Logo -->
-
   <h1>Shimi Cohen</h1>
   <p>Content Craft</p>
 </header>
-
 <main class="container">
-  <!-- Digital & Comm -->
   <section class="category">
     <h2 class="category-title">Digital & Comm</h2>
-    <div class="book-grid">
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Communication</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Communication Protocols</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">MCU</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Microcontroller Units</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/" class="book-link" target="_blank">Explore →</a>
+    <div class="book-grid-wrapper">
+      <div class="book-grid">
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Communication</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Communication Protocols</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">FPGA Architecture</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">FPGA Design</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">VIDEO Protocols</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Video Standards</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">MCU</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Microcontroller Units</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">CMOS Sensor</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Image Sensors</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Logic Gates</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Digital Logic</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">FPGA Architecture</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">FPGA Design</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">PID Control</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Control Systems</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Wireless Comm</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">RF Communications</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">VIDEO Protocols</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Video Standards</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">DDR Memory</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Memory Systems</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">FirmWare Coding 1</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Embedded Programming</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">CMOS Sensor</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Image Sensors</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">FirmWare Coding 2</div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Logic Gates</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Digital Logic</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
-          <div class="book-back">
-            <div class="book-title">Advanced FW</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40" class="book-link" target="_blank">Explore →</a>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">PID Control</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Control Systems</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Wireless Comm</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">RF Communications</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">DDR Memory</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Memory Systems</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">FirmWare Coding 1</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Embedded Programming</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">FirmWare Coding 2</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Advanced FW</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Analog & Power -->
   <section class="category">
     <h2 class="category-title">Analog & Power</h2>
-    <div class="book-grid">
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Analog Filters</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Signal Filtering</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Class Amplifiers</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Audio Amplification</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/" class="book-link" target="_blank">Explore →</a>
+    <div class="book-grid-wrapper">
+      <div class="book-grid">
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Analog Filters</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Signal Filtering</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">OPAMPs</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Operational Amplifiers</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Oscillators</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Signal Generation</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Class Amplifiers</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Audio Amplification</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">LED Drivers</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Lighting Control</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Power Design</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Power Management</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">OPAMPs</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Operational Amplifiers</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">RF Theory</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Radio Frequency</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Power Tree</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Power Distribution</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Oscillators</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Signal Generation</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Ground Rules</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Grounding Best Practices</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Battery Management</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Battery Systems</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_battery-management-activity-7326196854382059521" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">LED Drivers</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Lighting Control</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Q&A Power/Analog</div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Power Design</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Power Management</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
-          <div class="book-back">
-            <div class="book-title">Questions & Answers</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY" class="book-link" target="_blank">Explore →</a>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">RF Theory</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Radio Frequency</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Power Tree</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Power Distribution</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Ground Rules</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Grounding Best Practices</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Battery Management</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Battery Systems</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_battery-management-activity-7326196854382059521" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Q&A Power/Analog</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Questions & Answers</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Practical HW -->
   <section class="category">
     <h2 class="category-title">Practical Design</h2>
-    <div class="book-grid">
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">PCB Design</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Circuit Board Layout</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Hardware</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Hardware Fundamentals</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/" class="book-link" target="_blank">Explore →</a>
+    <div class="book-grid-wrapper">
+      <div class="book-grid">
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">PCB Design</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Circuit Board Layout</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Hardware Extended</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Advanced Hardware</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Design For Testability</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">DFT Principles</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Hardware</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Hardware Fundamentals</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Protection Circuits</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Circuit Protection</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>>
-            <div class="book-title">Thermal Management</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Heat Dissipation</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Hardware Extended</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Advanced Hardware</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Bring Up</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Board Bring-Up</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Hardware Buffers</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Buffer Circuits</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Design For Testability</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">DFT Principles</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Current Sensing</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Current Measurement</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">ADC</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Analog to Digital</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Protection Circuits</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Circuit Protection</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Troubleshooting</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Debug & Fix</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Test Equipment</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Measurement Tools</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Thermal Management</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Heat Dissipation</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Hardware Drivers</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Driver Circuits</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Bring Up</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Board Bring-Up</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Precision Circuits</div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Hardware Buffers</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Buffer Circuits</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
-          <div class="book-back">
-            <div class="book-title">High Precision Design</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM" class="book-link" target="_blank">Explore →</a>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Current Sensing</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Current Measurement</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">ADC</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Analog to Digital</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Troubleshooting</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Debug & Fix</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Test Equipment</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Measurement Tools</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Hardware Drivers</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Driver Circuits</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Precision Circuits</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">High Precision Design</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- 20 Series -->
   <section class="category">
     <h2 class="category-title">"20" Series</h2>
-    <div class="book-grid">
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">20 Capacitors Apps</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Capacitor Applications</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">20 Resistors Apps</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Resistor Applications</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11" class="book-link" target="_blank">Explore →</a>
+    <div class="book-grid-wrapper">
+      <div class="book-grid">
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">20 Capacitors Apps</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Capacitor Applications</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">20 Active ICs</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Active Components</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">20 Diodes Apps</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Diode Applications</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">20 Resistors Apps</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Resistor Applications</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">20 Transistors Apps</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Transistor Applications</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">20 MCU Tips</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">MCU Hardware Tips</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">20 Active ICs</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Active Components</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">20 Comm Problems</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Communication Issues</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">20 Inductors Apps</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Inductor Applications</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">20 Diodes Apps</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Diode Applications</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">20 OPAMP Apps</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">OPAMP Applications</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">20 DFM Tips</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Design for Manufacturing</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">20 Transistors Apps</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Transistor Applications</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">20 Signal Conversions</div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">20 MCU Tips</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">MCU Hardware Tips</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
-          <div class="book-back">
-            <div class="book-title">Signal Processing</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm" class="book-link" target="_blank">Explore →</a>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">20 Comm Problems</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Communication Issues</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">20 Inductors Apps</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Inductor Applications</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">20 OPAMP Apps</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">OPAMP Applications</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">20 DFM Tips</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Design for Manufacturing</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">20 Signal Conversions</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Signal Processing</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Components -->
   <section class="category">
     <h2 class="category-title">Components</h2>
-    <div class="book-grid">
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Component Selection</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Choosing Components</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Capacitors</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Capacitor Types</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW" class="book-link" target="_blank">Explore →</a>
+    <div class="book-grid-wrapper">
+      <div class="book-grid">
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Component Selection</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Choosing Components</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Diodes</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Diode Types</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7337717775899025409/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Inductors</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Inductor Types</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Capacitors</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Capacitor Types</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Transistors</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Transistor Types</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Sensors</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Sensor Types</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Diodes</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Diode Types</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:733771775899025409/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">MEMS Gyro</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Gyroscope Sensors</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Resistors</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Resistor Types</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Inductors</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Inductor Types</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Connectors & Cables</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Interconnects</div>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7336588127437795328/" class="book-link" target="_blank">Explore →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Motor Types</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Motors & Actuators</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_motors-activity-7354376761544949760-JDx_" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Transistors</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Transistor Types</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Transformers</div>
-          </div>
-          <div class="book-back">
-            <div class="book-title">Transformer Guide</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC" class="book-link" target="_blank">Explore →</a>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Sensors</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Sensor Types</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="book-card">
-        <div class="book-inner">
-          <div class="book-front">
-            <div class="energy-ring"></div>
-            <div class="book-title">Switches</div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">MEMS Gyro</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Gyroscope Sensors</div>
+              <a href="https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
-          <div class="book-back">
-            <div class="book-title">Switch Types</div>
-            <a href="https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc" class="book-link" target="_blank">Explore →</a>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Resistors</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Resistor Types</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_resistors-activity-7331575775591399425-hR4i" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Power Transistor</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">MOSFET/IGBT</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_power-transistor-activity-7362334800619864064-x_W2" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Transformers</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Transformer Guide</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC" class="book-link" target="_blank">Explore  → </a>
+            </div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-inner">
+            <div class="book-front">
+              <div class="energy-ring"></div>
+              <div class="book-title">Switches</div>
+            </div>
+            <div class="book-back">
+              <div class="book-title">Switch Types</div>
+              <a href="https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc" class="book-link" target="_blank">Explore  → </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 </main>
-
 <footer>
   © 2025 SHIMI COHEN – CONTENT CRAFT
 </footer>
-
 <script>
-  // Create floating particles
-  function createParticles() {
-    const particleCount = 15;
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      particle.style.left = Math.random() * 100 + 'vw';
-      particle.style.top = Math.random() * 100 + 'vh';
-      particle.style.animationDelay = Math.random() * 20 + 's';
-      particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-      document.body.appendChild(particle);
+  document.addEventListener('DOMContentLoaded', () => {
+    // Accordion functionality
+    const categories = document.querySelectorAll('.category');
+
+    categories.forEach(category => {
+      const title = category.querySelector('.category-title');
+
+      title.addEventListener('click', () => {
+        const isCurrentlyOpen = category.classList.contains('open');
+
+        // Close all categories
+        categories.forEach(c => {
+          c.classList.remove('open');
+        });
+
+        // If the clicked category was not open, open it
+        if (!isCurrentlyOpen) {
+          category.classList.add('open');
+        }
+      });
+      // Ensure all categories start closed
+      category.classList.remove('open');
+    });
+
+    // Background particles script (as in original)
+    function createParticles() {
+      const particleCount = 15;
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = Math.random() * 100 + 'vh';
+        particle.style.animationDelay = Math.random() * 10 + 's';
+        particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
+        document.body.appendChild(particle);
+      }
+    }
+    createParticles();
+  });
+</script>
+<style>
+  /* Particle styles (Keep this separate from the main block for cleaner organization) */
+  .particle {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 215, 0, 0.5); /* Primary yellow */
+    border-radius: 50%;
+    z-index: 0;
+    opacity: 0;
+    animation: floatAndFade linear infinite;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+  }
+  @keyframes floatAndFade {
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.5;
+    }
+    90% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateY(-100vh) translateX(50vw);
+      opacity: 0;
     }
   }
-
-  createParticles();
-</script>
+</style>
 </body>
 </html>
