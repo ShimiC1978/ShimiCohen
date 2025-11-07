@@ -46,7 +46,8 @@
       repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255, 215, 0, 0.03) 50px, rgba(255, 215, 0, 0.03) 51px),
       repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255, 215, 0, 0.03) 50px, rgba(255, 215, 0, 0.03) 51px);
     z-index: 0;
-    animation: gridMove 20s linear infinite;
+    /* FASTER: Reduced from 20s to 10s */
+    animation: gridMove 10s linear infinite;
   }
   @keyframes gridMove {
     0% { transform: translate(0, 0); }
@@ -73,10 +74,11 @@
     text-transform: uppercase;
     letter-spacing: 0.15em;
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4);
-    animation: pulse 3s ease-in-out infinite;
+    /* FASTER: Reduced from 3s to 1.5s */
+    animation: pulse 1.5s ease-in-out infinite;
     user-select: text;
   }
-  /* Spinning chip icon (Kept as-is) */
+  /* Spinning chip icon */
   .chip-icon {
     position: absolute;
     left: 1rem;
@@ -84,7 +86,8 @@
     transform: translateY(-50%);
     width: 50px;
     height: 50px;
-    animation: spin 4s linear infinite;
+    /* FASTER: Reduced from 4s to 2s */
+    animation: spin 2s linear infinite;
     filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
   }
 
@@ -119,7 +122,7 @@
     position: relative;
     z-index: 1;
   }
-  /* Category sections (Kept as-is) */
+  /* Category sections */
   section.category {
     margin-bottom: 0.5rem;
     border: 1px solid rgba(255, 215, 0, 0.1);
@@ -144,52 +147,55 @@
   .category-title:hover {
     background-color: rgba(255, 215, 0, 0.05);
   }
+  /* FASTER: Reduced animation time */
   .category.open .category-title {
     background-color: rgba(255, 215, 0, 0.1);
     border-bottom: 2px solid var(--primary-yellow);
-    animation: glowPulse 2s ease-in-out infinite;
+    animation: glowPulse 1.5s ease-in-out infinite; /* Reduced from 2s to 1.5s */
   }
   @keyframes glowPulse {
     0%, 100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
     50% { text-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 50px rgba(255, 215, 0, 0.5); }
   }
 
-  /* ACCORDION/COLLAPSE STYLES (Kept as-is) */
+  /* ACCORDION/COLLAPSE STYLES */
   .book-grid-wrapper {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
+    /* FASTER: Reduced from 0.7s to 0.3s */
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
   }
+
   .category.open .book-grid-wrapper {
     max-height: 5000px;
     padding: 1rem;
     padding-top: 0;
   }
 
-  /* BOOK LIST STYLES (MAJOR CHANGES HERE) */
+  /* BOOK LIST STYLES */
 
   .book-grid {
     display: grid;
-    /* Forces a single, wide column for the list view on ALL devices */
     grid-template-columns: 1fr;
-    gap: 0.5rem; /* Reduced gap for list feel */
+    gap: 0.5rem;
     padding: 0 1rem 1rem 1rem;
   }
 
   .book-card {
     perspective: 1000px;
-    height: 80px; /* Defines the short, wide rectangle height */
+    height: 80px;
     cursor: pointer;
   }
   .book-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    transition: transform 0.6s;
+    /* FASTER: Reduced from 0.6s to 0.25s */
+    transition: transform 0.25s;
     transform-style: preserve-3d;
   }
   .book-card:hover .book-inner {
-    transform: rotateY(180deg); /* Keeps the wide flip effect */
+    transform: rotateY(180deg);
   }
 
   .book-front, .book-back {
@@ -199,19 +205,20 @@
     backface-visibility: hidden;
     border-radius: 8px;
     display: flex;
-    flex-direction: row; /* Aligns items horizontally */
-    align-items: center; /* Vertically centers content */
+    flex-direction: row;
+    align-items: center;
     padding: 1rem 2rem;
-    border: 2px solid var(--pure-black); /* Black/Dark border for contrast */
+    border: 2px solid var(--pure-black);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s;
+    /* FASTER: Reduced transition time */
+    transition: all 0.25s;
   }
 
   /* FRONT: Yellow Background, Black Text */
   .book-front {
     background: linear-gradient(90deg, var(--bright-yellow), var(--primary-yellow));
     color: var(--pure-black);
-    justify-content: flex-start; /* Aligns title to the left */
+    justify-content: flex-start;
   }
 
   /* BACK: Dark Background, Yellow Text */
@@ -219,7 +226,7 @@
     background: linear-gradient(90deg, var(--dark-gray), var(--pure-black));
     transform: rotateY(180deg);
     color: var(--primary-yellow);
-    justify-content: space-between; /* Title on left, button on right */
+    justify-content: space-between;
   }
 
   .book-card:hover .book-front,
@@ -231,16 +238,16 @@
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
     font-size: 1.2rem;
-    text-align: left; /* Explicitly left-aligned */
+    text-align: left;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--pure-black); /* Black text for the front */
+    color: var(--pure-black);
     text-shadow: none;
-    margin-right: 2rem; /* Spacing for the back content */
+    margin-right: 2rem;
   }
 
   .book-back .book-title {
-    color: var(--primary-yellow); /* Yellow text for the back */
+    color: var(--primary-yellow);
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
     font-size: 1.2rem;
     margin: 0;
@@ -249,14 +256,15 @@
   .book-link {
     display: inline-block;
     padding: 0.5rem 1rem;
-    background: var(--primary-yellow); /* Yellow button on dark back */
+    background: var(--primary-yellow);
     color: var(--pure-black);
     text-decoration: none;
     border-radius: 4px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    transition: all 0.3s;
+    /* FASTER: Reduced transition time */
+    transition: all 0.2s;
     border: 2px solid var(--primary-yellow);
     margin: 0;
     white-space: nowrap;
@@ -303,7 +311,7 @@
       padding: 1rem;
     }
     .book-card {
-      height: 60px; /* Adjust height for smaller screens */
+      height: 60px;
     }
     .book-front, .book-back {
         padding: 0.75rem 1rem;
@@ -1086,7 +1094,8 @@
         particle.style.left = Math.random() * 100 + 'vw';
         particle.style.top = Math.random() * 100 + 'vh';
         particle.style.animationDelay = Math.random() * 10 + 's';
-        particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
+        // FASTER: Reduced particle animation duration
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
         document.body.appendChild(particle);
       }
     }
