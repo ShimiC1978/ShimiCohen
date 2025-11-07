@@ -172,7 +172,6 @@
   /* Book grid */
   .book-grid {
     display: grid;
-    /* Default for desktop */
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 2rem;
     padding: 0 1rem 1rem 1rem; /* Adjust padding to work with wrapper */
@@ -180,7 +179,7 @@
   /* Book card (rest of styles remain unchanged) */
   .book-card {
     perspective: 1000px;
-    height: 300px; /* Default desktop height */
+    height: 300px;
     cursor: pointer;
   }
   .book-inner {
@@ -221,7 +220,7 @@
     box-shadow: 0 15px 50px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4);
   }
   .book-icon {
-    font-size: 5rem; /* Default desktop icon size */
+    font-size: 5rem;
     margin-bottom: 1rem;
     animation: iconFloat 3s ease-in-out infinite;
   }
@@ -232,7 +231,7 @@
   .book-title {
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
-    font-size: 1.2rem; /* Default desktop title size */
+    font-size: 1.2rem;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -325,31 +324,18 @@
         padding-bottom: 0.5rem;
     }
     .book-grid {
-      /* FORCED 4-COLUMN LAYOUT: minmax is reduced to 75px to fit 4 cards */
-      grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
-      gap: 0.75rem;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
       padding: 0.5rem;
     }
     .book-card {
-      height: 120px; /* Reduced card height to fit 4 in a row better */
-    }
-    .book-front, .book-back {
-        padding: 0.5rem; /* Reduced padding on cards */
+      height: 250px;
     }
     .book-icon {
-        font-size: 2rem; /* Reduced icon size */
+      font-size: 3.5rem;
     }
     .book-title {
-        font-size: 0.7rem; /* Reduced front title font size */
-    }
-    .book-back .book-title {
-        font-size: 0.7rem; /* Reduced back title font size */
-        margin-bottom: 0.5rem;
-    }
-    .book-back .book-link {
-        padding: 0.5rem 0.5rem; /* Smaller button */
-        font-size: 0.7rem;
-        margin-top: 0.5rem;
+      font-size: 1rem;
     }
   }
   @media (max-width: 380px) {
@@ -364,18 +350,7 @@
       font-size: 0.8rem;
     }
     .book-grid {
-      /* Keep 4-column layout even on smallest screens */
-      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-      gap: 0.5rem;
-    }
-    .book-card {
-        height: 100px;
-    }
-    .book-front, .book-back {
-        padding: 0.25rem;
-    }
-    .book-icon {
-        font-size: 1.5rem;
+      grid-template-columns: 1fr;
     }
   }
 </style>
