@@ -11,7 +11,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Shimi Cohen – Content Craft</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght=500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
     --primary-yellow: #FFD700;
@@ -76,7 +76,7 @@
     animation: pulse 3s ease-in-out infinite;
     user-select: text;
   }
-  /* Spinning chip icon */
+  /* Spinning chip icon (Kept as-is) */
   .chip-icon {
     position: absolute;
     left: 1rem;
@@ -119,9 +119,9 @@
     position: relative;
     z-index: 1;
   }
-  /* Category sections */
+  /* Category sections (Kept as-is) */
   section.category {
-    margin-bottom: 0.5rem; /* Reduced margin for accordion style */
+    margin-bottom: 0.5rem;
     border: 1px solid rgba(255, 215, 0, 0.1);
     background-color: var(--dark-gray);
     border-radius: 8px;
@@ -134,17 +134,16 @@
     color: var(--primary-yellow);
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    padding: 1.5rem; /* Padding for the clickable title area */
+    padding: 1.5rem;
     text-align: center;
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-    cursor: pointer; /* Crucial for indicating clickability */
+    cursor: pointer;
     user-select: none;
     transition: background-color 0.3s, color 0.3s;
   }
   .category-title:hover {
     background-color: rgba(255, 215, 0, 0.05);
   }
-  /* Title animation only runs when the content is open */
   .category.open .category-title {
     background-color: rgba(255, 215, 0, 0.1);
     border-bottom: 2px solid var(--primary-yellow);
@@ -155,31 +154,31 @@
     50% { text-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 50px rgba(255, 215, 0, 0.5); }
   }
 
-  /* ACCORDION/COLLAPSE STYLES */
+  /* ACCORDION/COLLAPSE STYLES (Kept as-is) */
   .book-grid-wrapper {
     max-height: 0;
     overflow: hidden;
-    /* Use a large max-height for smooth transition without calculating exact height */
     transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
   }
-
   .category.open .book-grid-wrapper {
-    max-height: 5000px; /* Must be larger than the content height */
-    padding: 1rem; /* Add padding when open */
-    padding-top: 0; /* Adjust padding for visual separation from title */
+    max-height: 5000px;
+    padding: 1rem;
+    padding-top: 0;
   }
 
-  /* Book grid */
+  /* BOOK LIST STYLES (MAJOR CHANGES HERE) */
+
   .book-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
-    padding: 0 1rem 1rem 1rem; /* Adjust padding to work with wrapper */
+    /* Forces a single, wide column for the list view on ALL devices */
+    grid-template-columns: 1fr;
+    gap: 0.5rem; /* Reduced gap for list feel */
+    padding: 0 1rem 1rem 1rem;
   }
-  /* Book card (rest of styles remain unchanged) */
+
   .book-card {
     perspective: 1000px;
-    height: 300px;
+    height: 80px; /* Defines the short, wide rectangle height */
     cursor: pointer;
   }
   .book-inner {
@@ -190,78 +189,82 @@
     transform-style: preserve-3d;
   }
   .book-card:hover .book-inner {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg); /* Keeps the wide flip effect */
   }
+
   .book-front, .book-back {
     position: absolute;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    border-radius: 15px;
+    border-radius: 8px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    border: 3px solid var(--primary-yellow);
-    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+    flex-direction: row; /* Aligns items horizontally */
+    align-items: center; /* Vertically centers content */
+    padding: 1rem 2rem;
+    border: 2px solid var(--pure-black); /* Black/Dark border for contrast */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.3s;
   }
+
+  /* FRONT: Yellow Background, Black Text */
   .book-front {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(26, 26, 26, 0.95));
-  }
-  .book-back {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 170, 0, 0.95));
-    transform: rotateY(180deg);
+    background: linear-gradient(90deg, var(--bright-yellow), var(--primary-yellow));
     color: var(--pure-black);
+    justify-content: flex-start; /* Aligns title to the left */
   }
+
+  /* BACK: Dark Background, Yellow Text */
+  .book-back {
+    background: linear-gradient(90deg, var(--dark-gray), var(--pure-black));
+    transform: rotateY(180deg);
+    color: var(--primary-yellow);
+    justify-content: space-between; /* Title on left, button on right */
+  }
+
   .book-card:hover .book-front,
   .book-card:hover .book-back {
-    box-shadow: 0 15px 50px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
   }
-  .book-icon {
-    font-size: 5rem;
-    margin-bottom: 1rem;
-    animation: iconFloat 3s ease-in-out infinite;
-  }
-  @keyframes iconFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
+
   .book-title {
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
     font-size: 1.2rem;
-    text-align: center;
+    text-align: left; /* Explicitly left-aligned */
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--primary-yellow);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-  }
-  .book-back .book-title {
-    color: var(--pure-black);
+    letter-spacing: 0.1em;
+    color: var(--pure-black); /* Black text for the front */
     text-shadow: none;
-    font-size: 1rem;
-    margin-bottom: 1rem;
+    margin-right: 2rem; /* Spacing for the back content */
   }
+
+  .book-back .book-title {
+    color: var(--primary-yellow); /* Yellow text for the back */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
   .book-link {
     display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: var(--pure-black);
-    color: var(--primary-yellow);
+    padding: 0.5rem 1rem;
+    background: var(--primary-yellow); /* Yellow button on dark back */
+    color: var(--pure-black);
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 4px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     transition: all 0.3s;
-    border: 2px solid var(--pure-black);
-    margin-top: 1rem;
+    border: 2px solid var(--primary-yellow);
+    margin: 0;
+    white-space: nowrap;
   }
   .book-link:hover {
     background: transparent;
-    color: var(--pure-black);
-    border-color: var(--pure-black);
+    color: var(--primary-yellow);
+    border-color: var(--primary-yellow);
     transform: scale(1.05);
   }
   /* Footer */
@@ -277,24 +280,7 @@
     position: relative;
     z-index: 1;
   }
-  /* Energy pulse effect */
-  @keyframes energyPulse {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.1); }
-  }
-  .energy-ring {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 2px solid var(--primary-yellow);
-    border-radius: 15px;
-    opacity: 0;
-    animation: energyPulse 2s ease-in-out infinite;
-    pointer-events: none;
-  }
-  .book-card:hover .energy-ring {
-    animation: energyPulse 1s ease-in-out infinite;
-  }
+
   /* Mobile optimization */
   @media (max-width: 650px) {
     header {
@@ -316,26 +302,18 @@
       font-size: 1.5rem;
       padding: 1rem;
     }
-    .book-grid-wrapper {
-        padding: 0;
-    }
-    .category.open .book-grid-wrapper {
-        padding: 0;
-        padding-bottom: 0.5rem;
-    }
-    .book-grid {
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 1rem;
-      padding: 0.5rem;
-    }
     .book-card {
-      height: 250px;
+      height: 60px; /* Adjust height for smaller screens */
     }
-    .book-icon {
-      font-size: 3.5rem;
+    .book-front, .book-back {
+        padding: 0.75rem 1rem;
     }
-    .book-title {
-      font-size: 1rem;
+    .book-title, .book-back .book-title {
+        font-size: 1rem;
+    }
+    .book-link {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
     }
   }
   @media (max-width: 380px) {
@@ -349,8 +327,18 @@
     header p {
       font-size: 0.8rem;
     }
-    .book-grid {
-      grid-template-columns: 1fr;
+    .book-card {
+        height: 50px;
+    }
+    .book-front, .book-back {
+        padding: 0.5rem 0.75rem;
+    }
+    .book-title, .book-back .book-title {
+        font-size: 0.9rem;
+    }
+    .book-link {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.7rem;
     }
   }
 </style>
@@ -394,7 +382,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Communication</div>
             </div>
             <div class="book-back">
@@ -406,7 +393,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">MCU</div>
             </div>
             <div class="book-back">
@@ -418,7 +404,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">FPGA Architecture</div>
             </div>
             <div class="book-back">
@@ -430,7 +415,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">VIDEO Protocols</div>
             </div>
             <div class="book-back">
@@ -442,7 +426,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">CMOS Sensor</div>
             </div>
             <div class="book-back">
@@ -454,7 +437,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Logic Gates</div>
             </div>
             <div class="book-back">
@@ -466,7 +448,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">PID Control</div>
             </div>
             <div class="book-back">
@@ -478,7 +459,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Wireless Comm</div>
             </div>
             <div class="book-back">
@@ -490,7 +470,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">DDR Memory</div>
             </div>
             <div class="book-back">
@@ -502,7 +481,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">FirmWare Coding 1</div>
             </div>
             <div class="book-back">
@@ -514,7 +492,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">FirmWare Coding 2</div>
             </div>
             <div class="book-back">
@@ -533,7 +510,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Analog Filters</div>
             </div>
             <div class="book-back">
@@ -545,7 +521,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Class Amplifiers</div>
             </div>
             <div class="book-back">
@@ -557,7 +532,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">OPAMPs</div>
             </div>
             <div class="book-back">
@@ -569,7 +543,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Oscillators</div>
             </div>
             <div class="book-back">
@@ -581,7 +554,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">LED Drivers</div>
             </div>
             <div class="book-back">
@@ -593,7 +565,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Power Design</div>
             </div>
             <div class="book-back">
@@ -605,7 +576,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">RF Theory</div>
             </div>
             <div class="book-back">
@@ -617,7 +587,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Power Tree</div>
             </div>
             <div class="book-back">
@@ -629,7 +598,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Ground Rules</div>
             </div>
             <div class="book-back">
@@ -641,7 +609,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Battery Management</div>
             </div>
             <div class="book-back">
@@ -653,7 +620,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Q&A Power/Analog</div>
             </div>
             <div class="book-back">
@@ -672,7 +638,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">PCB Design</div>
             </div>
             <div class="book-back">
@@ -684,7 +649,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Hardware</div>
             </div>
             <div class="book-back">
@@ -696,7 +660,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Hardware Extended</div>
             </div>
             <div class="book-back">
@@ -708,7 +671,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Design For Testability</div>
             </div>
             <div class="book-back">
@@ -720,7 +682,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Protection Circuits</div>
             </div>
             <div class="book-back">
@@ -732,7 +693,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Thermal Management</div>
             </div>
             <div class="book-back">
@@ -744,7 +704,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Bring Up</div>
             </div>
             <div class="book-back">
@@ -756,7 +715,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Hardware Buffers</div>
             </div>
             <div class="book-back">
@@ -768,7 +726,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Current Sensing</div>
             </div>
             <div class="book-back">
@@ -780,7 +737,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">ADC</div>
             </div>
             <div class="book-back">
@@ -792,7 +748,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Troubleshooting</div>
             </div>
             <div class="book-back">
@@ -804,7 +759,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Test Equipment</div>
             </div>
             <div class="book-back">
@@ -816,7 +770,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Hardware Drivers</div>
             </div>
             <div class="book-back">
@@ -828,7 +781,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Precision Circuits</div>
             </div>
             <div class="book-back">
@@ -847,7 +799,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">20 Capacitors Apps</div>
             </div>
             <div class="book-back">
@@ -859,7 +810,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">20 Resistors Apps</div>
             </div>
             <div class="book-back">
@@ -871,7 +821,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">20 Active ICs</div>
             </div>
             <div class="book-back">
@@ -883,7 +832,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">20 Diodes Apps</div>
             </div>
             <div class="book-back">
@@ -895,7 +843,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">20 Transistors Apps</div>
             </div>
             <div class="book-back">
@@ -907,7 +854,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">20 MCU Tips</div>
             </div>
             <div class="book-back">
@@ -919,7 +865,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">20 Comm Problems</div>
             </div>
             <div class="book-back">
@@ -931,7 +876,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">20 Inductors Apps</div>
             </div>
             <div class="book-back">
@@ -943,7 +887,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">20 OPAMP Apps</div>
             </div>
             <div class="book-back">
@@ -955,7 +898,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">20 DFM Tips</div>
             </div>
             <div class="book-back">
@@ -967,7 +909,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">20 Signal Conversions</div>
             </div>
             <div class="book-back">
@@ -986,7 +927,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Component Selection</div>
             </div>
             <div class="book-back">
@@ -998,7 +938,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Capacitors</div>
             </div>
             <div class="book-back">
@@ -1010,7 +949,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Diodes</div>
             </div>
             <div class="book-back">
@@ -1022,7 +960,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Inductors</div>
             </div>
             <div class="book-back">
@@ -1034,7 +971,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Transistors</div>
             </div>
             <div class="book-back">
@@ -1046,7 +982,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Sensors</div>
             </div>
             <div class="book-back">
@@ -1058,7 +993,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">MEMS Gyro</div>
             </div>
             <div class="book-back">
@@ -1070,7 +1004,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Resistors</div>
             </div>
             <div class="book-back">
@@ -1082,7 +1015,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Power Transistor</div>
             </div>
             <div class="book-back">
@@ -1094,7 +1026,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Transformers</div>
             </div>
             <div class="book-back">
@@ -1106,7 +1037,6 @@
         <div class="book-card">
           <div class="book-inner">
             <div class="book-front">
-              <div class="energy-ring"></div>
               <div class="book-title">Switches</div>
             </div>
             <div class="book-back">
