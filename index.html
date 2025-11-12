@@ -33,9 +33,18 @@ section.category{margin-bottom:0.1rem;border:1px solid rgba(255,215,0,0.1);backg
 .book-card-content{width:100%;height:100%;border-radius:8px;display:flex;align-items:center;padding:1rem 2rem;border:2px solid var(--pure-black);box-shadow:0 4px 15px rgba(0,0,0,0.2);transition:all 0.25s;background:linear-gradient(90deg,var(--bright-yellow),var(--primary-yellow));color:var(--pure-black)}
 .book-card:hover .book-card-content{box-shadow:0 8px 25px rgba(0,0,0,0.4);transform:translateY(-2px)}
 .book-title{font-family:'Orbitron',sans-serif;font-weight:700;font-size:1.2rem;text-align:left;text-transform:uppercase;letter-spacing:0.1em;color:var(--pure-black)}
-.book-image-drop{position:absolute;right:0;top:100%;width:auto;height:100px;opacity:0;pointer-events:none;z-index:10;border-radius:4px;box-shadow:0 8px 20px rgba(255,215,0,0.4);transition:opacity 0.2s;cursor:pointer}
-.book-image-drop.active{opacity:1;pointer-events:auto;animation:dropDown 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards}
-@keyframes dropDown{from{transform:translateY(-110px);opacity:0}to{transform:translateY(0);opacity:1}}
+.book-image-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:1000;display:none;align-items:center;justify-content:center;opacity:0}
+.book-image-overlay.active{display:flex;animation:fadeIn 0.1s forwards}
+.book-image-overlay.closing{animation:fadeOut 0.1s forwards}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes fadeOut{to{opacity:0}}
+.book-image-popup{height:300px;width:auto;max-width:90%;border-radius:8px;box-shadow:0 0 40px rgba(255,215,0,0.6);transform:scale(0);position:relative}
+.book-image-overlay.active .book-image-popup{animation:popIn 0.1s forwards}
+.book-image-overlay.closing .book-image-popup{animation:popOut 0.1s forwards}
+@keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes popOut{from{transform:scale(1)}to{transform:scale(0)}}
+.close-btn{position:absolute;top:-15px;right:-15px;width:40px;height:40px;background:var(--primary-yellow);border:2px solid var(--pure-black);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;color:var(--pure-black);box-shadow:0 0 20px rgba(255,215,0,0.8);z-index:1001}
+.close-btn:hover{background:var(--bright-yellow);transform:scale(1.1)}
 footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight:600;font-size:0.85rem;letter-spacing:0.05em;border-top:1px solid rgba(255,215,0,0.2);margin-top:3rem;position:relative;z-index:1}
 @media(max-width:650px){header{padding:1rem 1rem}main.container{margin:1rem auto;padding:0 0.5rem}header h1{font-size:1.6rem}.chip-icon{width:40px;height:40px;left:0.5rem}.My-Picture{width:50px;height:50px;right:0.5rem}.category-title{font-size:1.5rem;padding:1rem}.book-card{height:60px}.book-card-content{padding:0.75rem 1rem}.book-title{font-size:1rem}}
 @media(max-width:380px){.chip-icon{width:35px;height:35px}.My-Picture{width:45px;height:45px}header h1{font-size:1.3rem}header p{font-size:0.8rem}.book-card{height:50px}.book-card-content{padding:0.5rem 0.75rem}.book-title{font-size:0.9rem}}
@@ -109,9 +118,8 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 <section class="category">
 <h2 class="category-title">Practical Design</h2>
 <div class="book-grid-wrapper"><div class="book-grid">
-<a href="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm" class="book-card" data-has-image="true" target="_blank">
+<a href="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm" class="book-card" data-has-image="true" data-image-src="PCB Design Cover.jpg" target="_blank">
 <div class="book-card-content"><div class="book-title">PCB Design</div></div>
-<img src="PCB Design Cover.jpg" class="book-image-drop" alt="PCB Design Book">
 </a>
 <a href="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/" class="book-card" target="_blank"><div class="book-card-content"><div class="book-title">Hardware</div></div></a>
 <a href="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/" class="book-card" target="_blank"><div class="book-card-content"><div class="book-title">Hardware Extended</div></div></a>
@@ -161,20 +169,23 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 </div></div>
 </section>
 </main>
+<div class="book-image-overlay" id="imageOverlay">
+<div class="close-btn" id="closeBtn">×</div>
+<img src="" class="book-image-popup" id="popupImage" alt="Book Cover">
+</div>
 <footer>© 2025 SHIMI COHEN – CONTENT CRAFT</footer>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
 const categories=document.querySelectorAll('.category');
-let activeImage=null;
+const overlay=document.getElementById('imageOverlay');
+const popupImage=document.getElementById('popupImage');
+const closeBtn=document.getElementById('closeBtn');
+let currentLink='';
 categories.forEach(category=>{
 const title=category.querySelector('.category-title');
 title.addEventListener('click',()=>{
 const isCurrentlyOpen=category.classList.contains('open');
 categories.forEach(c=>c.classList.remove('open'));
-if(activeImage){
-activeImage.classList.remove('active');
-activeImage=null;
-}
 if(!isCurrentlyOpen){
 category.classList.add('open');
 }
@@ -182,32 +193,35 @@ category.classList.add('open');
 });
 const bookCards=document.querySelectorAll('.book-card[data-has-image]');
 bookCards.forEach(card=>{
-const img=card.querySelector('.book-image-drop');
 const content=card.querySelector('.book-card-content');
 content.addEventListener('click',(e)=>{
 e.preventDefault();
 e.stopPropagation();
-if(activeImage&&activeImage!==img){
-activeImage.classList.remove('active');
-}
-if(img.classList.contains('active')){
-img.classList.remove('active');
-activeImage=null;
-}else{
-img.classList.add('active');
-activeImage=img;
-}
+currentLink=card.href;
+popupImage.src=card.dataset.imageSrc;
+overlay.classList.add('active');
+overlay.classList.remove('closing');
 });
-img.addEventListener('click',(e)=>{
+});
+const closeOverlay=()=>{
+overlay.classList.add('closing');
+overlay.classList.remove('active');
+setTimeout(()=>{
+overlay.style.display='none';
+overlay.classList.remove('closing');
+},100);
+};
+closeBtn.addEventListener('click',(e)=>{
 e.stopPropagation();
-window.open(card.href,'_blank');
+closeOverlay();
 });
-});
-document.addEventListener('click',(e)=>{
-if(activeImage&&!e.target.closest('.book-card[data-has-image]')){
-activeImage.classList.remove('active');
-activeImage=null;
+overlay.addEventListener('click',(e)=>{
+if(e.target===overlay){
+closeOverlay();
 }
+});
+popupImage.addEventListener('click',()=>{
+window.open(currentLink,'_blank');
 });
 });
 </script>
