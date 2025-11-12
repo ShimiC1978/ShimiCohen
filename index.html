@@ -48,7 +48,8 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
   width: auto;
   z-index: 10;
   pointer-events: none;
-  mix-blend-mode: multiply;
+  filter: brightness(0) saturate(100%);
+  opacity: 0.8;
 }
 </style>
 </head>
@@ -502,6 +503,7 @@ bookCards.forEach(c=>c.classList.remove('flipped'));
 </script>
 </body>
 </html>
+
 
 
 
