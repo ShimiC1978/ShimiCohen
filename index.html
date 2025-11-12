@@ -40,6 +40,15 @@ section.category{margin-bottom:0.1rem;border:1px solid rgba(255,215,0,0.1);backg
 footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight:600;font-size:0.85rem;letter-spacing:0.05em;border-top:1px solid rgba(255,215,0,0.2);margin-top:3rem;position:relative;z-index:1}
 @media(max-width:650px){header{padding:1rem 1rem}main.container{margin:1rem auto;padding:0 0.5rem}header h1{font-size:1.6rem}.chip-icon{width:40px;height:40px;left:0.5rem}.My-Picture{width:50px;height:50px;right:0.5rem}.category-title{font-size:1.5rem;padding:1rem}.book-title{font-size:0.65rem}}
 @media(max-width:380px){.chip-icon{width:35px;height:35px}.My-Picture{width:45px;height:45px}header h1{font-size:1.3rem}header p{font-size:0.8rem}.book-title{font-size:0.6rem}.book-grid{gap:0.4rem}}
+.book-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 12.5%;
+  width: auto;
+  z-index: 10;
+  pointer-events: none;
+}
 </style>
 </head>
 <body>
@@ -221,7 +230,10 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 <div class="book-grid-wrapper"><div class="book-grid">
 <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm">
 <div class="book-card-inner">
-<div class="book-card-front"><div class="book-title">PCB Design</div></div>
+<div class="book-card-front">
+<img src="top-pick-badge.jpg" class="book-badge" alt="Top Pick">
+<div class="book-title">PCB Design</div>
+</div>
 <div class="book-card-back"><img src="PCB Design Cover.jpg" alt="PCB Design"></div>
 </div>
 </div>
