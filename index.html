@@ -1,4 +1,4 @@
-</main><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0JD8LKPNXG"></script>
@@ -15,9 +15,8 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 @keyframes gridMove{0%{transform:translate(0,0)}100%{transform:translate(50px,50px)}}
 header{position:sticky;top:0;z-index:100;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);border-bottom:2px solid var(--primary-yellow);padding:1.5rem 1rem;text-align:center;box-shadow:0 4px 20px rgba(255,215,0,0.3)}
 header h1{font-family:'Orbitron',sans-serif;font-weight:900;font-size:2.5rem;color:var(--primary-yellow);text-transform:uppercase;letter-spacing:0.15em;text-shadow:0 0 20px rgba(255,215,0,0.8),0 0 40px rgba(255,215,0,0.4);animation:pulse 1.5s ease-in-out infinite;user-select:text}
-.chip-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:50px;height:50px;animation:spin 2s linear infinite;filter:drop-shadow(0 0 10px rgba(255,215,0,0.6))}
+.chip-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:50px;height:50px;animation:pulse 1.5s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(255,215,0,0.6));object-fit:contain}
 .My-Picture{position:absolute;right:1rem;top:50%;transform:translateY(-50%);width:60px;height:60px;animation:pulse 1.5s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(255,215,0,0.6));object-fit:contain}
-@keyframes spin{from{transform:translateY(-50%) rotate(0deg)}to{transform:translateY(-50%) rotate(360deg)}}
 @keyframes pulse{0%,100%{text-shadow:0 0 20px rgba(255,215,0,0.8),0 0 40px rgba(255,215,0,0.4);filter:drop-shadow(0 0 10px rgba(255,215,0,0.6))}50%{text-shadow:0 0 30px rgba(255,215,0,1),0 0 60px rgba(255,215,0,0.6);filter:drop-shadow(0 0 20px rgba(255,215,0,1))}}
 header p{margin-top:0.5rem;font-weight:600;font-size:1rem;color:rgba(255,215,0,0.7);letter-spacing:0.1em;text-transform:uppercase;user-select:text}
 main.container{max-width:1200px;margin:0.1rem auto;padding:0 1rem;position:relative;z-index:1}
@@ -58,36 +57,12 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 </head>
 <body>
 <header>
-<svg class="chip-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<rect x="25" y="25" width="50" height="50" fill="#FFD700" stroke="#000" stroke-width="2"/>
-<rect x="35" y="35" width="30" height="30" fill="#000" stroke="#FFD700" stroke-width="1"/>
-<circle cx="50" cy="50" r="8" fill="#FFD700"/>
-<rect x="10" y="30" width="15" height="3" fill="#FFD700"/>
-<rect x="10" y="40" width="15" height="3" fill="#FFD700"/>
-<rect x="10" y="50" width="15" height="3" fill="#FFD700"/>
-<rect x="10" y="60" width="15" height="3" fill="#FFD700"/>
-<rect x="10" y="70" width="15" height="3" fill="#FFD700"/>
-<rect x="75" y="30" width="15" height="3" fill="#FFD700"/>
-<rect x="75" y="40" width="15" height="3" fill="#FFD700"/>
-<rect x="75" y="50" width="15" height="3" fill="#FFD700"/>
-<rect x="75" y="60" width="15" height="3" fill="#FFD700"/>
-<rect x="75" y="70" width="15" height="3" fill="#FFD700"/>
-<rect x="30" y="10" width="3" height="15" fill="#FFD700"/>
-<rect x="40" y="10" width="3" height="15" fill="#FFD700"/>
-<rect x="50" y="10" width="3" height="15" fill="#FFD700"/>
-<rect x="60" y="10" width="3" height="15" fill="#FFD700"/>
-<rect x="70" y="10" width="3" height="15" fill="#FFD700"/>
-<rect x="30" y="75" width="3" height="15" fill="#FFD700"/>
-<rect x="40" y="75" width="3" height="15" fill="#FFD700"/>
-<rect x="50" y="75" width="3" height="15" fill="#FFD700"/>
-<rect x="60" y="75" width="3" height="15" fill="#FFD700"/>
-<rect x="70" y="75" width="3" height="15" fill="#FFD700"/>
-<circle cx="30" cy="30" r="3" fill="#000"/>
-</svg>
+<img src="Linkedin Logo.png" class="chip-icon" alt="LinkedIn Logo"/>
 <h1>Shimi Cohen</h1>
 <p>Board Design Book Selection</p>
 <img src="./shimi linkedin pic.png" class="My-Picture" alt="Content Craft Logo"/>
-</header><main class="container">
+</header>
+<main class="container">
 <section class="category">
 <h2 class="category-title">Digital & Comm</h2>
 <div class="book-grid-wrapper"><div class="book-grid">
@@ -524,10 +499,3 @@ bookCards.forEach(c=>c.classList.remove('flipped'));
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
