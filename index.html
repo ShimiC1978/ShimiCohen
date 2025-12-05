@@ -39,20 +39,44 @@ section.category{margin-bottom:0.1rem;border:1px solid rgba(255,215,0,0.1);backg
 footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight:600;font-size:0.85rem;letter-spacing:0.05em;border-top:1px solid rgba(255,215,0,0.2);margin-top:3rem;position:relative;z-index:1}
 @media(max-width:650px){header{padding:1rem 1rem}main.container{margin:1rem auto;padding:0 0.5rem}header h1{font-size:1.6rem}.chip-icon{width:40px;height:40px;left:0.5rem}.My-Picture{width:50px;height:50px;right:0.5rem}.category-title{font-size:1.5rem;padding:1rem}.book-title{font-size:0.65rem}}
 @media(max-width:380px){.chip-icon{width:35px;height:35px}.My-Picture{width:45px;height:45px}header h1{font-size:1.3rem}header p{font-size:0.8rem}.book-title{font-size:0.6rem}.book-grid{gap:0.4rem}}
-.book-badge {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25%;
-  width: auto;
-  z-index: 10;
-  pointer-events: none;
+.book-badge{position:absolute;top:0;left:0;height:25%;width:auto;z-index:10;pointer-events:none}
+@media(min-width: 651px){.book-title{font-size: 1.5rem}}
+/* --- CUSTOM DONATION BUTTON STYLES --- */
+.donation-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 101;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-yellow);
+    color: var(--pure-black);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 9999px;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6), 0 0 0 0 rgba(255, 215, 0, 0.3);
+    transition: all 0.2s ease-in-out;
+    animation: floatMove 4s ease-in-out infinite, pulse 1.5s ease-in-out infinite;
+    font-size: 1rem; /* Smaller size */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
 }
-@media(min-width: 651px) {
-  .book-title {
-    font-size: 1.5rem;
-  }
+.donation-button:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.5);
 }
+@keyframes floatMove {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-10px); /* Move up 10px */
+    }
+}
+/* --- END CUSTOM DONATION BUTTON STYLES --- */
 </style>
 </head>
 <body>
@@ -62,7 +86,6 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 <p>Board Design Book Selection</p>
 <img src="./shimi linkedin pic.png" class="My-Picture" alt="Content Craft Logo"/>
 </header>
-
 <main class="container">
 <section class="category">
 <h2 class="category-title">Digital & Comm</h2>
@@ -139,7 +162,6 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 </div>
 </div></div>
 </section>
-
 <section class="category">
 <h2 class="category-title">Analog & Power</h2>
 <div class="book-grid-wrapper"><div class="book-grid">
@@ -201,7 +223,6 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 </div>
 </div></div>
 </section>
-
 <section class="category">
 <h2 class="category-title">Practical Design</h2>
 <div class="book-grid-wrapper"><div class="book-grid">
@@ -285,7 +306,6 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 </div>
 </div>
 </div></div>
-
 </section>
 <section class="category">
 <h2 class="category-title">Components</h2>
@@ -302,7 +322,7 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 <div class="book-card-back"><img src="Capacitors Comp Cover.jpg" alt="Capacitors"></div>
 </div>
 </div>
-<div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_diodes-activity-7337717775899025409-Fwv0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
+<div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_diodes-activity-733771775899025409-Fwv0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
 <div class="book-card-inner">
 <div class="book-card-front"><div class="book-title">Diodes</div></div>
 <div class="book-card-back"><img src="Diodes Comp Cover.jpg" alt="Diodes"></div>
@@ -366,12 +386,9 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 </div>
 </div></div>
 </section>
-
- 
 <section class="category">
 <h2 class="category-title">"20" Series</h2>
 <div class="book-grid-wrapper"><div class="book-grid">
-
 <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f">
 <div class="book-card-inner">
 <div class="book-card-front"><div class="book-title">20 Capacitors Apps</div></div>
@@ -446,7 +463,6 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 </div>
 </div></div>
 </section>
-
 <section class="category">
 <h2 class="category-title">Tutorials</h2>
 <div class="book-grid-wrapper"><div class="book-grid">
@@ -498,11 +514,30 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 </div>
 </div></div>
 </section>
-
-
-  
 </main>
 <footer>© 2025 SHIMI COHEN – CONTENT CRAFT</footer>
+<!-- Custom floating donation button -->
+
+<!-- Handwriting font -->
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+<a href="https://buymeacoffee.com/shimic"
+   target="_blank"
+   class="donation-button"
+   title="Support Shimi's Content Creation">
+  ☕ Buy me a coffee
+</a>
+
+<style>
+  .donation-button {
+    font-family: "Patrick Hand", sans-serif;
+    font-size: 1.0rem;
+    text-decoration: none;
+    color: #000;
+  }
+</style>
+
+<!-- End custom floating donation button -->
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
 const categories=document.querySelectorAll('.category');
@@ -526,7 +561,7 @@ card.classList.add('flipped');
 });
 });
 document.addEventListener('click',(e)=>{
-if(!e.target.closest('.book-card')){
+if(!e.target.closest('.book-card') && !e.target.closest('.donation-button')){
 bookCards.forEach(c=>c.classList.remove('flipped'));
 }
 });
@@ -534,4 +569,3 @@ bookCards.forEach(c=>c.classList.remove('flipped'));
 </script>
 </body>
 </html>
-
