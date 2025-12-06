@@ -5,7 +5,7 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0JD8LKPNXG');</script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes"/>
-<title>Shimi Cohen – Content Craft & Schematic Vault</title>
+<title>Shimi Cohen – Content Craft </title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet"/>
 <style>
 :root{--neon-red:#FF003C;--bright-red:#FF3355;--dark-red:#CC0029;--pure-black:#000;--pure-white:#FFF;--dark-gray:#111;--medium-gray:#222}
@@ -150,18 +150,6 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,255,255,0.6);font-weig
 .download-status{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--neon-red);color:#000;padding:10px 20px;border-radius:20px;font-size:12px;opacity:0;transition:all .3s ease;z-index:1001;font-family:'Orbitron',sans-serif;font-weight:700}
 .download-status.show{opacity:1}
 
-/* ====== CONFIG MODAL STYLES ====== */
-.config-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.98);z-index:2000;opacity:0;visibility:hidden;transition:all .4s ease;display:flex;align-items:center;justify-content:center}
-.config-modal.active{opacity:1;visibility:visible}
-.config-container{width:90%;max-width:600px;background:rgba(10,10,10,.95);border:2px solid var(--neon-red);border-radius:20px;padding:30px}
-.config-title{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:var(--neon-red);text-transform:uppercase;letter-spacing:2px;text-align:center;margin-bottom:20px}
-.config-form{display:flex;flex-direction:column;gap:15px}
-.config-input{background:rgba(255,255,255,.1);border:1px solid var(--neon-red);border-radius:8px;padding:12px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px}
-.config-input::placeholder{color:rgba(255,255,255,.5)}
-.config-button{background:var(--neon-red);color:#000;border:none;border-radius:8px;padding:12px;font-family:'Orbitron',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:all .3s}
-.config-button:hover{background:var(--bright-red);transform:scale(1.05)}
-.config-note{font-size:12px;color:rgba(255,255,255,.7);text-align:center;margin-top:10px}
-
 /* ====== MEDIA QUERIES ====== */
 @media(max-width:768px){
     header{padding:1rem 1rem}
@@ -186,8 +174,8 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,255,255,0.6);font-weig
         left:20px;
     }
     
-    .vault-download-icon{width:30px;height:30px}
-    .donate-text{font-size:10px}
+    .vault-download-icon{width:40px;height:40px}
+    .donate-text{font-size:8px}
     
     .manager-title{font-size:18px}
     .tab{padding:12px 5px;font-size:12px}
@@ -742,255 +730,9 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,255,255,0.6);font-weig
     </div>
 </div>
 
-<!-- ====== CONFIG MODAL ====== -->
-<div class="config-modal" id="configModal">
-    <div class="config-container">
-        <div class="config-title">GITHUB CONFIGURATION</div>
-        <form class="config-form" id="configForm">
-            <input type="text" class="config-input" id="githubUsername" placeholder="GitHub Username" required>
-            <input type="text" class="config-input" id="githubRepo" placeholder="Repository Name" required>
-            <input type="text" class="config-input" id="githubToken" placeholder="Personal Access Token" required>
-            <input type="text" class="config-input" id="githubBranch" placeholder="Branch (default: main)" value="main">
-            <button type="submit" class="config-button">SAVE CONFIGURATION</button>
-        </form>
-        <div class="config-note">
-            Your configuration will be saved locally in your browser.<br>
-            Never share your Personal Access Token with others.
-        </div>
-    </div>
-</div>
-
 <script>
-// ====== GITHUB CONFIGURATION ======
-let githubConfig = {
-    username: 'ShimiC1978',
-    repo: 'Download',
-    token: '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',
-    branch: 'main'
-};
-
-// Load configuration from localStorage or use default
-function loadConfig() {
-    const saved = localStorage.getItem('githubConfig');
-    if (saved) {
-        githubConfig = JSON.parse(saved);
-    }
-    
-    // Pre-fill form with current values
-    document.getElementById('githubUsername').value = githubConfig.username;
-    document.getElementById('githubRepo').value = githubConfig.repo;
-    document.getElementById('githubToken').value = githubConfig.token;
-    document.getElementById('githubBranch').value = githubConfig.branch || 'main';
-}
-
-// Save configuration to localStorage
-function saveConfig(config) {
-    githubConfig = config;
-    localStorage.setItem('githubConfig', JSON.stringify(config));
-}
-
-// Handle config form submission
-document.getElementById('configForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const config = {
-        username: document.getElementById('githubUsername').value,
-        repo: document.getElementById('githubRepo').value,
-        token: document.getElementById('githubToken').value,
-        branch: document.getElementById('githubBranch').value || 'main'
-    };
-    saveConfig(config);
-    document.getElementById('configModal').classList.remove('active');
-    showStatus('GitHub configuration saved!');
-    // Reload files from GitHub with new config
-    loadFilesFromGitHub();
-});
-
-// ====== GITHUB API FUNCTIONS ======
-async function uploadToGitHub(filename, content, category) {
-    if (!githubConfig.username || !githubConfig.repo || !githubConfig.token) {
-        showStatus('Please configure GitHub settings first');
-        document.getElementById('configModal').classList.add('active');
-        return false;
-    }
-
-    const path = `files/${category}/${filename}`;
-    const url = `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${path}`;
-    
-    try {
-        // First, check if file exists
-        const existingFile = await fetch(url, {
-            headers: {
-                'Authorization': `token ${githubConfig.token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-
-        let sha = null;
-        if (existingFile.ok) {
-            const fileData = await existingFile.json();
-            sha = fileData.sha;
-        }
-
-        // Create or update file
-        const response = await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `token ${githubConfig.token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                message: `Upload ${filename} via Schematic Vault`,
-                content: content,
-                branch: githubConfig.branch,
-                sha: sha
-            })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            return {
-                success: true,
-                url: `https://github.com/${githubConfig.username}/${githubConfig.repo}/blob/${githubConfig.branch}/${path}`,
-                downloadUrl: data.content.download_url
-            };
-        } else {
-            const error = await response.json();
-            return {
-                success: false,
-                error: error.message || 'Upload failed'
-            };
-        }
-    } catch (error) {
-        return {
-            success: false,
-            error: error.message
-        };
-    }
-}
-
-async function getGitHubFiles() {
-    if (!githubConfig.username || !githubConfig.repo || !githubConfig.token) {
-        return [];
-    }
-
-    try {
-        // First check if files directory exists
-        const dirResponse = await fetch(
-            `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/files`,
-            {
-                headers: {
-                    'Authorization': `token ${githubConfig.token}`,
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
-
-        if (!dirResponse.ok) {
-            // Directory doesn't exist, create it
-            await createDirectory('files');
-            return [];
-        }
-
-        const dirData = await dirResponse.json();
-        const files = [];
-
-        // Get files from each category directory
-        for (const category of ['ltspice', 'qspice', 'schematics', 'docs']) {
-            try {
-                const categoryResponse = await fetch(
-                    `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/files/${category}`,
-                    {
-                        headers: {
-                            'Authorization': `token ${githubConfig.token}`,
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                );
-
-                if (categoryResponse.ok) {
-                    const categoryData = await categoryResponse.json();
-                    files.push(...categoryData.map(file => ({
-                        ...file,
-                        category: category
-                    })));
-                }
-            } catch (error) {
-                console.error(`Error loading ${category} files:`, error);
-            }
-        }
-
-        return files;
-    } catch (error) {
-        console.error('Error fetching files:', error);
-        return [];
-    }
-}
-
-async function createDirectory(path) {
-    try {
-        // Create a placeholder file to establish the directory
-        const placeholderContent = btoa('# This directory contains files uploaded via Schematic Vault');
-        
-        await fetch(
-            `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${path}/.gitkeep`,
-            {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${githubConfig.token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: `Create ${path} directory`,
-                    content: placeholderContent,
-                    branch: githubConfig.branch
-                })
-            }
-        );
-    } catch (error) {
-        console.error('Error creating directory:', error);
-    }
-}
-
-async function deleteFromGitHub(path, sha) {
-    try {
-        const response = await fetch(
-            `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${path}`,
-            {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `token ${githubConfig.token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: `Delete ${path} via Schematic Vault`,
-                    sha: sha,
-                    branch: githubConfig.branch
-                })
-            }
-        );
-
-        if (response.ok) {
-            return { success: true };
-        } else {
-            const error = await response.json();
-            return {
-                success: false,
-                error: error.message || 'Delete failed'
-            };
-        }
-    } catch (error) {
-        return {
-            success: false,
-            error: error.message
-        };
-    }
-}
-
 // ====== ORIGINAL BOOK CARDS FUNCTIONALITY ======
 document.addEventListener('DOMContentLoaded',()=>{
-    // Load GitHub configuration
-    loadConfig();
-    
     // Original book card functionality
     const categories=document.querySelectorAll('.category');
     categories.forEach(category=>{
@@ -1026,8 +768,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 // ====== VAULT SYSTEM FUNCTIONALITY ======
 function initVaultSystem() {
-    // Initialize with files from GitHub
-    loadFilesFromGitHub();
+    // Initialize sample files
+    initSampleFiles();
     
     // BRUTE FORCE CLICK HANDLING - Multiple event types for maximum compatibility
     const vaultDownloadBtn = document.getElementById('vaultDownloadBtn');
@@ -1145,25 +887,12 @@ function initVaultSystem() {
             
             const fileItem = deleteBtn.closest('.file-item');
             if (fileItem) {
-                const fileName = fileItem.querySelector('.file-name').textContent;
-                const filePath = fileItem.getAttribute('data-path');
-                const fileSha = fileItem.getAttribute('data-sha');
-                
-                // Confirm deletion
-                if (confirm(`Are you sure you want to delete ${fileName}?`)) {
-                    // Delete from GitHub
-                    deleteFromGitHub(filePath, fileSha).then(result => {
-                        if (result.success) {
-                            fileItem.style.opacity = '0';
-                            setTimeout(() => {
-                                fileItem.remove();
-                                showStatus('File deleted');
-                            }, 300);
-                        } else {
-                            showStatus(`Error: ${result.error}`);
-                        }
-                    });
-                }
+                fileItem.style.opacity = '0';
+                setTimeout(() => {
+                    fileItem.remove();
+                    showStatus('File deleted');
+                }, 300);
+                console.log('Delete button clicked');
             }
         }
     }, true); // Use capture phase for maximum reliability
@@ -1224,43 +953,32 @@ function initVaultSystem() {
 function forceDownload(fileName, fileUrl) {
     showStatus(`Downloading: ${fileName}`);
     
-    // If it's a GitHub URL, use the raw content URL
-    if (fileUrl.includes('github.com')) {
-        // Convert GitHub URL to raw content URL
-        const rawUrl = fileUrl
-            .replace('github.com', 'raw.githubusercontent.com')
-            .replace('/blob/', '/');
-        
-        // Create invisible download link
-        const link = document.createElement('a');
-        link.href = rawUrl;
-        link.download = fileName;
-        
-        // Append to body
-        document.body.appendChild(link);
-        
-        // Trigger click
+    // Create invisible download link
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = fileName;
+    
+    // Append to body
+    document.body.appendChild(link);
+    
+    // Trigger click with multiple methods for maximum compatibility
+    if (typeof link.click === 'function') {
         link.click();
-        
-        // Clean up
-        setTimeout(() => {
-            document.body.removeChild(link);
-            showStatus('Download complete!');
-        }, 100);
     } else {
-        // Original download logic for non-GitHub files
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = fileName;
-        
-        document.body.appendChild(link);
-        link.click();
-        
-        setTimeout(() => {
-            document.body.removeChild(link);
-            showStatus('Download complete!');
-        }, 100);
+        // Fallback for older browsers
+        const event = new MouseEvent('click', {
+            view: window,
+            bubbles: true,
+            cancelable: true
+        });
+        link.dispatchEvent(event);
     }
+    
+    // Clean up
+    setTimeout(() => {
+        document.body.removeChild(link);
+        showStatus('Download complete!');
+    }, 100);
 }
 
 // FUNCTION TO HANDLE FILE UPLOAD
@@ -1270,27 +988,14 @@ function handleFileUpload(files, category) {
         const fileName = file.name;
         const fileSize = (file.size / 1024).toFixed(2) + ' KB';
         
-        // Convert file to base64 for transmission
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            const content = event.target.result.split(',')[1]; // Remove data URL prefix
-            
-            // Show uploading status
-            showStatus(`Uploading ${fileName} to GitHub...`);
-            
-            // Upload to GitHub
-            uploadToGitHub(fileName, content, category).then(result => {
-                if (result.success) {
-                    // Add to file bank with GitHub URL
-                    addFileToBank(category, fileName, fileSize, result.url, result.downloadUrl);
-                    showStatus(`${fileName} uploaded to GitHub!`);
-                } else {
-                    showStatus(`Error uploading ${fileName}: ${result.error}`);
-                }
-            });
-        };
-        reader.readAsDataURL(file);
+        // Create file URL for preview/download
+        const fileUrl = URL.createObjectURL(file);
+        
+        // Add to file bank
+        addFileToBank(category, fileName, fileSize, fileUrl);
     }
+    
+    showStatus(`Uploaded ${files.length} file(s) to ${category}`);
 }
 
 // FUNCTION TO TRIGGER FILE UPLOAD DIALOG
@@ -1324,7 +1029,7 @@ function triggerFileUpload(category) {
 }
 
 // FUNCTION TO ADD FILE TO BANK
-function addFileToBank(category, fileName, fileSize, fileUrl, downloadUrl) {
+function addFileToBank(category, fileName, fileSize, fileUrl) {
     const bankId = 'bank' + category.charAt(0).toUpperCase() + category.slice(1);
     const bank = document.getElementById(bankId);
     
@@ -1332,8 +1037,7 @@ function addFileToBank(category, fileName, fileSize, fileUrl, downloadUrl) {
     
     const fileItem = document.createElement('div');
     fileItem.className = 'file-item';
-    fileItem.setAttribute('data-url', downloadUrl || fileUrl);
-    fileItem.setAttribute('data-path', `files/${category}/${fileName}`);
+    fileItem.setAttribute('data-url', fileUrl);
     
     // Get file icon based on extension
     const fileExt = fileName.split('.').pop().toLowerCase();
@@ -1368,28 +1072,48 @@ function showStatus(message) {
     }, 3000);
 }
 
-// FUNCTION TO LOAD FILES FROM GITHUB
-function loadFilesFromGitHub() {
-    showStatus('Loading files from GitHub...');
+// INITIALIZE WITH SAMPLE FILES
+function initSampleFiles() {
+    // Sample LTSPICE files
+    const ltspiceFiles = [
+        {name: 'amplifier.asc', size: '15.2 KB', type: 'Circuit'},
+        {name: 'filter_design.asc', size: '22.8 KB', type: 'Circuit'},
+        {name: 'power_supply.asc', size: '18.5 KB', type: 'Circuit'}
+    ];
     
-    getGitHubFiles().then(files => {
-        // Clear existing file banks
-        document.querySelectorAll('.file-bank').forEach(bank => {
-            bank.innerHTML = '';
-        });
-        
-        // Add files to appropriate banks
-        files.forEach(file => {
-            const category = file.category;
-            const fileName = file.name;
-            const fileSize = (file.size / 1024).toFixed(2) + ' KB';
-            const fileUrl = file.html_url;
-            const downloadUrl = file.download_url;
-            
-            addFileToBank(category, fileName, fileSize, fileUrl, downloadUrl);
-        });
-        
-        showStatus('Files loaded from GitHub!');
+    // Sample QTSPICE files
+    const qspiceFiles = [
+        {name: 'oscillator.qsch', size: '12.4 KB', type: 'Circuit'},
+        {name: 'mixer_circuit.qsch', size: '19.7 KB', type: 'Circuit'}
+    ];
+    
+    // Sample Schematic files
+    const schematicFiles = [
+        {name: 'main_board.pdf', size: '450 KB', type: 'PDF'},
+        {name: 'layout.dwg', size: '1.2 MB', type: 'Drawing'}
+    ];
+    
+    // Sample Doc files
+    const docFiles = [
+        {name: 'user_manual.pdf', size: '2.1 MB', type: 'PDF'},
+        {name: 'specifications.docx', size: '85 KB', type: 'Word'}
+    ];
+    
+    // Add sample files to banks
+    ltspiceFiles.forEach(file => {
+        addFileToBank('ltspice', file.name, file.size, '#'); // Using # as placeholder
+    });
+    
+    qspiceFiles.forEach(file => {
+        addFileToBank('qspice', file.name, file.size, '#');
+    });
+    
+    schematicFiles.forEach(file => {
+        addFileToBank('schematics', file.name, file.size, '#');
+    });
+    
+    docFiles.forEach(file => {
+        addFileToBank('docs', file.name, file.size, '#');
     });
 }
 
