@@ -13,7 +13,8 @@
             --accent-color: #e63946;
             --accent-light: #f1faee;
             --text-primary: #0a0e27;
-            --text-secondary: #457b9d;
+            --text-secondary: #454545;
+            --text-muted: #6c757d;
             --bg-primary: #ffffff;
             --bg-secondary: #f8f9fa;
             --bg-tertiary: #e9ecef;
@@ -176,6 +177,54 @@
             width: 100%;
         }
 
+        /* Mobile Navigation Toggle */
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .mobile-nav-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-primary);
+            box-shadow: var(--shadow-lg);
+            z-index: 99;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .mobile-nav-dropdown.active {
+            display: block;
+        }
+
+        .mobile-nav-list {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .mobile-nav-item {
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color var(--transition-base);
+        }
+
+        .mobile-nav-item:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        .mobile-nav-item.active {
+            background-color: rgba(230, 57, 70, 0.1);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
         /* ====== MAIN CONTENT ====== */
         main {
             padding: 2rem 0;
@@ -257,7 +306,6 @@
             overflow: hidden;
             box-shadow: var(--shadow-sm);
             transition: all var(--transition-base);
-            cursor: pointer;
             position: relative;
             height: 280px;
         }
@@ -301,11 +349,11 @@
             transform: rotateY(180deg);
         }
 
-        .book-card:hover .book-card-front {
+        .book-card.flipped .book-card-front {
             transform: rotateY(180deg);
         }
 
-        .book-card:hover .book-card-back {
+        .book-card.flipped .book-card-back {
             transform: rotateY(0deg);
         }
 
@@ -343,22 +391,45 @@
             object-fit: cover;
         }
 
-        .book-link {
+        .book-actions {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 0.75rem;
-            background-color: var(--accent-color);
-            color: white;
-            font-weight: 500;
-            text-align: center;
+            display: flex;
+            background-color: rgba(10, 14, 39, 0.8);
             transform: translateY(100%);
             transition: transform var(--transition-base);
         }
 
-        .book-card:hover .book-link {
+        .book-card:hover .book-actions {
             transform: translateY(0);
+        }
+
+        .book-action-btn {
+            flex: 1;
+            padding: 0.75rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: background-color var(--transition-base);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .book-action-btn:hover {
+            background-color: rgba(230, 57, 70, 0.8);
+        }
+
+        .book-action-btn i {
+            font-size: 1.2rem;
+        }
+
+        .book-action-btn span {
+            font-size: 0.7rem;
         }
 
         /* ====== FLOATING ACTION BUTTONS ====== */
@@ -630,8 +701,12 @@
                 text-align: center;
             }
 
+            .mobile-nav-toggle {
+                display: block;
+            }
+
             .nav-list {
-                justify-content: center;
+                display: none;
             }
 
             .book-grid {
@@ -642,6 +717,10 @@
 
             .book-card {
                 height: 220px;
+            }
+
+            .book-actions {
+                transform: translateY(0);
             }
 
             .modal-content {
@@ -703,6 +782,9 @@
     <!-- Navigation -->
     <nav>
         <div class="container">
+            <button class="mobile-nav-toggle" id="mobileNavToggle">
+                <i class="fas fa-bars"></i>
+            </button>
             <ul class="nav-list">
                 <li class="nav-item"><a href="#" class="nav-link active">All</a></li>
                 <li class="nav-item"><a href="#digital" class="nav-link">Digital & Comm</a></li>
@@ -712,6 +794,17 @@
                 <li class="nav-item"><a href="#series20" class="nav-link">"20" Series</a></li>
                 <li class="nav-item"><a href="#tutorials" class="nav-link">Tutorials</a></li>
             </ul>
+            <div class="mobile-nav-dropdown" id="mobileNavDropdown">
+                <ul class="mobile-nav-list">
+                    <li class="mobile-nav-item active">All</li>
+                    <li class="mobile-nav-item">Digital & Comm</li>
+                    <li class="mobile-nav-item">Analog & Power</li>
+                    <li class="mobile-nav-item">Practical Design</li>
+                    <li class="mobile-nav-item">Components</li>
+                    <li class="mobile-nav-item">"20" Series</li>
+                    <li class="mobile-nav-item">Tutorials</li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -737,8 +830,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Serial Communication Cover.jpg" alt="Communication" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/">
@@ -749,8 +851,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="MCU Cover.jpg" alt="MCU" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy">
@@ -761,8 +872,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="FPGA Cover.jpg" alt="FPGA" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/">
@@ -773,8 +893,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Digital Video Cover.jpg" alt="Video" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX">
@@ -785,8 +914,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="CMOS Sensor Cover.jpg" alt="CMOS" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz">
@@ -797,8 +935,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Logic Gates Cover.jpg" alt="Logic Gates" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/">
@@ -810,8 +957,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="PID Control Cover.jpg" alt="PID" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d">
@@ -822,8 +978,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Wireless Communication Cover.jpg" alt="Wireless" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn">
@@ -835,8 +1000,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="DDR Memory Cover.jpg" alt="DDR" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9">
@@ -847,8 +1021,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Firmware Coding Cover.jpg" alt="FW1" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40">
@@ -859,8 +1042,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Firmware Coding 2 Cover.jpg" alt="FW2" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -886,8 +1078,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Analog Filters Cover.jpg" alt="Filters" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/">
@@ -898,8 +1099,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Class Amplifiers Cover.jpg" alt="Amplifiers" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/">
@@ -910,8 +1120,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="OPAMP Cover.jpg" alt="OPAMP" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/">
@@ -922,8 +1141,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Oscillators Cover.jpg" alt="Oscillators" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/">
@@ -934,8 +1162,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="LED Drivers Cover.jpg" alt="LED" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/">
@@ -946,8 +1183,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Power Design Cover.jpg" alt="Power" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr">
@@ -958,8 +1204,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Radio Frequency Cover.jpg" alt="RF" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O">
@@ -971,8 +1226,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Ground Rules Cover.jpg" alt="Ground" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_battery-management-system-activity-7326196854382059521-rRNP?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
@@ -983,8 +1247,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Battery Management Cover.jpg" alt="Battery" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1011,8 +1284,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="PCB Design Cover.jpg" alt="PCB Design" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/">
@@ -1023,8 +1305,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Hardware Cover.jpg" alt="Hardware" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/">
@@ -1035,8 +1326,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Hardware Extended Cover.jpg" alt="Hardware Extended" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/">
@@ -1047,8 +1347,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Design For Testability Cover.jpg" alt="DFT" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/">
@@ -1059,8 +1368,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Protection Circuits Cover.jpg" alt="Protection" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/">
@@ -1071,8 +1389,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Thermal Management Cover.jpg" alt="Thermal" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N">
@@ -1083,8 +1410,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Hardware Buffers Cover.jpg" alt="HW Buffers" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/">
@@ -1095,8 +1431,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Current Sensing Cover.jpg" alt="Current" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb">
@@ -1108,8 +1453,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="ADC Cover.jpg" alt="ADC" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu">
@@ -1121,8 +1475,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Hardware Drivers Cover.jpg" alt="HW Drivers" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM">
@@ -1133,8 +1496,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Precision Circuits Cover.jpg" alt="Precision" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_board-design-protection-activity-7393852496705781760-NJ0Y?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
@@ -1145,8 +1517,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Hardware Protection Cover.jpg" alt="Hardware Protection" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1172,8 +1553,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Component Selection Cover.jpg" alt="Selection" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW">
@@ -1184,8 +1574,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Capacitors Comp Cover.jpg" alt="Capacitors" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_diodes-activity-733771775899025409-Fwv0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
@@ -1196,8 +1595,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Diodes Comp Cover.jpg" alt="Diodes" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/">
@@ -1208,8 +1616,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Inductors Comp Cover.jpg" alt="Inductors" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/">
@@ -1220,8 +1637,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Transistors Comp Cover.jpg" alt="Transistors" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag">
@@ -1232,8 +1658,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Sensors Comp Cover.jpg" alt="Sensors" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/">
@@ -1244,8 +1679,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="GYRO Comp Cover.jpg" alt="MEMS" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
@@ -1256,8 +1700,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Resistors Comp Cover.jpg" alt="Resistors" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_connectors-cables-activity-7336588127437795328-boN_?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
@@ -1268,8 +1721,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Connectors Comp Cover.jpg" alt="Connectors" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC">
@@ -1281,8 +1743,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Transformers Comp Cover.jpg" alt="Transformer" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc">
@@ -1293,8 +1764,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Switches Comp Cover.jpg" alt="Switches" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH">
@@ -1305,8 +1785,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Test Equipment Cover.jpg" alt="Test Equipment" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1332,8 +1821,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Capacitors Cover.jpg" alt="20 Caps" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11">
@@ -1344,8 +1842,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Resistors Cover.jpg" alt="20 Res" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8">
@@ -1356,8 +1863,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Active ICs Cover.jpg" alt="20 ICs" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt">
@@ -1368,8 +1884,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Diodes Cover.jpg" alt="20 Diodes" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO">
@@ -1381,8 +1906,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Transistors Cover.jpg" alt="20 Trans" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe">
@@ -1393,8 +1927,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="MCU Tips Cover.jpg" alt="20 MCU" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_">
@@ -1406,8 +1949,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="COMM Problems Cover.jpg" alt="20 Comm" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H">
@@ -1418,8 +1970,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Inductors Cover.jpg" alt="20 Ind" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G">
@@ -1430,8 +1991,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="OPAMP Apps Cover.jpg" alt="20 OPAMP" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN">
@@ -1442,8 +2012,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="DFM Cover.jpg" alt="20 DFM" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm">
@@ -1455,8 +2034,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Signal Conversions Cover.jpg" alt="20 Signal" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1482,8 +2070,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Q&A Power Analog Cover.jpg" alt="QA" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm">
@@ -1494,8 +2091,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Power Tree Cover.jpg" alt="Power Tree" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD">
@@ -1506,8 +2112,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Bring Up Cover.jpg" alt="Bring Up" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_free-eda-tools-activity-7397117746196512768-t1RO?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
@@ -1518,8 +2133,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="EDA Cover.jpg" alt="EDA Free Tools" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_ltspice-from-scratch-activity-7398937815675371520-H3Fh?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
@@ -1531,8 +2155,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="LTSpice Tutorial Part1 Cover.jpg" alt="LTSpice Tutorial Part1" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_ltspice-part-2-activity-7402562212386553856-2lLW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
@@ -1544,8 +2177,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="LTSpice Tutorial Part2 Cover.jpg" alt="LTSpice Tutorial Part2" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                         <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq">
@@ -1556,8 +2198,17 @@
                                 </div>
                                 <div class="book-card-back">
                                     <img src="Troubleshooting Cover.jpg" alt="Troubleshooting" class="book-cover">
-                                    <a href="#" class="book-link">View on LinkedIn</a>
                                 </div>
+                            </div>
+                            <div class="book-actions">
+                                <button class="book-action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View</span>
+                                </button>
+                                <button class="book-action-btn link-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>Open</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1639,6 +2290,43 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // ====== MOBILE NAVIGATION ======
+            const mobileNavToggle = document.getElementById('mobileNavToggle');
+            const mobileNavDropdown = document.getElementById('mobileNavDropdown');
+            const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+            
+            mobileNavToggle.addEventListener('click', () => {
+                mobileNavDropdown.classList.toggle('active');
+            });
+            
+            mobileNavItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    // Remove active class from all items
+                    mobileNavItems.forEach(navItem => navItem.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    item.classList.add('active');
+                    
+                    // Close dropdown
+                    mobileNavDropdown.classList.remove('active');
+                    
+                    // Scroll to corresponding category
+                    const categories = document.querySelectorAll('.category');
+                    if (categories[index]) {
+                        categories[index].scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Open the target category
+                        document.querySelectorAll('.category').forEach(cat => {
+                            cat.classList.remove('open');
+                        });
+                        categories[index].classList.add('open');
+                    }
+                });
+            });
+            
             // ====== CATEGORY TOGGLING ======
             const categoryHeaders = document.querySelectorAll('.category-header');
             
@@ -1696,12 +2384,34 @@
             const bookCards = document.querySelectorAll('.book-card');
             
             bookCards.forEach(card => {
-                card.addEventListener('click', () => {
+                const viewBtn = card.querySelector('.view-btn');
+                const linkBtn = card.querySelector('.link-btn');
+                
+                // View button - flip card
+                viewBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    card.classList.toggle('flipped');
+                });
+                
+                // Link button - open link
+                linkBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     const link = card.getAttribute('data-link');
                     if (link) {
                         window.open(link, '_blank');
                     }
                 });
+                
+                // For desktop, flip on hover
+                if (window.innerWidth > 768) {
+                    card.addEventListener('mouseenter', () => {
+                        card.classList.add('flipped');
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        card.classList.remove('flipped');
+                    });
+                }
             });
             
             // ====== MODAL FUNCTIONALITY ======
