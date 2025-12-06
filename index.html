@@ -4,27 +4,27 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0JD8LKPNXG"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0JD8LKPNXG');</script>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Shimi Cohen – Content Craft</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes"/>
+<title>Shimi Cohen – Content Craft & Schematic Vault</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root{--primary-yellow:#FFD700;--bright-yellow:#FFEA00;--dark-yellow:#FFA500;--pure-black:#000;--dark-gray:#0a0a0a;--medium-gray:#1a1a1a}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#000 100%);font-family:'Rajdhani',sans-serif;color:var(--primary-yellow);min-height:100vh;overflow-x:hidden;position:relative}
-body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:repeating-linear-gradient(90deg,transparent,transparent 50px,rgba(255,215,0,0.03) 50px,rgba(255,215,0,0.03) 51px),repeating-linear-gradient(0deg,transparent,transparent 50px,rgba(255,215,0,0.03) 50px,rgba(255,215,0,0.03) 51px);z-index:0;animation:gridMove 10s linear infinite}
+:root{--neon-red:#FF003C;--bright-red:#FF3355;--dark-red:#CC0029;--pure-black:#000;--pure-white:#FFF;--dark-gray:#111;--medium-gray:#222}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:linear-gradient(135deg,#000 0%,#111 50%,#000 100%);font-family:'Rajdhani',sans-serif;color:var(--pure-white);min-height:100vh;overflow-x:hidden;position:relative;touch-action:manipulation}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:repeating-linear-gradient(90deg,transparent,transparent 50px,rgba(255,0,60,0.03) 50px,rgba(255,0,60,0.03) 51px),repeating-linear-gradient(0deg,transparent,transparent 50px,rgba(255,0,60,0.03) 50px,rgba(255,0,60,0.03) 51px);z-index:0;animation:gridMove 10s linear infinite}
 @keyframes gridMove{0%{transform:translate(0,0)}100%{transform:translate(50px,50px)}}
-header{position:sticky;top:0;z-index:100;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);border-bottom:2px solid var(--primary-yellow);padding:1.5rem 1rem;text-align:center;box-shadow:0 4px 20px rgba(255,215,0,0.3)}
-header h1{font-family:'Orbitron',sans-serif;font-weight:900;font-size:2.5rem;color:var(--primary-yellow);text-transform:uppercase;letter-spacing:0.15em;text-shadow:0 0 20px rgba(255,215,0,0.8),0 0 40px rgba(255,215,0,0.4);animation:pulse 1.5s ease-in-out infinite;user-select:text}
-.chip-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:50px;height:50px;animation:pulse 1.5s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(255,215,0,0.6));object-fit:contain}
-.My-Picture{position:absolute;right:1rem;top:50%;transform:translateY(-50%);width:60px;height:60px;animation:pulse 1.5s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(255,215,0,0.6));object-fit:contain}
-@keyframes pulse{0%,100%{text-shadow:0 0 20px rgba(255,215,0,0.8),0 0 40px rgba(255,215,0,0.4);filter:drop-shadow(0 0 10px rgba(255,215,0,0.6))}50%{text-shadow:0 0 30px rgba(255,215,0,1),0 0 60px rgba(255,215,0,0.6);filter:drop-shadow(0 0 20px rgba(255,215,0,1))}}
-header p{margin-top:0.5rem;font-weight:600;font-size:1rem;color:rgba(255,215,0,0.7);letter-spacing:0.1em;text-transform:uppercase;user-select:text}
+header{position:sticky;top:0;z-index:100;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);border-bottom:2px solid var(--neon-red);padding:1.5rem 1rem;text-align:center;box-shadow:0 4px 20px rgba(255,0,60,0.3)}
+header h1{font-family:'Orbitron',sans-serif;font-weight:900;font-size:2.5rem;color:var(--neon-red);text-transform:uppercase;letter-spacing:0.15em;text-shadow:0 0 20px rgba(255,0,60,0.8),0 0 40px rgba(255,0,60,0.4);animation:pulse 1.5s ease-in-out infinite;user-select:text}
+.chip-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:50px;height:50px;animation:pulse 1.5s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(255,0,60,0.6));object-fit:contain}
+.My-Picture{position:absolute;right:1rem;top:50%;transform:translateY(-50%);width:60px;height:60px;animation:pulse 1.5s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(255,0,60,0.6));object-fit:contain}
+@keyframes pulse{0%,100%{text-shadow:0 0 20px rgba(255,0,60,0.8),0 0 40px rgba(255,0,60,0.4);filter:drop-shadow(0 0 10px rgba(255,0,60,0.6))}50%{text-shadow:0 0 30px rgba(255,0,60,1),0 0 60px rgba(255,0,60,0.6);filter:drop-shadow(0 0 20px rgba(255,0,60,1))}}
+header p{margin-top:0.5rem;font-weight:600;font-size:1rem;color:rgba(255,255,255,0.7);letter-spacing:0.1em;text-transform:uppercase;user-select:text}
 main.container{max-width:1200px;margin:0.1rem auto;padding:0 1rem;position:relative;z-index:1}
-section.category{margin-bottom:0.1rem;border:1px solid rgba(255,215,0,0.1);background-color:var(--dark-gray);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.5)}
-.category-title{font-family:'Orbitron',sans-serif;font-weight:300;font-size:1.5rem;color:var(--primary-yellow);text-transform:uppercase;letter-spacing:0.15em;padding:1.5rem;text-align:center;text-shadow:0 0 20px rgba(255,215,0,0.8);cursor:pointer;user-select:none;transition:background-color 0.3s,color 0.3s}
-.category-title:hover{background-color:rgba(255,215,0,0.05)}
-.category.open .category-title{background-color:rgba(255,215,0,0.1);border-bottom:2px solid var(--primary-yellow);animation:glowPulse 1.5s ease-in-out infinite}
-@keyframes glowPulse{0%,100%{text-shadow:0 0 20px rgba(255,215,0,0.8)}50%{text-shadow:0 0 30px rgba(255,215,0,1),0 0 50px rgba(255,215,0,0.5)}}
+section.category{margin-bottom:0.1rem;border:1px solid rgba(255,0,60,0.1);background-color:var(--dark-gray);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.5)}
+.category-title{font-family:'Orbitron',sans-serif;font-weight:300;font-size:1.5rem;color:var(--neon-red);text-transform:uppercase;letter-spacing:0.15em;padding:1.5rem;text-align:center;text-shadow:0 0 20px rgba(255,0,60,0.8);cursor:pointer;user-select:none;transition:background-color 0.3s,color 0.3s}
+.category-title:hover{background-color:rgba(255,0,60,0.05)}
+.category.open .category-title{background-color:rgba(255,0,60,0.1);border-bottom:2px solid var(--neon-red);animation:glowPulse 1.5s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{text-shadow:0 0 20px rgba(255,0,60,0.8)}50%{text-shadow:0 0 30px rgba(255,0,60,1),0 0 50px rgba(255,0,60,0.5)}}
 .book-grid-wrapper{max-height:0;overflow:hidden;transition:max-height 0.1s ease-in-out,padding 0.1s ease-in-out}
 .category.open .book-grid-wrapper{max-height:5000px;padding:1rem}
 .book-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;padding:0}
@@ -32,51 +32,187 @@ section.category{margin-bottom:0.1rem;border:1px solid rgba(255,215,0,0.1);backg
 .book-card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.3s;border-radius:6px}
 .book-card.flipped .book-card-inner{transform:rotateY(180deg)}
 .book-card-front,.book-card-back{width:100%;height:100%;position:absolute;backface-visibility:hidden;border-radius:6px;border:2px solid var(--pure-black);box-shadow:0 4px 15px rgba(0,0,0,0.3)}
-.book-card-front{background:linear-gradient(135deg,var(--bright-yellow),var(--primary-yellow));display:flex;align-items:center;justify-content:center;padding:0.5rem}
+.book-card-front{background:linear-gradient(135deg,var(--bright-red),var(--neon-red));display:flex;align-items:center;justify-content:center;padding:0.5rem}
 .book-card-back{background:var(--dark-gray);transform:rotateY(180deg);overflow:hidden}
 .book-card-back img{width:100%;height:100%;object-fit:cover}
-.book-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:0.75rem;text-align:center;text-transform:uppercase;letter-spacing:0.05em;color:var(--pure-black);line-height:1.1;word-wrap:break-word;hyphens:auto}
-footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight:600;font-size:0.85rem;letter-spacing:0.05em;border-top:1px solid rgba(255,215,0,0.2);margin-top:3rem;position:relative;z-index:1}
-@media(max-width:650px){header{padding:1rem 1rem}main.container{margin:1rem auto;padding:0 0.5rem}header h1{font-size:1.6rem}.chip-icon{width:40px;height:40px;left:0.5rem}.My-Picture{width:50px;height:50px;right:0.5rem}.category-title{font-size:1.5rem;padding:1rem}.book-title{font-size:0.65rem}}
-@media(max-width:380px){.chip-icon{width:35px;height:35px}.My-Picture{width:45px;height:45px}header h1{font-size:1.3rem}header p{font-size:0.8rem}.book-title{font-size:0.6rem}.book-grid{gap:0.4rem}}
-.book-badge{position:absolute;top:0;left:0;height:25%;width:auto;z-index:10;pointer-events:none}
+.book-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:0.75rem;text-align:center;text-transform:uppercase;letter-spacing:0.05em;color:var(--pure-white);line-height:1.1;word-wrap:break-word;hyphens:auto}
+footer{text-align:center;padding:2rem 1rem;color:rgba(255,255,255,0.6);font-weight:600;font-size:0.85rem;letter-spacing:0.05em;border-top:1px solid rgba(255,0,60,0.2);margin-top:3rem;position:relative;z-index:1}
+
+/* ====== VAULT DOWNLOAD BUTTON STYLES ====== */
+.vault-download-btn{
+    position:fixed;
+    bottom:40px;
+    right:40px;
+    width:80px;
+    height:80px;
+    background:var(--pure-black);
+    border:3px solid var(--neon-red);
+    border-radius:50%;
+    cursor:pointer;
+    z-index:1000;
+    transition:all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    touch-action:manipulation;
+}
+.vault-download-btn:hover,
+.vault-download-btn:active {
+    transform:scale(1.15) rotate(360deg);
+    border-width:4px;
+    border-color:var(--pure-white);
+}
+.vault-download-icon{
+    width:35px;
+    height:35px;
+    stroke:var(--neon-red);
+    stroke-width:2;
+    fill:none;
+    transition:stroke .3s;
+    pointer-events:none;
+}
+.vault-download-btn:hover .vault-download-icon,
+.vault-download-btn:active .vault-download-icon{
+    stroke:var(--pure-white);
+}
+
+/* ====== DONATE BUTTON STYLES ====== */
+.donate-button{
+    position:fixed;
+    bottom:40px;
+    left:40px;
+    width:70px;
+    height:70px;
+    background:var(--pure-black);
+    border:3px solid var(--neon-red);
+    border-radius:50%;
+    cursor:pointer;
+    z-index:1000;
+    transition:all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    touch-action:manipulation;
+    text-decoration:none;
+    color:var(--neon-red);
+}
+.donate-button:hover,
+.donate-button:active {
+    transform:scale(1.15) rotate(360deg);
+    border-width:4px;
+    border-color:var(--pure-white);
+}
+.donate-text{
+    font-family:'Orbitron',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    text-align:center;
+    transition:all 0.3s;
+}
+.donate-button:hover .donate-text,
+.donate-button:active .donate-text{
+    color:var(--pure-white);
+}
+
+/* ====== FILE VAULT MANAGER STYLES ====== */
+.file-manager{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);z-index:999;opacity:0;visibility:hidden;transition:all .4s ease;display:flex;align-items:center;justify-content:center}
+.file-manager.active{opacity:1;visibility:visible}
+.manager-container{width:90%;max-width:1200px;height:90%;background:rgba(10,10,10,.95);border:2px solid var(--neon-red);border-radius:20px;display:flex;flex-direction:column;overflow:hidden}
+.manager-header{padding:20px 30px;border-bottom:1px solid var(--neon-red);display:flex;justify-content:space-between;align-items:center}
+.manager-title{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--neon-red);text-transform:uppercase;letter-spacing:3px;text-shadow:0 0 20px rgba(255,0,60,0.8)}
+.close-btn{width:40px;height:40px;background:var(--pure-black);border:2px solid var(--neon-red);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s ease;touch-action:manipulation}
+.close-btn:hover{background:var(--neon-red);transform:rotate(90deg)}
+.close-icon{width:20px;height:20px;stroke:var(--neon-red);stroke-width:2;pointer-events:none}
+.close-btn:hover .close-icon{stroke:#000}
+.tabs{display:flex;border-bottom:1px solid rgba(255,0,60,.3)}
+.tab{flex:1;padding:15px;background:transparent;border:none;color:#888;font-family:'Orbitron',sans-serif;font-weight:700;cursor:pointer;text-transform:uppercase;border-bottom:3px solid transparent;touch-action:manipulation;-webkit-appearance:none;appearance:none;transition:all .3s}
+.tab:hover{color:#FFF}
+.tab.active{color:var(--neon-red);border-bottom-color:var(--neon-red)}
+.content-area{flex:1;padding:30px;overflow-y:auto;display:none}
+.content-area.active{display:block}
+.upload-zone{border:2px dashed var(--neon-red);border-radius:15px;padding:40px;text-align:center;cursor:pointer;height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:20px;transition:all .3s ease;touch-action:manipulation}
+.upload-zone:hover{background:rgba(255,0,60,.05);}
+.upload-zone.dragover{border-color:#fff;background:rgba(255,0,60,.1)}
+.upload-icon{width:60px;height:60px;stroke:var(--neon-red);margin-bottom:20px;stroke-width:2;pointer-events:none}
+.upload-text{font-size:16px;margin-bottom:10px;opacity:.8;pointer-events:none;color:var(--neon-red);font-family:'Orbitron',sans-serif}
+.upload-subtext{font-size:12px;opacity:.5;pointer-events:none;color:#aaa}
+.file-bank{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px}
+.file-item{background:rgba(20,20,20,.8);border:2px solid rgba(255,0,60,.3);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:all .3s ease;position:relative;min-height:80px;display:flex;flex-direction:column;justify-content:center;touch-action:manipulation}
+.file-item:hover{border-color:var(--neon-red);transform:translateY(-5px)}
+.file-name{font-size:13px;font-weight:700;text-transform:uppercase;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--neon-red);font-family:'Orbitron',sans-serif}
+.delete-btn{position:absolute;top:8px;right:8px;width:28px;height:28px;background:rgba(255,0,0,.8);border:none;border-radius:50%;cursor:pointer;opacity:0;transition:all .3s ease;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
+.file-item:hover .delete-btn{opacity:1}
+.delete-btn:hover{background:#fff;transform:scale(1.1)}
+.delete-icon{width:14px;height:14px;stroke:#fff;stroke-width:2;fill:none;pointer-events:none}
+.delete-btn:hover .delete-icon{stroke:#000}
+.download-status{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--neon-red);color:#000;padding:10px 20px;border-radius:20px;font-size:12px;opacity:0;transition:all .3s ease;z-index:1001;font-family:'Orbitron',sans-serif;font-weight:700}
+.download-status.show{opacity:1}
+
+/* ====== MEDIA QUERIES ====== */
+@media(max-width:768px){
+    header{padding:1rem 1rem}
+    main.container{margin:1rem auto;padding:0 0.5rem}
+    header h1{font-size:1.6rem}
+    .chip-icon{width:40px;height:40px;left:0.5rem}
+    .My-Picture{width:50px;height:50px;right:0.5rem}
+    .category-title{font-size:1.5rem;padding:1rem}
+    .book-title{font-size:0.65rem}
+    
+    /* Mobile adjustments for buttons */
+    .vault-download-btn{
+        width:70px;
+        height:70px;
+        bottom:20px;
+        right:20px;
+    }
+    .donate-button{
+        width:60px;
+        height:60px;
+        bottom:20px;
+        left:20px;
+    }
+    
+    .vault-download-icon{width:30px;height:30px}
+    .donate-text{font-size:10px}
+    
+    .manager-title{font-size:18px}
+    .tab{padding:12px 5px;font-size:12px}
+    .content-area{padding:15px}
+    .file-bank{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+    .upload-zone{height:150px;padding:20px}
+}
+
+@media(max-width:380px){
+    .chip-icon{width:35px;height:35px}
+    .My-Picture{width:45px;height:45px}
+    header h1{font-size:1.3rem}
+    header p{font-size:0.8rem}
+    .book-title{font-size:0.6rem}
+    .book-grid{gap:0.4rem}
+    
+    /* Small mobile adjustments */
+    .vault-download-btn{
+        width:60px;
+        height:60px;
+        bottom:15px;
+        right:15px;
+    }
+    .donate-button{
+        width:50px;
+        height:50px;
+        bottom:15px;
+        left:15px;
+    }
+    
+    .vault-download-icon{width:25px;height:25px}
+    .donate-text{font-size:9px}
+}
+
 @media(min-width: 651px){.book-title{font-size: 1.5rem}}
-/* --- CUSTOM DONATION BUTTON STYLES --- */
-.donation-button {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 101;
-    padding: 0.5rem 1rem;
-    background-color: var(--primary-yellow);
-    color: var(--pure-black);
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: 9999px;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6), 0 0 0 0 rgba(255, 215, 0, 0.3);
-    transition: all 0.2s ease-in-out;
-    animation: floatMove 4s ease-in-out infinite, pulse 1.5s ease-in-out infinite;
-    font-size: 1rem; /* Smaller size */
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    white-space: nowrap;
-}
-.donation-button:hover {
-    transform: translateX(-50%) scale(1.05);
-    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.5);
-}
-@keyframes floatMove {
-    0%, 100% {
-        transform: translateX(-50%) translateY(0);
-    }
-    50% {
-        transform: translateX(-50%) translateY(-10px); /* Move up 10px */
-    }
-}
-/* --- END CUSTOM DONATION BUTTON STYLES --- */
+
+.book-badge{position:absolute;top:0;left:0;height:25%;width:auto;z-index:10;pointer-events:none}
 </style>
 </head>
 <body>
@@ -86,7 +222,9 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 <p>Board Design Book Selection</p>
 <img src="./shimi linkedin pic.png" class="My-Picture" alt="Content Craft Logo"/>
 </header>
+
 <main class="container">
+<!-- All your existing category sections remain exactly the same -->
 <section class="category">
 <h2 class="category-title">Digital & Comm</h2>
 <div class="book-grid-wrapper"><div class="book-grid">
@@ -515,57 +653,475 @@ footer{text-align:center;padding:2rem 1rem;color:rgba(255,215,0,0.6);font-weight
 </div></div>
 </section>
 </main>
-<footer>© 2025 SHIMI COHEN – CONTENT CRAFT</footer>
-<!-- Custom floating donation button -->
 
-<!-- Handwriting font -->
-<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<footer>© 2025 SHIMI COHEN – CONTENT CRAFT & SCHEMATIC VAULT</footer>
 
-<a href="https://buymeacoffee.com/shimic"
-   target="_blank"
-   class="donation-button"
-   title="Support Shimi's Content Creation">
-  ☕ Buy me a coffee
+<!-- ====== VAULT DOWNLOAD BUTTON ====== -->
+<div class="vault-download-btn" id="vaultDownloadBtn">
+    <svg class="vault-download-icon" viewBox="0 0 24 24">
+        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+    </svg>
+</div>
+
+<!-- ====== DONATE BUTTON ====== -->
+<a href="https://buymeacoffee.com/shimic" target="_blank" class="donate-button" title="Support Shimi's Content Creation">
+    <span class="donate-text">DONATE</span>
 </a>
 
-<style>
-  .donation-button {
-    font-family: "Patrick Hand", sans-serif;
-    font-size: 1.0rem;
-    text-decoration: none;
-    color: #000;
-  }
-</style>
+<!-- ====== FILE VAULT MANAGER (HIDDEN BY DEFAULT) ====== -->
+<div class="download-status" id="downloadStatus"></div>
+<div class="file-manager" id="fileManager">
+    <div class="manager-container">
+        <div class="manager-header">
+            <div class="manager-title">SCHEMATIC VAULT</div>
+            <button class="close-btn" id="closeBtn">
+                <svg class="close-icon" viewBox="0 0 24 24">
+                    <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="tabs">
+            <button class="tab active" data-tab="ltspice">LTSPICE</button>
+            <button class="tab" data-tab="qspice">QTSPICE</button>
+            <button class="tab" data-tab="schematics">SCHEMATICS</button>
+            <button class="tab" data-tab="docs">DOCS</button>
+        </div>
+        <div class="content-area active" data-tab="ltspice">
+            <div class="upload-zone" id="uploadLtspice">
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <div class="upload-text">Drag & Drop .ASC</div><div class="upload-subtext">LTSPICE Schematics</div>
+            </div>
+            <div class="file-bank" id="bankLtspice"></div>
+        </div>
+        <div class="content-area" data-tab="qspice">
+            <div class="upload-zone" id="uploadQspice">
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <div class="upload-text">Drag & Drop .ASC</div><div class="upload-subtext">QTSPICE Schematics</div>
+            </div>
+            <div class="file-bank" id="bankQspice"></div>
+        </div>
+        <div class="content-area" data-tab="schematics">
+            <div class="upload-zone" id="uploadSchematics">
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <div class="upload-text">Drag & Drop .PDF .DWG</div><div class="upload-subtext">Schematic Files</div>
+            </div>
+            <div class="file-bank" id="bankSchematics"></div>
+        </div>
+        <div class="content-area" data-tab="docs">
+            <div class="upload-zone" id="uploadDocs">
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <div class="upload-text">Drag & Drop .PDF .DOC</div><div class="upload-subtext">Documentation Files</div>
+            </div>
+            <div class="file-bank" id="bankDocs"></div>
+        </div>
+    </div>
+</div>
 
-<!-- End custom floating donation button -->
 <script>
+// ====== ORIGINAL BOOK CARDS FUNCTIONALITY ======
 document.addEventListener('DOMContentLoaded',()=>{
-const categories=document.querySelectorAll('.category');
-categories.forEach(category=>{
-const title=category.querySelector('.category-title');
-title.addEventListener('click',()=>{
-const isOpen=category.classList.contains('open');
-categories.forEach(c=>c.classList.remove('open'));
-if(!isOpen)category.classList.add('open');
+    // Original book card functionality
+    const categories=document.querySelectorAll('.category');
+    categories.forEach(category=>{
+        const title=category.querySelector('.category-title');
+        title.addEventListener('click',()=>{
+            const isOpen=category.classList.contains('open');
+            categories.forEach(c=>c.classList.remove('open'));
+            if(!isOpen)category.classList.add('open');
+        });
+    });
+    
+    const bookCards=document.querySelectorAll('.book-card');
+    bookCards.forEach(card=>{
+        card.addEventListener('click',()=>{
+            if(card.classList.contains('flipped')){
+                window.open(card.dataset.link,'_blank');
+            }else{
+                bookCards.forEach(c=>c.classList.remove('flipped'));
+                card.classList.add('flipped');
+            }
+        });
+    });
+    
+    document.addEventListener('click',(e)=>{
+        if(!e.target.closest('.book-card') && !e.target.closest('.donate-button')){
+            bookCards.forEach(c=>c.classList.remove('flipped'));
+        }
+    });
+    
+    // Initialize vault functionality
+    initVaultSystem();
 });
-});
-const bookCards=document.querySelectorAll('.book-card');
-bookCards.forEach(card=>{
-card.addEventListener('click',()=>{
-if(card.classList.contains('flipped')){
-window.open(card.dataset.link,'_blank');
-}else{
-bookCards.forEach(c=>c.classList.remove('flipped'));
-card.classList.add('flipped');
+
+// ====== VAULT SYSTEM FUNCTIONALITY ======
+function initVaultSystem() {
+    // Initialize sample files
+    initSampleFiles();
+    
+    // BRUTE FORCE CLICK HANDLING - Multiple event types for maximum compatibility
+    const vaultDownloadBtn = document.getElementById('vaultDownloadBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const fileManager = document.getElementById('fileManager');
+    const tabs = document.querySelectorAll('.tab');
+    const uploadZones = document.querySelectorAll('.upload-zone');
+    const downloadStatus = document.getElementById('downloadStatus');
+    
+    // 1. VAULT DOWNLOAD BUTTON - Works on all devices
+    ['click', 'touchend', 'mousedown'].forEach(eventType => {
+        vaultDownloadBtn.addEventListener(eventType, function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            fileManager.classList.add('active');
+            console.log('Vault button clicked - Manager opened');
+        }, {passive: false});
+    });
+    
+    // 2. CLOSE BUTTON - Works on all devices
+    ['click', 'touchend', 'mousedown'].forEach(eventType => {
+        closeBtn.addEventListener(eventType, function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            fileManager.classList.remove('active');
+            console.log('Close button clicked - Manager closed');
+        }, {passive: false});
+    });
+    
+    // 3. TABS - Works on all devices
+    tabs.forEach(tab => {
+        ['click', 'touchend'].forEach(eventType => {
+            tab.addEventListener(eventType, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Get tab name
+                const tabName = this.getAttribute('data-tab');
+                
+                // Hide all content areas
+                document.querySelectorAll('.content-area').forEach(area => {
+                    area.classList.remove('active');
+                });
+                
+                // Show selected content area
+                document.querySelector(`.content-area[data-tab="${tabName}"]`).classList.add('active');
+                
+                console.log('Tab clicked:', tabName);
+            }, {passive: false});
+        });
+    });
+    
+    // 4. UPLOAD ZONES - Drag & drop and click
+    uploadZones.forEach(zone => {
+        // Click/touch upload
+        ['click', 'touchend'].forEach(eventType => {
+            zone.addEventListener(eventType, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                triggerFileUpload(this.id.replace('upload', '').toLowerCase());
+            }, {passive: false});
+        });
+        
+        // Drag and drop events
+        zone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.add('dragover');
+        });
+        
+        zone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.remove('dragover');
+        });
+        
+        zone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.remove('dragover');
+            
+            if (e.dataTransfer.files.length) {
+                handleFileUpload(e.dataTransfer.files, this.id.replace('upload', '').toLowerCase());
+            }
+        });
+    });
+    
+    // 5. FILE ITEM CLICKS - Download files
+    document.addEventListener('click', function(e) {
+        // Check if clicked on file item (not delete button)
+        const fileItem = e.target.closest('.file-item');
+        if (fileItem && !e.target.closest('.delete-btn')) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const fileName = fileItem.querySelector('.file-name').textContent;
+            const fileUrl = fileItem.getAttribute('data-url') || '#';
+            
+            // Force download
+            forceDownload(fileName, fileUrl);
+            console.log('File clicked for download:', fileName);
+        }
+        
+        // Check if clicked on delete button
+        const deleteBtn = e.target.closest('.delete-btn');
+        if (deleteBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const fileItem = deleteBtn.closest('.file-item');
+            if (fileItem) {
+                fileItem.style.opacity = '0';
+                setTimeout(() => {
+                    fileItem.remove();
+                    showStatus('File deleted');
+                }, 300);
+                console.log('Delete button clicked');
+            }
+        }
+    }, true); // Use capture phase for maximum reliability
+    
+    // 6. TOUCH EVENTS FOR MOBILE - Additional touch support
+    document.addEventListener('touchstart', function(e) {
+        // Add active states for touch feedback
+        const target = e.target;
+        if (target.classList.contains('vault-download-btn') || 
+            target.classList.contains('close-btn') || 
+            target.classList.contains('tab') || 
+            target.classList.contains('upload-zone') || 
+            target.classList.contains('file-item') ||
+            target.closest('.vault-download-btn') || 
+            target.closest('.close-btn') || 
+            target.closest('.tab') || 
+            target.closest('.upload-zone') || 
+            target.closest('.file-item')) {
+            target.style.opacity = '0.8';
+            setTimeout(() => {
+                target.style.opacity = '';
+            }, 300);
+        }
+    }, {passive: true});
+    
+    // 7. PREVENT DEFAULT BEHAVIOR ON CRITICAL ELEMENTS
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.closest('.vault-download-btn') || 
+            e.target.closest('.close-btn') || 
+            e.target.closest('.tab') || 
+            e.target.closest('.upload-zone') || 
+            e.target.closest('.file-item')) {
+            e.preventDefault();
+        }
+    });
+    
+    // 8. KEYBOARD SUPPORT FOR ACCESSIBILITY
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && fileManager.classList.contains('active')) {
+            fileManager.classList.remove('active');
+        }
+        if (e.key === 'Enter' || e.key === ' ') {
+            const activeElement = document.activeElement;
+            if (activeElement.classList.contains('tab') || 
+                activeElement.classList.contains('close-btn') || 
+                activeElement.classList.contains('vault-download-btn')) {
+                e.preventDefault();
+                activeElement.click();
+            }
+        }
+    });
+    
+    // Initialize with first tab active
+    document.querySelector('.tab.active').click();
 }
-});
-});
-document.addEventListener('click',(e)=>{
-if(!e.target.closest('.book-card') && !e.target.closest('.donation-button')){
-bookCards.forEach(c=>c.classList.remove('flipped'));
+
+// FUNCTION TO FORCE DOWNLOAD - Works in all browsers
+function forceDownload(fileName, fileUrl) {
+    showStatus(`Downloading: ${fileName}`);
+    
+    // Create invisible download link
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = fileName;
+    
+    // Append to body
+    document.body.appendChild(link);
+    
+    // Trigger click with multiple methods for maximum compatibility
+    if (typeof link.click === 'function') {
+        link.click();
+    } else {
+        // Fallback for older browsers
+        const event = new MouseEvent('click', {
+            view: window,
+            bubbles: true,
+            cancelable: true
+        });
+        link.dispatchEvent(event);
+    }
+    
+    // Clean up
+    setTimeout(() => {
+        document.body.removeChild(link);
+        showStatus('Download complete!');
+    }, 100);
 }
-});
-});
+
+// FUNCTION TO HANDLE FILE UPLOAD
+function handleFileUpload(files, category) {
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileName = file.name;
+        const fileSize = (file.size / 1024).toFixed(2) + ' KB';
+        
+        // Create file URL for preview/download
+        const fileUrl = URL.createObjectURL(file);
+        
+        // Add to file bank
+        addFileToBank(category, fileName, fileSize, fileUrl);
+    }
+    
+    showStatus(`Uploaded ${files.length} file(s) to ${category}`);
+}
+
+// FUNCTION TO TRIGGER FILE UPLOAD DIALOG
+function triggerFileUpload(category) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.multiple = true;
+    
+    // Set accept based on category
+    switch(category) {
+        case 'ltspice':
+        case 'qspice':
+            input.accept = '.asc,.cir';
+            break;
+        case 'schematics':
+            input.accept = '.pdf,.dwg,.dxf,.svg';
+            break;
+        case 'docs':
+            input.accept = '.pdf,.doc,.docx,.txt';
+            break;
+    }
+    
+    input.onchange = (e) => {
+        if (e.target.files.length) {
+            handleFileUpload(e.target.files, category);
+        }
+    };
+    
+    // Trigger file dialog
+    input.click();
+}
+
+// FUNCTION TO ADD FILE TO BANK
+function addFileToBank(category, fileName, fileSize, fileUrl) {
+    const bankId = 'bank' + category.charAt(0).toUpperCase() + category.slice(1);
+    const bank = document.getElementById(bankId);
+    
+    if (!bank) return;
+    
+    const fileItem = document.createElement('div');
+    fileItem.className = 'file-item';
+    fileItem.setAttribute('data-url', fileUrl);
+    
+    // Get file icon based on extension
+    const fileExt = fileName.split('.').pop().toLowerCase();
+    let fileType = 'Document';
+    if (['asc', 'cir'].includes(fileExt)) fileType = 'Circuit';
+    if (['pdf'].includes(fileExt)) fileType = 'PDF';
+    if (['dwg', 'dxf'].includes(fileExt)) fileType = 'Drawing';
+    if (['doc', 'docx'].includes(fileExt)) fileType = 'Word';
+    
+    fileItem.innerHTML = `
+        <button class="delete-btn">
+            <svg class="delete-icon" viewBox="0 0 24 24">
+                <line x1="18" y1="6" x2="6" y2="18" stroke-linecap="round"/>
+                <line x2="18" y2="6" x1="6" y1="18" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <div class="file-name">${fileName}</div>
+        <div style="font-size:11px;opacity:0.7;color:#aaa;font-family:'Rajdhani',sans-serif">${fileType} • ${fileSize}</div>
+    `;
+    
+    bank.appendChild(fileItem);
+}
+
+// FUNCTION TO SHOW STATUS MESSAGE
+function showStatus(message) {
+    const status = document.getElementById('downloadStatus');
+    status.textContent = message;
+    status.classList.add('show');
+    
+    setTimeout(() => {
+        status.classList.remove('show');
+    }, 3000);
+}
+
+// INITIALIZE WITH SAMPLE FILES
+function initSampleFiles() {
+    // Sample LTSPICE files
+    const ltspiceFiles = [
+        {name: 'amplifier.asc', size: '15.2 KB', type: 'Circuit'},
+        {name: 'filter_design.asc', size: '22.8 KB', type: 'Circuit'},
+        {name: 'power_supply.asc', size: '18.5 KB', type: 'Circuit'}
+    ];
+    
+    // Sample QTSPICE files
+    const qspiceFiles = [
+        {name: 'oscillator.qsch', size: '12.4 KB', type: 'Circuit'},
+        {name: 'mixer_circuit.qsch', size: '19.7 KB', type: 'Circuit'}
+    ];
+    
+    // Sample Schematic files
+    const schematicFiles = [
+        {name: 'main_board.pdf', size: '450 KB', type: 'PDF'},
+        {name: 'layout.dwg', size: '1.2 MB', type: 'Drawing'}
+    ];
+    
+    // Sample Doc files
+    const docFiles = [
+        {name: 'user_manual.pdf', size: '2.1 MB', type: 'PDF'},
+        {name: 'specifications.docx', size: '85 KB', type: 'Word'}
+    ];
+    
+    // Add sample files to banks
+    ltspiceFiles.forEach(file => {
+        addFileToBank('ltspice', file.name, file.size, '#'); // Using # as placeholder
+    });
+    
+    qspiceFiles.forEach(file => {
+        addFileToBank('qspice', file.name, file.size, '#');
+    });
+    
+    schematicFiles.forEach(file => {
+        addFileToBank('schematics', file.name, file.size, '#');
+    });
+    
+    docFiles.forEach(file => {
+        addFileToBank('docs', file.name, file.size, '#');
+    });
+}
+
+// EXTRA SAFETY - Ensure clicks work even if DOM changes
+setTimeout(() => {
+    console.log('Website fully loaded - Book cards and Vault system active');
+    showStatus('Content Vault Ready');
+}, 500);
 </script>
 </body>
 </html>
