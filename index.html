@@ -1,1925 +1,1882 @@
-I will paste an existing HTML page.Your job is to redesign the front‑end only while keeping all content and connections intact:Keep every existing element: all images, files, links, text blocks, and IDs must still exist and still point to the same targets.Completely rework the layout and menus:Redesign how the menus look and behave.Redesign the download / vault section UX.Make all interactions “bullet‑proof” to clicking and tapping (no dead zones, no jitter, no accidental misses).Create a modern, professional, interactive theme:Use a strict color palette of 2 main colors (you may add a subtle 3rd accent only if really necessary).Use beautiful, readable fonts suitable for a serious engineering / professional site.Add smooth, crisp motion (hover effects, transitions, micro‑animations) that feel premium but not clownish or distracting.Introduce tasteful “moving” elements (for example subtle animations, transitions, or parallax) that make the site feel alive without harming usability.Make the layout fully responsive and mobile‑friendly:Menus must work perfectly on phones and tablets (tap targets, collapsible nav, etc.).Download / file sections must be easy to use on touch screens.Focus heavily on user experience:Redesign the menus and download section mechanisms for maximum clarity and ease of use.It should feel like a modern Pro‑level web app for engineers.You are allowed to change the structure of containers and wrappers as needed, as long as all original content (images, anchors, text, scripts) is preserved and still works.Do not remove any functional JavaScript hooks or data attributes; if you move elements, keep their IDs/classes so existing logic keeps working, or clearly show updated hooks.Output:The full updated HTML/CSS/JS code.A brief bullet list (no more than 10 bullets) explaining the key UX, animation, and menu changes you made.I will now paste the HTML. Do not explain, just return the new code and the short change list. here it is :<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0JD8LKPNXG"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0JD8LKPNXG');</script>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes"/>
-<title>Shimi Cohen – Content Craft</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet"/>
-<style>
-/* ====== RESET & BASE STYLES ====== */
-:root {
-    --neon-red: #FF003C;
-    --dark-red: #CC0029;
-    --pure-black: #000000;
-    --pure-white: #FFFFFF;
-    --light-gray: #F5F5F5;
-    --medium-gray: #E0E0E0;
-    --text-red: #FF003C;
-    --text-black: #000000;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
-}
-
-body {
-    background-color: var(--pure-white);
-    font-family: 'Rajdhani', sans-serif;
-    color: var(--text-black);
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
-    touch-action: manipulation;
-}
-
-/* ====== ANIMATED BACKGROUND SHAPES ====== */
-.animated-shapes {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-}
-
-.shape {
-    position: absolute;
-    border: 2px solid rgba(255, 0, 60, 0.1);
-    opacity: 0.3;
-    animation-duration: 20s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
-
-.shape.square {
-    width: 40px;
-    height: 40px;
-    animation-name: rotateShape;
-}
-
-.shape.rectangle {
-    width: 60px;
-    height: 30px;
-    animation-name: rotateShapeReverse;
-}
-
-.shape.triangle {
-    width: 0;
-    height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 35px solid rgba(255, 0, 60, 0.1);
-    background: transparent;
-    animation-name: floatShape;
-}
-
-@keyframes rotateShape {
-    0% { transform: rotate(0deg) translateX(0); }
-    100% { transform: rotate(360deg) translateX(50px); }
-}
-
-@keyframes rotateShapeReverse {
-    0% { transform: rotate(0deg) translateY(0); }
-    100% { transform: rotate(-360deg) translateY(50px); }
-}
-
-@keyframes floatShape {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(100px, 50px) rotate(90deg); }
-    50% { transform: translate(50px, 100px) rotate(180deg); }
-    75% { transform: translate(0, 50px) rotate(270deg); }
-}
-
-/* ====== HEADER ====== */
-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--pure-white);
-    backdrop-filter: blur(20px);
-    border-bottom: 3px solid var(--neon-red);
-    padding: 1rem 1rem;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.chip-icon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    filter: brightness(0) invert(0);
-    object-fit: contain;
-}
-
-.My-Picture {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid var(--neon-red);
-    object-fit: cover;
-}
-
-header h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 900;
-    font-size: 2.2rem;
-    color: var(--text-black);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.2rem;
-    transition: color 0.3s ease;
-}
-
-header h1:hover {
-    color: var(--text-red);
-}
-
-header p {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--text-red);
-    letter-spacing: 0.1em;
-}
-
-/* ====== MAIN CONTENT ====== */
-main.container {
-    max-width: 1200px;
-    margin: 1rem auto;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 1;
-}
-
-/* ====== CATEGORIES ====== */
-section.category {
-    margin-bottom: 0.8rem;
-    background-color: var(--pure-white);
-    border-radius: 8px;
-    border: 2px solid var(--neon-red);
-    transition: all 0.3s ease;
-}
-
-.category-title {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    font-size: 1.4rem;
-    color: var(--text-red);
-    padding: 1rem 1.5rem;
-    text-align: left;
-    cursor: pointer;
-    user-select: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s ease;
-}
-
-.category-title:hover {
-    background-color: rgba(255, 0, 60, 0.05);
-}
-
-.category.open .category-title {
-    background-color: rgba(255, 0, 60, 0.1);
-}
-
-/* Plus/Minus icon for categories */
-.plus-icon {
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: var(--text-red);
-    transition: transform 0.3s ease;
-}
-
-.category.open .plus-icon {
-    transform: rotate(45deg);
-}
-
-/* ====== BOOK GRID ====== */
-.book-grid-wrapper {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.category.open .book-grid-wrapper {
-    max-height: 5000px;
-    padding: 1rem;
-}
-
-.book-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1rem;
-    padding: 0;
-}
-
-/* ====== BOOK CARDS ====== */
-.book-card {
-    aspect-ratio: 1/1.414;
-    cursor: pointer;
-    text-decoration: none;
-    display: block;
-    perspective: 1000px;
-    position: relative;
-    transition: transform 0.2s ease;
-}
-
-.book-card:hover {
-    transform: translateY(-5px);
-}
-
-.book-card-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 4px;
-}
-
-.book-card.flipped .book-card-inner {
-    transform: rotateY(180deg);
-}
-
-.book-card-front,
-.book-card-back {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    backface-visibility: hidden;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem;
-}
-
-.book-card-front {
-    background: var(--pure-white);
-    border: 3px solid var(--neon-red);
-    color: var(--text-black);
-}
-
-.book-card-back {
-    background: var(--pure-white);
-    border: 3px solid var(--pure-black);
-    transform: rotateY(180deg);
-    overflow: hidden;
-}
-
-.book-card-back img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 2px;
-}
-
-.book-title {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-align: center;
-    color: var(--text-black);
-    line-height: 1.2;
-    padding: 0.5rem;
-    width: 100%;
-}
-
-.book-badge {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    width: 30px;
-    height: 30px;
-    z-index: 10;
-    pointer-events: none;
-}
-
-/* ====== FOOTER ====== */
-footer {
-    text-align: center;
-    padding: 2rem 1rem;
-    color: var(--text-red);
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.05em;
-    border-top: 1px solid var(--medium-gray);
-    margin-top: 3rem;
-    position: relative;
-    z-index: 1;
-    background: var(--pure-white);
-}
-
-/* ====== DOWNLOAD BUTTON (Bottom Right) ====== */
-.vault-download-btn {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    width: 80px;
-    height: 80px;
-    background: var(--pure-white);
-    border: 3px solid var(--pure-black);
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1000;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    touch-action: manipulation;
-}
-
-.vault-download-btn:hover,
-.vault-download-btn:active {
-    transform: scale(1.5) rotate(360deg);
-    border-color: var(--neon-red);
-    background: var(--pure-black);
-}
-
-.vault-download-icon {
-    width: 30px;
-    height: 30px;
-    stroke: var(--pure-black);
-    stroke-width: 2;
-    fill: none;
-    transition: stroke 0.3s;
-    pointer-events: none;
-}
-
-.vault-download-btn:hover .vault-download-icon {
-    stroke: var(--neon-red);
-}
-
-.download-label {
-    position: absolute;
-    top: -25px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--text-black);
-    white-space: nowrap;
-    transition: color 0.3s;
-    pointer-events: none;
-}
-
-.vault-download-btn:hover .download-label {
-    color: var(--neon-red);
-}
-
-/* ====== DONATE BUTTON (Bottom Left) ====== */
-.donate-button {
-    position: fixed;
-    bottom: 40px;
-    left: 40px;
-    width: 80px;
-    height: 80px;
-    background: var(--pure-white);
-    border: 3px solid var(--pure-black);
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1000;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    touch-action: manipulation;
-    text-decoration: none;
-}
-
-.donate-button:hover,
-.donate-button:active {
-    transform: scale(1.5) rotate(360deg);
-    border-color: var(--neon-red);
-    background: var(--pure-black);
-}
-
-.donate-icon {
-    width: 35px;
-    height: 35px;
-    color: var(--pure-black);
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    font-size: 28px;
-    transition: fill 0.3s;
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.donate-button:hover .donate-icon {
-    color: var(--pure-white);
-}
-
-.donate-label {
-    position: absolute;
-    top: -25px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--pure-black);
-    white-space: nowrap;
-    transition: color 0.3s;
-    pointer-events: none;
-}
-
-.donate-button:hover .donate-label {
-    color: var(--neon-red);
-}
-
-/* ====== FILE VAULT MANAGER ====== */
-.file-manager {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.98);
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(10px);
-}
-
-.file-manager.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.manager-container {
-    width: 90%;
-    max-width: 1000px;
-    height: 85%;
-    background: var(--pure-white);
-    border: 3px solid var(--neon-red);
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-}
-
-.manager-header {
-    padding: 1.5rem 2rem;
-    border-bottom: 2px solid var(--neon-red);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--pure-white);
-}
-
-.manager-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: var(--text-black);
-    letter-spacing: 2px;
-}
-
-.close-btn {
-    width: 40px;
-    height: 40px;
-    background: var(--pure-white);
-    border: 2px solid var(--neon-red);
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    touch-action: manipulation;
-}
-
-.close-btn:hover {
-    background: var(--neon-red);
-    transform: rotate(90deg);
-}
-
-.close-icon {
-    width: 20px;
-    height: 20px;
-    stroke: var(--neon-red);
-    stroke-width: 2;
-    pointer-events: none;
-}
-
-.close-btn:hover .close-icon {
-    stroke: var(--pure-white);
-}
-
-/* ====== TABS ====== */
-.tabs {
-    display: flex;
-    border-bottom: 2px solid var(--medium-gray);
-    background: var(--pure-white);
-}
-
-.tab {
-    flex: 1;
-    padding: 1rem;
-    background: transparent;
-    border: none;
-    color: var(--text-black);
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all 0.3s ease;
-    touch-action: manipulation;
-}
-
-.tab:hover {
-    color: var(--neon-red);
-    background: rgba(255, 0, 60, 0.05);
-}
-
-.tab.active {
-    color: var(--neon-red);
-    border-bottom-color: var(--neon-red);
-    background: rgba(255, 0, 60, 0.1);
-}
-
-/* ====== CONTENT AREA ====== */
-.content-area {
-    flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
-    display: none;
-}
-
-.content-area.active {
-    display: block;
-}
-
-/* ====== FILE LIST ====== */
-.file-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.file-item {
-    background: var(--pure-white);
-    border: 2px solid var(--medium-gray);
-    border-radius: 8px;
-    padding: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    touch-action: manipulation;
-}
-
-.file-item:hover {
-    border-color: var(--neon-red);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 0, 60, 0.1);
-}
-
-.file-item:active {
-    transform: translateY(0);
-}
-
-.file-name {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--text-black);
-    margin-bottom: 0.3rem;
-    word-break: break-word;
-}
-
-.file-size {
-    font-size: 0.8rem;
-    color: var(--text-red);
-    font-weight: 600;
-    font-family: 'Rajdhani', sans-serif;
-}
-
-.file-desc {
-    font-size: 0.8rem;
-    color: #666;
-    line-height: 1.4;
-}
-
-.file-icon {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 0.5rem;
-    stroke: var(--neon-red);
-    stroke-width: 2;
-    fill: none;
-}
-
-/* ====== LOADING STATE ====== */
-.loading {
-    text-align: center;
-    padding: 3rem;
-    color: var(--text-red);
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1rem;
-}
-
-/* ====== EMPTY STATE ====== */
-.empty-state {
-    text-align: center;
-    padding: 3rem;
-    color: var(--text-black);
-    font-family: 'Rajdhani', sans-serif;
-}
-
-.empty-state h3 {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--text-red);
-    margin-bottom: 1rem;
-}
-
-/* ====== DOWNLOAD STATUS ====== */
-.download-status {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--neon-red);
-    color: var(--pure-white);
-    padding: 0.8rem 1.5rem;
-    border-radius: 25px;
-    font-size: 0.9rem;
-    opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 1001;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    box-shadow: 0 4px 15px rgba(255, 0, 60, 0.3);
-}
-
-.download-status.show {
-    opacity: 1;
-}
-
-/* ====== MEDIA QUERIES ====== */
-@media (max-width: 768px) {
-    header {
-        padding: 0.8rem 0.5rem;
-    }
-    
-    header h1 {
-        font-size: 1.5rem;
-        padding: 0 3rem;
-    }
-    
-    .chip-icon {
-        width: 30px;
-        height: 30px;
-        left: 0.5rem;
-    }
-    
-    .My-Picture {
-        width: 40px;
-        height: 40px;
-        right: 0.5rem;
-    }
-    
-    header p {
-        font-size: 0.7rem;
-    }
-    
-    .category-title {
-        font-size: 1rem;
-        padding: 0.8rem 1rem;
-    }
-    
-    .book-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 0.8rem;
-    }
-    
-    .book-title {
-        font-size: 0.75rem;
-    }
-    
-    /* Mobile buttons - separated left & right */
-    .vault-download-btn {
-        width: 70px;
-        height: 70px;
-        bottom: 20px;
-        right: 20px;
-    }
-    
-    .donate-button {
-        width: 70px;
-        height: 70px;
-        bottom: 20px;
-        left: 20px;
-    }
-    
-    .download-label,
-    .donate-label {
-        font-size: 8px;
-        top: -20px;
-    }
-    
-    .vault-download-icon {
-        width: 25px;
-        height: 25px;
-    }
-    
-    .donate-icon {
-        width: 25px;
-        height: 25px;
-        font-size: 22px;
-    }
-    
-    .manager-container {
-        width: 95%;
-        height: 90%;
-    }
-    
-    .manager-title {
-        font-size: 1.3rem;
-    }
-    
-    .tab {
-        padding: 0.8rem 0.5rem;
-        font-size: 0.7rem;
-    }
-    
-    .content-area {
-        padding: 1.2rem;
-    }
-    
-    .file-list {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 1.2rem;
-    }
-    
-    .category-title {
-        font-size: 0.9rem;
-    }
-    
-    .book-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 0.6rem;
-    }
-    
-    .book-title {
-        font-size: 0.65rem;
-    }
-    
-    .vault-download-btn,
-    .donate-button {
-        width: 60px;
-        height: 60px;
-        bottom: 15px;
-    }
-    
-    .vault-download-btn {
-        right: 15px;
-    }
-    
-    .donate-button {
-        left: 15px;
-    }
-    
-    .download-label,
-    .donate-label {
-        font-size: 7px;
-        top: -18px;
-    }
-    
-    .manager-header {
-        padding: 1rem 1.2rem;
-    }
-    
-    .manager-title {
-        font-size: 1.1rem;
-    }
-    
-    .tab {
-        font-size: 0.65rem;
-        padding: 0.7rem 0.3rem;
-    }
-}
-
-@media (min-width: 1200px) {
-    .book-grid {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    }
-    
-    .book-title {
-        font-size: 1rem;
-    }
-}
-
-/* ====== ANIMATION DELAYS FOR SHAPES ====== */
-.shape:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
-.shape:nth-child(2) { top: 20%; right: 10%; animation-delay: -5s; }
-.shape:nth-child(3) { bottom: 30%; left: 15%; animation-delay: -10s; }
-.shape:nth-child(4) { bottom: 20%; right: 20%; animation-delay: -15s; }
-.shape:nth-child(5) { top: 40%; left: 30%; animation-delay: -2s; }
-.shape:nth-child(6) { top: 60%; right: 25%; animation-delay: -7s; }
-.shape:nth-child(7) { bottom: 40%; left: 40%; animation-delay: -12s; }
-.shape:nth-child(8) { top: 30%; right: 35%; animation-delay: -17s; }
-</style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes"/>
+    <title>Shimi Cohen – Content Craft</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        /* ====== CSS VARIABLES ====== */
+        :root {
+            --primary-color: #0a0e27;
+            --accent-color: #e63946;
+            --accent-light: #f1faee;
+            --text-primary: #0a0e27;
+            --text-secondary: #457b9d;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-tertiary: #e9ecef;
+            --border-color: #dee2e6;
+            --shadow-sm: 0 2px 4px rgba(10, 14, 39, 0.05);
+            --shadow-md: 0 4px 6px rgba(10, 14, 39, 0.07);
+            --shadow-lg: 0 10px 15px rgba(10, 14, 39, 0.1);
+            --shadow-xl: 0 20px 25px rgba(10, 14, 39, 0.1);
+            --transition-fast: 0.15s ease;
+            --transition-base: 0.25s ease;
+            --transition-slow: 0.4s ease;
+        }
+
+        /* ====== RESET & BASE STYLES ====== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ====== LAYOUT COMPONENTS ====== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* ====== HEADER ====== */
+        header {
+            background-color: var(--bg-primary);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all var(--transition-base);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chip-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            transition: transform var(--transition-base);
+        }
+
+        .chip-icon:hover {
+            transform: rotate(15deg) scale(1.05);
+        }
+
+        .site-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color var(--transition-base);
+        }
+
+        .site-title:hover {
+            color: var(--accent-color);
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid var(--bg-secondary);
+            object-fit: cover;
+            transition: all var(--transition-base);
+        }
+
+        .profile-pic:hover {
+            border-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        /* ====== NAVIGATION ====== */
+        nav {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 0.5rem 0;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 0;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color var(--transition-base);
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width var(--transition-base);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* ====== MAIN CONTENT ====== */
+        main {
+            padding: 2rem 0;
+            min-height: calc(100vh - 250px);
+        }
+
+        /* ====== CATEGORIES ====== */
+        .category {
+            margin-bottom: 2rem;
+            background-color: var(--bg-primary);
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .category-header {
+            padding: 1rem 1.5rem;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color var(--transition-base);
+        }
+
+        .category-header:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .category-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-icon {
+            color: var(--accent-color);
+            font-size: 1.25rem;
+        }
+
+        .toggle-icon {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            transition: transform var(--transition-base);
+        }
+
+        .category.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--transition-slow);
+        }
+
+        .category.open .category-content {
+            max-height: 2000px;
+        }
+
+        /* ====== BOOK GRID ====== */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        /* ====== BOOK CARDS ====== */
+        .book-card {
+            background-color: var(--bg-primary);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-base);
+            cursor: pointer;
+            position: relative;
+            height: 280px;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .book-card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-card-front, .book-card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transition: transform var(--transition-slow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-card-front {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .book-card-back {
+            background-color: var(--bg-primary);
+            transform: rotateY(180deg);
+        }
+
+        .book-card:hover .book-card-front {
+            transform: rotateY(180deg);
+        }
+
+        .book-card:hover .book-card-back {
+            transform: rotateY(0deg);
+        }
+
+        .book-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .book-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .book-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-link {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: 500;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform var(--transition-base);
+        }
+
+        .book-card:hover .book-link {
+            transform: translateY(0);
+        }
+
+        /* ====== FLOATING ACTION BUTTONS ====== */
+        .fab-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 50;
+        }
+
+        .fab {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+        }
+
+        .fab-label {
+            position: absolute;
+            right: 70px;
+            background-color: var(--text-primary);
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-base);
+        }
+
+        .fab:hover .fab-label {
+            opacity: 1;
+        }
+
+        .fab-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* ====== FILE VAULT MODAL ====== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 14, 39, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--bg-primary);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.9);
+            transition: transform var(--transition-base);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color var(--transition-base);
+        }
+
+        .modal-close:hover {
+            color: var(--accent-color);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            max-height: calc(80vh - 140px);
+        }
+
+        /* ====== TABS ====== */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .tab:hover {
+            color: var(--text-primary);
+        }
+
+        .tab.active {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ====== FILE LIST ====== */
+        .file-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .file-item {
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .file-item:hover {
+            background-color: var(--bg-tertiary);
+            transform: translateY(-2px);
+        }
+
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            word-break: break-word;
+        }
+
+        .file-size {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* ====== FOOTER ====== */
+        footer {
+            background-color: var(--bg-secondary);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* ====== NOTIFICATION ====== */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--text-primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            transition: all var(--transition-base);
+            z-index: 2000;
+        }
+
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* ====== RESPONSIVE DESIGN ====== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .nav-list {
+                justify-content: center;
+            }
+
+            .book-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .book-card {
+                height: 220px;
+            }
+
+            .modal-content {
+                width: 95%;
+                max-height: 90vh;
+            }
+
+            .file-list {
+                grid-template-columns: 1fr;
+            }
+
+            .fab-container {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .book-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .book-card {
+                height: 180px;
+            }
+
+            .book-title {
+                font-size: 0.9rem;
+            }
+
+            .tab {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<!-- Animated Background Shapes -->
-<div class="animated-shapes">
-    <div class="shape square"></div>
-    <div class="shape rectangle"></div>
-    <div class="shape triangle"></div>
-    <div class="shape square"></div>
-    <div class="shape rectangle"></div>
-    <div class="shape triangle"></div>
-    <div class="shape square"></div>
-    <div class="shape rectangle"></div>
-</div>
-
-<header>
-    <img src="Linkedin Logo.png" class="chip-icon" alt="LinkedIn Logo"/>
-    <h1>Shimi Cohen</h1>
-    <p>Board Design Book Selection</p>
-    <img src="./shimi linkedin pic.png" class="My-Picture" alt="Shimi Cohen"/>
-</header>
-
-<main class="container">
-    <!-- Digital & Comm Category -->
-    <section class="category">
-        <h2 class="category-title">Digital & Comm<span class="plus-icon">+</span></h2>
-        <div class="book-grid-wrapper">
-            <div class="book-grid">
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Communication</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Serial Communication Cover.jpg" alt="Communication">
-                        </div>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <a href="#" class="logo-link">
+                        <img src="Linkedin Logo.png" class="chip-icon" alt="LinkedIn Logo"/>
+                    </a>
+                    <div>
+                        <a href="#" class="site-title">Shimi Cohen</a>
+                        <div class="tagline">Board Design Book Selection</div>
                     </div>
                 </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">MCU</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="MCU Cover.jpg" alt="MCU">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">FPGA Architecture</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="FPGA Cover.jpg" alt="FPGA">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Video Protocols</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Digital Video Cover.jpg" alt="VIDEO">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">CMOS Sensor</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="CMOS Sensor Cover.jpg" alt="CMOS">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Logic Gates</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Logic Gates Cover.jpg" alt="Logic Gates">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <img src="top-pick-badge.png" class="book-badge" alt="Top Pick">
-                            <div class="book-title">PID Control</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="PID Control Cover.jpg" alt="PID">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Wireless Comm</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Wireless Communication Cover.jpg" alt="Wireless">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <img src="top-pick-badge.png" class="book-badge" alt="Top Pick">
-                            <div class="book-title">DDR Memory</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="DDR Memory Cover.jpg" alt="DDR">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Firmware Coding 1</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Firmware Coding Cover.jpg" alt="FW1">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Firmware Coding 2</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Firmware Coding 2 Cover.jpg" alt="FW2">
-                        </div>
-                    </div>
+                <div class="profile-section">
+                    <img src="./shimi linkedin pic.png" class="profile-pic" alt="Shimi Cohen"/>
                 </div>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- Analog & Power Category -->
-    <section class="category">
-        <h2 class="category-title">Analog & Power<span class="plus-icon">+</span></h2>
-        <div class="book-grid-wrapper">
-            <div class="book-grid">
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Analog Filters</div>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#" class="nav-link active">All</a></li>
+                <li class="nav-item"><a href="#digital" class="nav-link">Digital & Comm</a></li>
+                <li class="nav-item"><a href="#analog" class="nav-link">Analog & Power</a></li>
+                <li class="nav-item"><a href="#practical" class="nav-link">Practical Design</a></li>
+                <li class="nav-item"><a href="#components" class="nav-link">Components</a></li>
+                <li class="nav-item"><a href="#series20" class="nav-link">"20" Series</a></li>
+                <li class="nav-item"><a href="#tutorials" class="nav-link">Tutorials</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Digital & Comm Category -->
+            <section class="category" id="digital">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-microchip category-icon"></i>
+                        Digital & Comm
+                    </h2>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="category-content">
+                    <div class="book-grid">
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Communication</h3>
+                                    <p class="book-description">Explore digital communication protocols and interfaces</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Serial Communication Cover.jpg" alt="Communication" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-card-back">
-                            <img src="Analog Filters Cover.jpg" alt="Filters">
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">MCU</h3>
+                                    <p class="book-description">Microcontroller architecture and programming</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="MCU Cover.jpg" alt="MCU" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">FPGA Architecture</h3>
+                                    <p class="book-description">Field Programmable Gate Array design and implementation</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="FPGA Cover.jpg" alt="FPGA" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Video Protocols</h3>
+                                    <p class="book-description">Digital video interfaces and transmission standards</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Digital Video Cover.jpg" alt="Video" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">CMOS Sensor</h3>
+                                    <p class="book-description">Image sensor technology and applications</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="CMOS Sensor Cover.jpg" alt="CMOS" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Logic Gates</h3>
+                                    <p class="book-description">Digital logic fundamentals and circuit design</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Logic Gates Cover.jpg" alt="Logic Gates" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">PID Control</h3>
+                                    <p class="book-description">Proportional-Integral-Derivative control systems</p>
+                                    <span class="book-badge">Top Pick</span>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="PID Control Cover.jpg" alt="PID" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Wireless Comm</h3>
+                                    <p class="book-description">Wireless communication technologies and protocols</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Wireless Communication Cover.jpg" alt="Wireless" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">DDR Memory</h3>
+                                    <p class="book-description">Double Data Rate memory interfaces and design</p>
+                                    <span class="book-badge">Top Pick</span>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="DDR Memory Cover.jpg" alt="DDR" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Firmware Coding 1</h3>
+                                    <p class="book-description">Embedded software development fundamentals</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Firmware Coding Cover.jpg" alt="FW1" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Firmware Coding 2</h3>
+                                    <p class="book-description">Advanced embedded software techniques</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Firmware Coding 2 Cover.jpg" alt="FW2" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Class Amplifiers</div>
+            </section>
+
+            <!-- Analog & Power Category -->
+            <section class="category" id="analog">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-bolt category-icon"></i>
+                        Analog & Power
+                    </h2>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="category-content">
+                    <div class="book-grid">
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Analog Filters</h3>
+                                    <p class="book-description">Passive and active filter design principles</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Analog Filters Cover.jpg" alt="Filters" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-card-back">
-                            <img src="Class Amplifiers Cover.jpg" alt="Amplifiers">
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Class Amplifiers</h3>
+                                    <p class="book-description">Audio amplifier classes and circuit design</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Class Amplifiers Cover.jpg" alt="Amplifiers" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">OPAMPs</h3>
+                                    <p class="book-description">Operational amplifier circuits and applications</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="OPAMP Cover.jpg" alt="OPAMP" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Oscillators</h3>
+                                    <p class="book-description">Signal generation and oscillator circuits</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Oscillators Cover.jpg" alt="Oscillators" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">LED Drivers</h3>
+                                    <p class="book-description">LED lighting circuits and driver design</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="LED Drivers Cover.jpg" alt="LED" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Power Design</h3>
+                                    <p class="book-description">Power supply design and management</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Power Design Cover.jpg" alt="Power" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">RF Theory</h3>
+                                    <p class="book-description">Radio frequency circuit design principles</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Radio Frequency Cover.jpg" alt="RF" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Ground Rules</h3>
+                                    <p class="book-description">PCB grounding techniques and best practices</p>
+                                    <span class="book-badge">Top Pick</span>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Ground Rules Cover.jpg" alt="Ground" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_battery-management-system-activity-7326196854382059521-rRNP?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Battery Management</h3>
+                                    <p class="book-description">Battery charging and monitoring systems</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Battery Management Cover.jpg" alt="Battery" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">OPAMPs</div>
+            </section>
+
+            <!-- Practical Design Category -->
+            <section class="category" id="practical">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-tools category-icon"></i>
+                        Practical Design
+                    </h2>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="category-content">
+                    <div class="book-grid">
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">PCB Design</h3>
+                                    <p class="book-description">Printed Circuit Board layout and design</p>
+                                    <span class="book-badge">Top Pick</span>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="PCB Design Cover.jpg" alt="PCB Design" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-card-back">
-                            <img src="OPAMP Cover.jpg" alt="OPAMP">
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Hardware</h3>
+                                    <p class="book-description">Hardware design fundamentals and principles</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Hardware Cover.jpg" alt="Hardware" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Hardware Extended</h3>
+                                    <p class="book-description">Advanced hardware design techniques</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Hardware Extended Cover.jpg" alt="Hardware Extended" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Design For Testability</h3>
+                                    <p class="book-description">DFT principles and implementation strategies</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Design For Testability Cover.jpg" alt="DFT" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Protection Circuits</h3>
+                                    <p class="book-description">Circuit protection techniques and components</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Protection Circuits Cover.jpg" alt="Protection" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Thermal Management</h3>
+                                    <p class="book-description">Heat dissipation and thermal design</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Thermal Management Cover.jpg" alt="Thermal" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Hardware Buffers</h3>
+                                    <p class="book-description">Signal buffering and driver circuits</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Hardware Buffers Cover.jpg" alt="HW Buffers" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Current Sensing</h3>
+                                    <p class="book-description">Current measurement and sensing techniques</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Current Sensing Cover.jpg" alt="Current" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">ADC</h3>
+                                    <p class="book-description">Analog-to-Digital Converter design</p>
+                                    <span class="book-badge">Top Pick</span>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="ADC Cover.jpg" alt="ADC" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Hardware Drivers</h3>
+                                    <p class="book-description">Driver circuit design and implementation</p>
+                                    <span class="book-badge">Top Pick</span>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Hardware Drivers Cover.jpg" alt="HW Drivers" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Precision Circuits</h3>
+                                    <p class="book-description">High-precision analog circuit design</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Precision Circuits Cover.jpg" alt="Precision" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_board-design-protection-activity-7393852496705781760-NJ0Y?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Hardware Protection</h3>
+                                    <p class="book-description">Circuit protection techniques and strategies</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Hardware Protection Cover.jpg" alt="Hardware Protection" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Oscillators</div>
+            </section>
+
+            <!-- Components Category -->
+            <section class="category" id="components">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-microchip category-icon"></i>
+                        Components
+                    </h2>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="category-content">
+                    <div class="book-grid">
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Component Selection</h3>
+                                    <p class="book-description">Electronic component selection criteria</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Component Selection Cover.jpg" alt="Selection" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-card-back">
-                            <img src="Oscillators Cover.jpg" alt="Oscillators">
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Capacitors</h3>
+                                    <p class="book-description">Types and applications of capacitors</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Capacitors Comp Cover.jpg" alt="Capacitors" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_diodes-activity-733771775899025409-Fwv0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Diodes</h3>
+                                    <p class="book-description">Diode types and circuit applications</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Diodes Comp Cover.jpg" alt="Diodes" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Inductors</h3>
+                                    <p class="book-description">Inductor types and magnetic components</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Inductors Comp Cover.jpg" alt="Inductors" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Transistors</h3>
+                                    <p class="book-description">Transistor types and switching applications</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Transistors Comp Cover.jpg" alt="Transistors" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Sensors</h3>
+                                    <p class="book-description">Electronic sensors and interfacing</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Sensors Comp Cover.jpg" alt="Sensors" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">MEMS Gyro</h3>
+                                    <p class="book-description">Microelectromechanical gyroscopes</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="GYRO Comp Cover.jpg" alt="MEMS" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Resistors</h3>
+                                    <p class="book-description">Resistor types and precision considerations</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Resistors Comp Cover.jpg" alt="Resistors" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_connectors-cables-activity-7336588127437795328-boN_?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Connectors and Cables</h3>
+                                    <p class="book-description">Electrical connectors and cable selection</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Connectors Comp Cover.jpg" alt="Connectors" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Transformers</h3>
+                                    <p class="book-description">Transformer design and applications</p>
+                                    <span class="book-badge">Top Pick</span>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Transformers Comp Cover.jpg" alt="Transformer" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Switches</h3>
+                                    <p class="book-description">Electronic switches and relays</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Switches Comp Cover.jpg" alt="Switches" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Test Equipment</h3>
+                                    <p class="book-description">Electronic test and measurement equipment</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Test Equipment Cover.jpg" alt="Test Equipment" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">LED Drivers</div>
+            </section>
+
+            <!-- "20" Series Category -->
+            <section class="category" id="series20">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-list-ol category-icon"></i>
+                        "20" Series
+                    </h2>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="category-content">
+                    <div class="book-grid">
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">20 Capacitors Apps</h3>
+                                    <p class="book-description">Practical capacitor circuit applications</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Capacitors Cover.jpg" alt="20 Caps" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-card-back">
-                            <img src="LED Drivers Cover.jpg" alt="LED">
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">20 Resistors Apps</h3>
+                                    <p class="book-description">Practical resistor circuit applications</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Resistors Cover.jpg" alt="20 Res" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">20 Active ICs</h3>
+                                    <p class="book-description">Essential integrated circuit applications</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Active ICs Cover.jpg" alt="20 ICs" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">20 Diodes Apps</h3>
+                                    <p class="book-description">Practical diode circuit applications</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Diodes Cover.jpg" alt="20 Diodes" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">20 Transistors Apps</h3>
+                                    <p class="book-description">Practical transistor circuit applications</p>
+                                    <span class="book-badge">Top Pick</span>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Transistors Cover.jpg" alt="20 Trans" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">20 MCU Tips</h3>
+                                    <p class="book-description">Essential microcontroller design tips</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="MCU Tips Cover.jpg" alt="20 MCU" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">20 Comm Problems</h3>
+                                    <p class="book-description">Common communication issues and solutions</p>
+                                    <span class="book-badge">Top Pick</span>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="COMM Problems Cover.jpg" alt="20 Comm" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">20 Inductors Apps</h3>
+                                    <p class="book-description">Practical inductor circuit applications</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Inductors Cover.jpg" alt="20 Ind" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">20 OPAMP Apps</h3>
+                                    <p class="book-description">Practical op-amp circuit applications</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="OPAMP Apps Cover.jpg" alt="20 OPAMP" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">20 DFM Tips</h3>
+                                    <p class="book-description">Design for Manufacturing best practices</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="DFM Cover.jpg" alt="20 DFM" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">20 Signal Conversions</h3>
+                                    <p class="book-description">Signal conversion techniques and circuits</p>
+                                    <span class="book-badge">Top Pick</span>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Signal Conversions Cover.jpg" alt="20 Signal" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Power Design</div>
+            </section>
+
+            <!-- Tutorials Category -->
+            <section class="category" id="tutorials">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-graduation-cap category-icon"></i>
+                        Tutorials
+                    </h2>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="category-content">
+                    <div class="book-grid">
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Q&A Power/Analog</h3>
+                                    <p class="book-description">Power and analog design Q&A</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Q&A Power Analog Cover.jpg" alt="QA" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="book-card-back">
-                            <img src="Power Design Cover.jpg" alt="Power">
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Power Tree</h3>
+                                    <p class="book-description">Power distribution tree design</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Power Tree Cover.jpg" alt="Power Tree" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Bring Up</h3>
+                                    <p class="book-description">Hardware bring-up procedures</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Bring Up Cover.jpg" alt="Bring Up" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_free-eda-tools-activity-7397117746196512768-t1RO?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">EDA Free Tools</h3>
+                                    <p class="book-description">Free Electronic Design Automation tools</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="EDA Cover.jpg" alt="EDA Free Tools" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_ltspice-from-scratch-activity-7398937815675371520-H3Fh?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">LTSpice Tutorial Part1</h3>
+                                    <p class="book-description">LTSpice simulation tutorial</p>
+                                    <span class="book-badge">Top Pick</span>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="LTSpice Tutorial Part1 Cover.jpg" alt="LTSpice Tutorial Part1" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_ltspice-part-2-activity-7402562212386553856-2lLW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">LTSpice Tutorial Part2</h3>
+                                    <p class="book-description">Advanced LTSpice techniques</p>
+                                    <span class="book-badge">Top Pick</span>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="LTSpice Tutorial Part2 Cover.jpg" alt="LTSpice Tutorial Part2" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq">
+                            <div class="book-card-inner">
+                                <div class="book-card-front">
+                                    <h3 class="book-title">Troubleshooting</h3>
+                                    <p class="book-description">Hardware troubleshooting techniques</p>
+                                </div>
+                                <div class="book-card-back">
+                                    <img src="Troubleshooting Cover.jpg" alt="Troubleshooting" class="book-cover">
+                                    <a href="#" class="book-link">View on LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">RF Theory</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Radio Frequency Cover.jpg" alt="RF">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <img src="top-pick-badge.png" class="book-badge" alt="Top Pick">
-                            <div class="book-title">Ground Rules</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Ground Rules Cover.jpg" alt="Ground">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_battery-management-system-activity-7326196854382059521-rRNP?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Battery Management</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Battery Management Cover.jpg" alt="Battery">
-                        </div>
-                    </div>
-                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Shimi Cohen – Content Craft</p>
+        </div>
+    </footer>
+
+    <!-- Floating Action Buttons -->
+    <div class="fab-container">
+        <button class="fab" id="downloadBtn">
+            <i class="fas fa-download"></i>
+            <span class="fab-label">Download Files</span>
+        </button>
+        <a href="https://buymeacoffee.com/shimic" target="_blank" class="fab" id="donateBtn">
+            <i class="fas fa-coffee"></i>
+            <span class="fab-label">Support My Work</span>
+        </a>
+    </div>
+
+    <!-- File Vault Modal -->
+    <div class="modal" id="fileVaultModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">File Vault</h2>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-        </div>
-    </section>
-
-    <!-- Practical Design Category -->
-    <section class="category">
-        <h2 class="category-title">Practical Design<span class="plus-icon">+</span></h2>
-        <div class="book-grid-wrapper">
-            <div class="book-grid">
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <img src="top-pick-badge.png" class="book-badge" alt="Top Pick">
-                            <div class="book-title">PCB Design</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="PCB Design Cover.jpg" alt="PCB Design">
+            <div class="modal-body">
+                <div class="tabs">
+                    <button class="tab active" data-tab="ltspice">LTSPICE</button>
+                    <button class="tab" data-tab="qspice">QSPICE</button>
+                    <button class="tab" data-tab="schematics">Schematics</button>
+                    <button class="tab" data-tab="docs">Docs</button>
+                </div>
+                <div class="tab-content active" id="ltspice">
+                    <div class="file-list" id="ltspiceFiles">
+                        <div class="loading">Loading LTSPICE files...</div>
+                    </div>
+                </div>
+                <div class="tab-content" id="qspice">
+                    <div class="file-list" id="qspiceFiles">
+                        <div class="empty-state">
+                            <h3>No Files Available</h3>
+                            <p>QSPICE files will be added soon.</p>
                         </div>
                     </div>
                 </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Hardware</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Hardware Cover.jpg" alt="Hardware">
+                <div class="tab-content" id="schematics">
+                    <div class="file-list" id="schematicsFiles">
+                        <div class="empty-state">
+                            <h3>No Files Available</h3>
+                            <p>Schematic files will be added soon.</p>
                         </div>
                     </div>
                 </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Hardware Extended</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Hardware Extended Cover.jpg" alt="Hardware Extended">
+                <div class="tab-content" id="docs">
+                    <div class="file-list" id="docsFiles">
+                        <div class="empty-state">
+                            <h3>No Files Available</h3>
+                            <p>Documentation files will be added soon.</p>
                         </div>
                     </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Design For Testability</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Design For Testability Cover.jpg" alt="DFT">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Protection Circuits</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Protection Circuits Cover.jpg" alt="Protection">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Thermal Management</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Thermal Management Cover.jpg" alt="Thermal">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Hardware Buffers</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Hardware Buffers Cover.jpg" alt="HW Buffers">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Current Sensing</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Current Sensing Cover.jpg" alt="Current">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <img src="top-pick-badge.png" class="book-badge" alt="Top Pick">
-                            <div class="book-title">ADC</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="ADC Cover.jpg" alt="ADC">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <img src="top-pick-badge.png" class="book-badge" alt="Top Pick">
-                            <div class="book-title">Hardware Drivers</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Hardware Drivers Cover.jpg" alt="HW Drivers">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Precision Circuits</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Precision Circuits Cover.jpg" alt="Precision">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_board-design-protection-activity-7393852496705781760-NJ0Y?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Hardware Protection</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Hardware Protection Cover.jpg" alt="Precision">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Components Category -->
-    <section class="category">
-        <h2 class="category-title">Components<span class="plus-icon">+</span></h2>
-        <div class="book-grid-wrapper">
-            <div class="book-grid">
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Component Selection</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Component Selection Cover.jpg" alt="Selection">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Capacitors</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Capacitors Comp Cover.jpg" alt="Capacitors">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_diodes-activity-733771775899025409-Fwv0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Diodes</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Diodes Comp Cover.jpg" alt="Diodes">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Inductors</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Inductors Comp Cover.jpg" alt="Inductors">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Transistors</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Transistors Comp Cover.jpg" alt="Transistors">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Sensors</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Sensors Comp Cover.jpg" alt="Sensors">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">MEMS Gyro</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="GYRO Comp Cover.jpg" alt="MEMS">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Resistors</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Resistors Comp Cover.jpg" alt="Resistors">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_connectors-cables-activity-7336588127437795328-boN_?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Connectors and Cables</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Connectors Comp Cover.jpg" alt="Pwr Trans">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <img src="top-pick-badge.png" class="book-badge" alt="Top Pick">
-                            <div class="book-title">Transformers</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Transformers Comp Cover.jpg" alt="Transformer">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Switches</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Switches Comp Cover.jpg" alt="Switches">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Test Equipment</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Test Equipment Cover.jpg" alt="Test Equipment">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- "20" Series Category -->
-    <section class="category">
-        <h2 class="category-title">"20" Series<span class="plus-icon">+</span></h2>
-        <div class="book-grid-wrapper">
-            <div class="book-grid">
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">20 Capacitors Apps</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Capacitors Cover.jpg" alt="20 Caps">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">20 Resistors Apps</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Resistors Cover.jpg" alt="20 Res">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">20 Active ICs</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Active ICs Cover.jpg" alt="20 ICs">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">20 Diodes Apps</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Diodes Cover.jpg" alt="20 Diodes">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <img src="top-pick-badge.png" class="book-badge" alt="Top Pick">
-                            <div class="book-title">20 Transistors Apps</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Transistors Cover.jpg" alt="20 Trans">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">20 MCU Tips</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="MCU Tips Cover.jpg" alt="20 MCU">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <img src="top-pick-badge.png" class="book-badge" alt="Top Pick">
-                            <div class="book-title">20 Comm Problems</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="COMM Problems Cover.jpg" alt="20 Comm">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">20 Inductors Apps</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Inductors Cover.jpg" alt="20 Ind">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">20 OPAMP Apps</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="OPAMP Apps Cover.jpg" alt="20 OPAMP">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">20 DFM Tips</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="DFM Cover.jpg" alt="20 DFM">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <img src="top-pick-badge.png" class="book-badge" alt="Top Pick">
-                            <div class="book-title">20 Signal Conversions</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Signal Conversions Cover.jpg" alt="20 Signal">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tutorials Category -->
-    <section class="category">
-        <h2 class="category-title">Tutorials<span class="plus-icon">+</span></h2>
-        <div class="book-grid-wrapper">
-            <div class="book-grid">
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Q&A Power/Analog</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Q&A Power Analog Cover.jpg" alt="QA">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Power Tree</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Power Tree Cover.jpg" alt="Power Tree">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Bring Up</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Bring Up Cover.jpg" alt="Bring Up">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_free-eda-tools-activity-7397117746196512768-t1RO?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">EDA Free Tools</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="EDA Cover.jpg" alt="EDA Free Tools">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_ltspice-from-scratch-activity-7398937815675371520-H3Fh?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <img src="top-pick-badge.png" class="book-badge" alt="Top Pick">
-                            <div class="book-title">LTSpice Tutorial Part1</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="LTSpice Tutorial Part1 Cover.jpg" alt="LTSpice Tutorial Part1">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_ltspice-part-2-activity-7402562212386553856-2lLW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAoakwgBrnS605wSioJTcwzafWyKeUYH3oc">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <img src="top-pick-badge.png" class="book-badge" alt="Top Pick">
-                            <div class="book-title">LTSpice Tutorial Part2</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="LTSpice Tutorial Part2 Cover.jpg" alt="LTSpice Tutorial Part2">
-                        </div>
-                    </div>
-                </div>
-                <div class="book-card" data-link="https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq">
-                    <div class="book-card-inner">
-                        <div class="book-card-front">
-                            <div class="book-title">Troubleshooting</div>
-                        </div>
-                        <div class="book-card-back">
-                            <img src="Troubleshooting Cover.jpg" alt="Troubleshooting">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer>© 2025 Shimi Cohen – Content Craft</footer>
-
-<!-- Download Button (Bottom Right) -->
-<div class="vault-download-btn" id="vaultDownloadBtn">
-    <span class="download-label">Download</span>
-    <svg class="vault-download-icon" viewBox="0 0 24 24">
-        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-    </svg>
-</div>
-
-<!-- Donate Button (Bottom Left) -->
-<a href="https://buymeacoffee.com/shimic" target="_blank" class="donate-button" title="Support Shimi's Content Creation">
-    <span class="donate-label">Donate</span>
-    <span class="donate-icon">$</span>
-</a>
-
-<!-- File Vault Manager -->
-<div class="file-manager" id="fileManager">
-    <div class="manager-container">
-        <div class="manager-header">
-            <div class="manager-title">File Vault</div>
-            <button class="close-btn" id="closeBtn">
-                <svg class="close-icon" viewBox="0 0 24 24">
-                    <line x1="18" y1="6" x2="6" y2="18" stroke-linecap="round"/>
-                    <line x2="18" y2="6" x1="6" y1="18" stroke-linecap="round"/>
-                </svg>
-            </button>
-        </div>
-        <div class="tabs">
-            <button class="tab active" data-tab="ltspice">LTSPICE</button>
-            <button class="tab" data-tab="qspice">QTSPICE</button>
-            <button class="tab" data-tab="schematics">Schematics</button>
-            <button class="tab" data-tab="docs">Docs</button>
-        </div>
-        <div class="content-area active" data-tab="ltspice">
-            <div class="file-list" id="ltspiceFiles">
-                <div class="loading">Loading LTSPICE files...</div>
-            </div>
-        </div>
-        <div class="content-area" data-tab="qspice">
-            <div class="file-list" id="qspiceFiles">
-                <div class="empty-state">
-                    <h3>No Files Available</h3>
-                    <p>QTSPICE files will be added soon.</p>
-                </div>
-            </div>
-        </div>
-        <div class="content-area" data-tab="schematics">
-            <div class="file-list" id="schematicsFiles">
-                <div class="empty-state">
-                    <h3>No Files Available</h3>
-                    <p>Schematic files will be added soon.</p>
-                </div>
-            </div>
-        </div>
-        <div class="content-area" data-tab="docs">
-            <div class="file-list" id="docsFiles">
-                <div class="empty-state">
-                    <h3>No Files Available</h3>
-                    <p>Documentation files will be added soon.</p>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="download-status" id="downloadStatus"></div>
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
 
-<script>
-// ====== ANIMATED SHAPES ======
-function createAnimatedShapes() {
-    const container = document.querySelector('.animated-shapes');
-    if (!container) return;
-    
-    container.innerHTML = '';
-    
-    const shapeTypes = ['square', 'rectangle', 'triangle'];
-    const colors = [
-        'rgba(255, 0, 60, 0.08)',
-        'rgba(255, 0, 60, 0.05)',
-        'rgba(255, 0, 60, 0.12)'
-    ];
-    
-    for (let i = 0; i < 8; i++) {
-        const shape = document.createElement('div');
-        const type = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        
-        shape.className = `shape ${type}`;
-        
-        const top = Math.random() * 90;
-        const left = Math.random() * 90;
-        
-        shape.style.top = `${top}%`;
-        shape.style.left = `${left}%`;
-        
-        if (type !== 'triangle') {
-            shape.style.borderColor = color;
-        } else {
-            shape.style.borderBottomColor = color;
-        }
-        
-        const duration = 15 + Math.random() * 15;
-        shape.style.animationDuration = `${duration}s`;
-        
-        const delay = -(Math.random() * 20);
-        shape.style.animationDelay = `${delay}s`;
-        
-        container.appendChild(shape);
-    }
-}
-
-// ====== BOOK CARDS FUNCTIONALITY ======
-document.addEventListener('DOMContentLoaded', () => {
-    createAnimatedShapes();
-    
-    const categories = document.querySelectorAll('.category');
-    categories.forEach(category => {
-        const title = category.querySelector('.category-title');
-        title.addEventListener('click', (e) => {
-            if (e.target.closest('.book-card')) return;
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ====== CATEGORY TOGGLING ======
+            const categoryHeaders = document.querySelectorAll('.category-header');
             
-            const isOpen = category.classList.contains('open');
-            
-            if (!isOpen) {
-                categories.forEach(c => c.classList.remove('open'));
-                category.classList.add('open');
-            } else {
-                category.classList.remove('open');
-            }
-        });
-    });
-    
-    const bookCards = document.querySelectorAll('.book-card');
-    bookCards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            e.stopPropagation();
-            
-            if (card.classList.contains('flipped')) {
-                const link = card.getAttribute('data-link');
-                if (link) {
-                    window.open(link, '_blank', 'noopener,noreferrer');
-                }
-            } else {
-                bookCards.forEach(c => {
-                    if (c !== card) c.classList.remove('flipped');
-                });
-                card.classList.add('flipped');
-            }
-        });
-    });
-    
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.book-card')) {
-            bookCards.forEach(c => c.classList.remove('flipped'));
-        }
-    });
-    
-    initVaultSystem();
-});
-
-// ====== FILE VAULT SYSTEM ======
-function initVaultSystem() {
-    const vaultDownloadBtn = document.getElementById('vaultDownloadBtn');
-    const closeBtn = document.getElementById('closeBtn');
-    const fileManager = document.getElementById('fileManager');
-    const tabs = document.querySelectorAll('.tab');
-    const downloadStatus = document.getElementById('downloadStatus');
-    
-    let filesLoaded = false;
-    
-    // Open vault
-    ['click', 'touchend'].forEach(eventType => {
-        vaultDownloadBtn.addEventListener(eventType, function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            fileManager.classList.add('active');
-            
-            if (!filesLoaded) {
-                loadGithubFiles();
-                filesLoaded = true;
-            }
-        }, { passive: false });
-    });
-    
-    // Close vault
-    ['click', 'touchend'].forEach(eventType => {
-        closeBtn.addEventListener(eventType, function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            fileManager.classList.remove('active');
-        }, { passive: false });
-    });
-    
-    // Tab switching
-    tabs.forEach(tab => {
-        ['click', 'touchend'].forEach(eventType => {
-            tab.addEventListener(eventType, function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                tabs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                
-                document.querySelectorAll('.content-area').forEach(area => {
-                    area.classList.remove('active');
-                });
-                
-                const tabName = this.getAttribute('data-tab');
-                document.querySelector(`.content-area[data-tab="${tabName}"]`).classList.add('active');
-            }, { passive: false });
-        });
-    });
-    
-    // File download handler
-    document.addEventListener('click', function(e) {
-        const fileItem = e.target.closest('.file-item');
-        if (fileItem) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const fileName = fileItem.getAttribute('data-filename');
-            const fileUrl = fileItem.getAttribute('data-url');
-            
-            if (fileUrl && fileUrl !== '#') {
-                downloadFile(fileName, fileUrl);
-            }
-        }
-    }, true);
-    
-    // Load files from GitHub
-    async function loadGithubFiles() {
-        const ltspiceContainer = document.getElementById('ltspiceFiles');
-        
-        try {
-            const apiUrl = 'https://api.github.com/repos/ShimiC1978/Download/contents';
-            const response = await fetch(apiUrl);
-            
-            if (!response.ok) {
-                throw new Error(`GitHub API error: ${response.status}`);
-            }
-            
-            const files = await response.json();
-            
-            const ascFiles = files.filter(file => 
-                file.name.toLowerCase().endsWith('.asc') && 
-                file.type === 'file'
-            );
-            
-            if (ascFiles.length === 0) {
-                ltspiceContainer.innerHTML = '<div class="empty-state"><h3>No LTSPICE Files Found</h3><p>Check back soon for updates.</p></div>';
-                return;
-            }
-            
-            ltspiceContainer.innerHTML = '';
-            
-            ascFiles.forEach(file => {
-                const fileSize = (file.size / 1024).toFixed(1);
-                const fileItem = document.createElement('div');
-                fileItem.className = 'file-item';
-                fileItem.setAttribute('data-filename', file.name);
-                fileItem.setAttribute('data-url', file.download_url);
-                fileItem.tabIndex = 0;
-                
-                fileItem.innerHTML = `
-                    <svg class="file-icon" viewBox="0 0 24 24">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                        <line x1="16" y1="13" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                        <polyline points="10 9 9 9 8 9"/>
-                    </svg>
-                    <div class="file-name">${file.name}</div>
-                    <div class="file-size">${fileSize} KB</div>
-                    <div class="file-desc">Click to download</div>
-                `;
-                
-                fileItem.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        downloadFile(file.name, file.download_url);
+            categoryHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const category = header.parentElement;
+                    const isOpen = category.classList.contains('open');
+                    
+                    // Close all categories
+                    document.querySelectorAll('.category').forEach(cat => {
+                        cat.classList.remove('open');
+                    });
+                    
+                    // Open clicked category if it was closed
+                    if (!isOpen) {
+                        category.classList.add('open');
                     }
                 });
-                
-                ltspiceContainer.appendChild(fileItem);
             });
             
-        } catch (error) {
-            console.error('Error loading files:', error);
-            ltspiceContainer.innerHTML = `
-                <div class="empty-state">
-                    <h3>Error Loading Files</h3>
-                    <p>Could not fetch files from GitHub. Please check your connection.</p>
-                </div>
-            `;
-        }
-    }
-    
-    // Download file
-    function downloadFile(filename, url) {
-        showStatus(`Downloading: ${filename}`);
-        
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        
-        document.body.appendChild(link);
-        
-        try {
-            if (document.createEvent) {
-                const event = document.createEvent('MouseEvents');
-                event.initEvent('click', true, true);
-                link.dispatchEvent(event);
-            } else {
-                link.click();
+            // ====== NAVIGATION ACTIVE STATE ======
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    link.classList.add('active');
+                    
+                    // Smooth scroll to section
+                    const targetId = link.getAttribute('href');
+                    if (targetId && targetId !== '#') {
+                        const targetSection = document.querySelector(targetId);
+                        if (targetSection) {
+                            targetSection.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                            
+                            // Open the target category
+                            document.querySelectorAll('.category').forEach(cat => {
+                                cat.classList.remove('open');
+                            });
+                            targetSection.classList.add('open');
+                        }
+                    }
+                });
+            });
+            
+            // ====== BOOK CARD INTERACTIONS ======
+            const bookCards = document.querySelectorAll('.book-card');
+            
+            bookCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const link = card.getAttribute('data-link');
+                    if (link) {
+                        window.open(link, '_blank');
+                    }
+                });
+            });
+            
+            // ====== MODAL FUNCTIONALITY ======
+            const downloadBtn = document.getElementById('downloadBtn');
+            const fileVaultModal = document.getElementById('fileVaultModal');
+            const closeModal = document.getElementById('closeModal');
+            const notification = document.getElementById('notification');
+            
+            // Open modal
+            downloadBtn.addEventListener('click', () => {
+                fileVaultModal.classList.add('active');
+                loadFiles();
+            });
+            
+            // Close modal
+            closeModal.addEventListener('click', () => {
+                fileVaultModal.classList.remove('active');
+            });
+            
+            // Close modal when clicking outside
+            fileVaultModal.addEventListener('click', (e) => {
+                if (e.target === fileVaultModal) {
+                    fileVaultModal.classList.remove('active');
+                }
+            });
+            
+            // ====== TAB FUNCTIONALITY ======
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(tc => tc.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // ====== FILE LOADING ======
+            async function loadFiles() {
+                const ltspiceFiles = document.getElementById('ltspiceFiles');
+                
+                try {
+                    const response = await fetch('https://api.github.com/repos/ShimiC1978/Download/contents');
+                    const files = await response.json();
+                    
+                    const ascFiles = files.filter(file => 
+                        file.name.toLowerCase().endsWith('.asc') && 
+                        file.type === 'file'
+                    );
+                    
+                    if (ascFiles.length === 0) {
+                        ltspiceFiles.innerHTML = `
+                            <div class="empty-state">
+                                <h3>No LTSPICE Files Found</h3>
+                                <p>Check back soon for updates.</p>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    ltspiceFiles.innerHTML = '';
+                    
+                    ascFiles.forEach(file => {
+                        const fileSize = (file.size / 1024).toFixed(1);
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-item';
+                        fileItem.setAttribute('data-url', file.download_url);
+                        
+                        fileItem.innerHTML = `
+                            <div class="file-icon">
+                                <i class="fas fa-file-code"></i>
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-size">${fileSize} KB</div>
+                            </div>
+                        `;
+                        
+                        fileItem.addEventListener('click', () => {
+                            downloadFile(file.name, file.download_url);
+                        });
+                        
+                        ltspiceFiles.appendChild(fileItem);
+                    });
+                    
+                } catch (error) {
+                    console.error('Error loading files:', error);
+                    ltspiceFiles.innerHTML = `
+                        <div class="empty-state">
+                            <h3>Error Loading Files</h3>
+                            <p>Could not fetch files from GitHub. Please check your connection.</p>
+                        </div>
+                    `;
+                }
             }
-        } catch (e) {
-            window.open(url, '_blank', 'noopener,noreferrer');
-        }
-        
-        setTimeout(() => {
-            document.body.removeChild(link);
-            showStatus('Download complete!');
-        }, 100);
-    }
-    
-    // Show status message
-    function showStatus(message) {
-        const status = document.getElementById('downloadStatus');
-        status.textContent = message;
-        status.classList.add('show');
-        
-        setTimeout(() => {
-            status.classList.remove('show');
-        }, 3000);
-    }
-    
-    // Keyboard support
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && fileManager.classList.contains('active')) {
-            fileManager.classList.remove('active');
-        }
-    });
-}
-
-// Mobile orientation handling
-window.addEventListener('resize', () => {
-    createAnimatedShapes();
-});
-
-setTimeout(() => {
-    console.log('Website fully loaded');
-    const status = document.getElementById('downloadStatus');
-    if (status) {
-        status.textContent = 'Ready';
-        status.classList.add('show');
-        setTimeout(() => status.classList.remove('show'), 1000);
-    }
-}, 1000);
-</script>
+            
+            // ====== FILE DOWNLOAD ======
+            function downloadFile(filename, url) {
+                showNotification(`Downloading: ${filename}`);
+                
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = filename;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                setTimeout(() => {
+                    showNotification('Download complete!');
+                }, 1000);
+            }
+            
+            // ====== NOTIFICATION ======
+            function showNotification(message) {
+                notification.textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+            
+            // ====== RIPPLE EFFECT ======
+            const fabs = document.querySelectorAll('.fab');
+            
+            fabs.forEach(fab => {
+                fab.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('fab-ripple');
+                    
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+            
+            // ====== SCROLL BEHAVIOR ======
+            let lastScrollTop = 0;
+            const header = document.querySelector('header');
+            
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    // Scrolling down
+                    header.style.transform = 'translateY(-100%)';
+                } else {
+                    // Scrolling up
+                    header.style.transform = 'translateY(0)';
+                }
+                
+                lastScrollTop = scrollTop;
+            });
+        });
+    </script>
 </body>
 </html>
