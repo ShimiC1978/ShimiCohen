@@ -832,7 +832,47 @@
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
         }
-    </style>
+     /* ====== MOBILE MODAL COMPACT FIX ====== */
+    @media (max-width: 600px) {
+        .modal-content {
+            /* Use slightly more of the screen height */
+            max-height: 95vh; 
+            /* Add a small margin to prevent it from touching the screen edges */
+            margin: 1rem; 
+        }
+    
+        .modal-header {
+            /* Reduce padding in the header */
+            padding: 1rem; 
+        }
+    
+        .modal-title {
+            /* Make the modal title smaller */
+            font-size: 1.1rem; 
+        }
+    
+        .modal-body {
+            /* Reduce padding in the main content area */
+            padding: 1rem; 
+        }
+    
+        .profile-name {
+            /* Make the name smaller */
+            font-size: 1.2rem; 
+        }
+    
+        .profile-title {
+            /* Make the subtitle smaller */
+            font-size: 0.9rem; 
+        }
+    
+        .profile-bio {
+            /* Make the bio text smaller and reduce its internal padding */
+            font-size: 0.9rem; 
+            padding: 0.75rem; 
+        }
+    }
+      </style>
 </head>
 <body>
     <!-- Header -->
