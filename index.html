@@ -163,7 +163,7 @@
             transform: scale(1.1);
             filter: brightness(1.2);
 }
-        /* ====== NAVIGATION - ICON-BASED ====== */
+                /* ====== NAVIGATION - COMPACT VERSION ====== */
         .icon-nav {
             background-color: var(--bg-secondary);
             border-top: 1px solid var(--border-color);
@@ -172,65 +172,68 @@
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
         }
-
+        
         .icon-nav::-webkit-scrollbar {
             display: none;
         }
-
+        
         .nav-icons {
             display: flex;
-            gap: 1rem;
-            padding: 0 1rem;
+            gap: 0.3rem; /* Very small gap */
+            padding: 0 0.25rem; /* Minimal padding */
             list-style: none;
-            justify-content: space-between;
+            justify-content: space-around; /* Better distribution */
+            width: 100%;
         }
-
+        
         .nav-icon-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.15rem;
             cursor: pointer;
-            padding: 0.25rem;
+            padding: 0.15rem;
             flex: 1;
             min-width: 0;
         }
-
+        
         .nav-icon {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             background-color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
             transition: all 0.3s ease;
             box-shadow: var(--shadow-sm);
         }
-
-        .nav-icon.active {
-            background-color: var(--accent-color);
-            color: white;
-            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
-        }
-
+        
         .nav-label {
-            font-size: 0.6rem;
+            font-size: 0.5rem;
             color: var(--text-secondary);
             font-weight: 500;
             text-align: center;
-            transition: color 0.3s ease;
+            line-height: 1;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             width: 100%;
         }
-
-        .nav-icon.active + .nav-label {
-            color: var(--accent-color);
-            font-weight: 600;
+        
+        /* Hide labels on very small screens */
+        @media (max-width: 360px) {
+            .nav-label {
+                display: none;
+            }
+            
+            .nav-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
         }
 
         /* ====== CATEGORY CONTENT ====== */
@@ -829,6 +832,7 @@
 </head>
 <body>
     <!-- Header -->
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="header-container">
@@ -841,11 +845,12 @@
                                 <i class="fas fa-microchip"></i>
                             </div>
                         </div>
-                        <div class="tagline">Board Design Content</div>
+                        <div class="tagline">Board Design Book Selection</div>
                     </div>
                 </div>
+                <!-- LinkedIn Logo (REPLACED HERE) -->
                 <a href="https://www.linkedin.com/in/shimic1978/" target="_blank" class="linkedin-logo">
-                  <img src="Linkedin Logo.png" alt="LinkedIn" class="linkedin-logo-img">
+                    <img src="Linkedin Logo.png" alt="LinkedIn" class="linkedin-logo-img">
                 </a>
             </div>
         </div>
