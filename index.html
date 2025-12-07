@@ -163,78 +163,78 @@
             transform: scale(1.1);
             filter: brightness(1.2);
 }
-                /* ====== NAVIGATION - COMPACT VERSION ====== */
-        .icon-nav {
-            background-color: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            padding: 0.5rem 0;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-        
-        .icon-nav::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .nav-icons {
-            display: flex;
-            gap: 0.3rem; /* Very small gap */
-            padding: 0 0.25rem; /* Minimal padding */
-            list-style: none;
-            justify-content: space-around; /* Better distribution */
-            width: 100%;
-        }
-        
-        .nav-icon-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.15rem;
-            cursor: pointer;
-            padding: 0.15rem;
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .nav-icon {
-            width: 32px;
-            height: 32px;
-            background-color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .nav-label {
-            font-size: 0.5rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            text-align: center;
-            line-height: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 100%;
-        }
-        
-        /* Hide labels on very small screens */
-        @media (max-width: 360px) {
-            .nav-label {
-                display: none;
-            }
-            
-            .nav-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-        }
+              /* ====== NAVIGATION - COMPACT VERSION ====== */
+      .icon-nav {
+          background-color: var(--bg-secondary);
+          border-top: 1px solid var(--border-color);
+          padding: 0.5rem 0;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+      }
+      
+      .icon-nav::-webkit-scrollbar {
+          display: none;
+      }
+      
+      .nav-icons {
+          display: flex;
+          gap: 0.3rem; /* Very small gap */
+          padding: 0 0.25rem; /* Minimal padding */
+          list-style: none;
+          justify-content: space-around; /* Better distribution */
+          width: 100%;
+      }
+      
+      .nav-icon-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.15rem;
+          cursor: pointer;
+          padding: 0.15rem;
+          flex: 1;
+          min-width: 0;
+      }
+      
+      .nav-icon {
+          width: 32px;
+          height: 32px;
+          background-color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.85rem;
+          color: var(--text-secondary);
+          transition: all 0.3s ease;
+          box-shadow: var(--shadow-sm);
+      }
+      
+      .nav-label {
+          font-size: 0.5rem;
+          color: var(--text-secondary);
+          font-weight: 500;
+          text-align: center;
+          line-height: 1;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%;
+      }
+      
+      /* Hide labels on very small screens */
+      @media (max-width: 360px) {
+          .nav-label {
+              display: none;
+          }
+          
+          .nav-icon {
+              width: 36px;
+              height: 36px;
+              font-size: 1rem;
+          }
+      }
 
         /* ====== CATEGORY CONTENT ====== */
         .category-section {
@@ -761,12 +761,16 @@
             }
             
             .nav-icons {
+                /* This prevents the icons from spreading across the full width */
+                max-width: 650px; 
+                
+                /* This centers the entire block of icons on the page */
+                margin: 0 auto;
+                
+                /* This keeps the icons centered within their new, narrower container */
                 justify-content: center;
+                
                 gap: 1.5rem;
-            }
-            
-            .nav-icon-item {
-                min-width: 70px;
             }
             
             .nav-icon {
