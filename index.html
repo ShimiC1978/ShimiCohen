@@ -6,6 +6,7 @@
     <title>Shimi Cohen – Content Craft</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* ====== MOBILE-FIRST CSS VARIABLES ====== */
         :root {
@@ -872,10 +873,308 @@
             padding: 0.75rem; 
         }
     }
+    
+    /* ====== FILTER CALCULATOR STYLES ====== */
+    .calc-window {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        max-width: 1200px;
+        margin: 0 auto;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .tool-header {
+        background: var(--primary-color);
+        color: white;
+        padding: 12px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+    }
+    
+    .tool-header h2 {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    
+    .tool-tabs {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .tool-tab {
+        padding: 6px 12px;
+        background: #333;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+        color: white;
+        font-family: inherit;
+        font-size: 0.85rem;
+    }
+    
+    .tool-tab.active {
+        background: var(--accent-color);
+    }
+    
+    .content-area {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 20px;
+        padding: 20px;
+        flex: 1;
+        overflow: auto;
+    }
+    
+    @media (max-width: 768px) {
+        .content-area {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    .panel {
+        background: #f8f8f8;
+        border-radius: 8px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .filter-btns {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .filter-btn {
+        padding: 10px 5px;
+        background: #ddd;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        font-family: inherit;
+        font-size: 0.85rem;
+    }
+    
+    .filter-btn.active {
+        background: var(--accent-color);
+        color: white;
+    }
+    
+    .comp-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    
+    @media (max-width: 768px) {
+        .comp-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    .comp-box {
+        background: white;
+        border-radius: 8px;
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        min-width: 150px;
+    }
+    
+    .comp-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+    
+    .comp-letter {
+        font-size: 1.5rem; /* Reduced by 40% from 2.5rem */
+        font-weight: bold;
+        color: var(--accent-color);
+        margin-right: 8px;
+        width: 40px; /* Reduced width */
+    }
+    
+    .comp-value {
+        font-size: 1.3rem; /* Reduced by 40% from 2.2rem */
+        font-weight: bold;
+        color: var(--text-primary);
+        flex: 1;
+        text-align: right;
+    }
+    
+    .comp-slider {
+        width: 100%;
+        margin: 8px 0;
+        height: 6px;
+        border-radius: 3px;
+        background: #ddd;
+        outline: none;
+        -webkit-appearance: none;
+    }
+    
+    .comp-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--accent-color);
+        cursor: pointer;
+        border: 2px solid white;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .unit-btns {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .unit-btn {
+        padding: 4px 8px;
+        background: #eee;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 0.75rem;
+    }
+    
+    .unit-btn.active {
+        background: var(--accent-color);
+        color: white;
+    }
+    
+    .freq-display {
+        text-align: center;
+        padding: 15px;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 8px;
+        margin-top: 15px;
+    }
+    
+    .freq-value {
+        font-size: 2.2rem;
+        font-weight: bold;
+        margin: 5px 0;
+    }
+    
+    .freq-unit {
+        font-size: 1rem;
+    }
+    
+    /* New: Component order display */
+    .component-order {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 12px;
+        margin-top: 15px;
+        text-align: center;
+    }
+    
+    .order-title {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    
+    .order-diagram {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        min-height: 32px;
+    }
+    
+    .order-arrow {
+        color: var(--accent-color);
+        margin: 0 5px;
+    }
+    
+    .order-element {
+        background: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        border: 1px solid var(--border-color);
+        min-width: 30px;
+    }
+    
+    .chart-box {
+        height: 320px;
+        width: 100%;
+    }
+    
+    @media (max-width: 768px) {
+        .chart-box {
+            height: 250px;
+        }
+    }
+    
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+    }
+    
+    .info-box {
+        background: white;
+        padding: 12px;
+        border-radius: 5px;
+        border: 1px solid var(--border-color);
+    }
+    
+    .info-title {
+        color: #666;
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+    }
+    
+    .info-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--text-primary);
+    }
+    
+    .disabled {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+    
+    .disabled .comp-letter {
+        color: #999;
+    }
+    
+    .filter-modal .modal-content {
+        max-width: 1200px;
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    .filter-modal .modal-body {
+        padding: 0;
+        overflow: hidden;
+    }
+    
+    .filter-modal .modal-header {
+        background: var(--primary-color);
+    }
       </style>
 </head>
 <body>
-    <!-- Header -->
     <!-- Header -->
     <header>
         <div class="container">
@@ -892,7 +1191,7 @@
                         <div class="tagline">Board Design Book Selection</div>
                     </div>
                 </div>
-                <!-- LinkedIn Logo (REPLACED HERE) -->
+                <!-- LinkedIn Logo -->
                 <a href="https://www.linkedin.com/in/shimic1978/" target="_blank" class="linkedin-logo">
                     <img src="Linkedin Logo.png" alt="LinkedIn" class="linkedin-logo-img">
                 </a>
@@ -939,6 +1238,13 @@
                 </div>
                 <span class="nav-label">Tutorials</span>
             </li>
+            <!-- NEW TOOLS ICON -->
+            <li class="nav-icon-item" data-category="tools">
+                <div class="nav-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <span class="nav-label">Tools</span>
+            </li>
         </ul>
     </nav>
 
@@ -969,6 +1275,9 @@
             <div class="category-section" id="tutorialsContent">
                 <!-- Tutorials content will be loaded here -->
             </div>
+            
+            <!-- Tools Content (empty - handled by modal) -->
+            <div class="category-section" id="toolsContent" style="display: none;"></div>
         </div>
     </main>
 
@@ -984,6 +1293,10 @@
         <button class="fab" id="downloadBtn">
             <i class="fas fa-download"></i>
             <span class="fab-label">Download Files</span>
+        </button>
+        <button class="fab" id="toolsBtn">
+            <i class="fas fa-calculator"></i>
+            <span class="fab-label">Engineering Tools</span>
         </button>
         <a href="https://buymeacoffee.com/shimic" target="_blank" class="fab" id="donateBtn">
             <i class="fas fa-coffee"></i>
@@ -1061,6 +1374,132 @@
                         <div class="empty-state">
                             <h3>No Files Available</h3>
                             <p>Documentation files will be added soon.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW: Filter Calculator Modal -->
+    <div class="modal filter-modal" id="filterCalcModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Engineering Toolbox</h2>
+                <button class="modal-close" id="closeFilterModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="calc-window">
+                    <div class="tool-header">
+                        <h2>Filter Calculator</h2>
+                        <div class="tool-tabs">
+                            <div class="tool-tab active">Filter Calc</div>
+                            <div class="tool-tab">Tool 2</div>
+                            <div class="tool-tab">Tool 3</div>
+                            <div class="tool-tab">Tool 4</div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-area">
+                        <div class="panel">
+                            <div class="filter-btns">
+                                <button class="filter-btn active" data-filter="lpf-rc">RC LPF</button>
+                                <button class="filter-btn" data-filter="hpf-rc">RC HPF</button>
+                                <button class="filter-btn" data-filter="lpf-rl">RL LPF</button>
+                                <button class="filter-btn" data-filter="hpf-rl">RL HPF</button>
+                                <button class="filter-btn" data-filter="bpf-rlc">RLC BPF</button>
+                                <button class="filter-btn" data-filter="bsf-rlc">RLC BSF</button>
+                            </div>
+                            
+                            <div class="comp-grid">
+                                <div class="comp-box">
+                                    <div class="comp-header">
+                                        <div class="comp-letter">R</div>
+                                        <div class="comp-value" id="r-value">1.0</div>
+                                    </div>
+                                    <input type="range" min="1" max="1000" value="10" class="comp-slider" id="r-slider">
+                                    <div class="unit-btns">
+                                        <button class="unit-btn active" data-unit="ohm">Ω</button>
+                                        <button class="unit-btn" data-unit="kohm">kΩ</button>
+                                        <button class="unit-btn" data-unit="mohm">MΩ</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="comp-box" id="c-box">
+                                    <div class="comp-header">
+                                        <div class="comp-letter">C</div>
+                                        <div class="comp-value" id="c-value">1.0</div>
+                                    </div>
+                                    <input type="range" min="1" max="1000" value="100" class="comp-slider" id="c-slider">
+                                    <div class="unit-btns">
+                                        <button class="unit-btn active" data-unit="nf">nF</button>
+                                        <button class="unit-btn" data-unit="uf">μF</button>
+                                        <button class="unit-btn" data-unit="mf">mF</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="comp-box" id="l-box">
+                                    <div class="comp-header">
+                                        <div class="comp-letter">L</div>
+                                        <div class="comp-value" id="l-value">1.0</div>
+                                    </div>
+                                    <input type="range" min="1" max="1000" value="10" class="comp-slider" id="l-slider">
+                                    <div class="unit-btns">
+                                        <button class="unit-btn active" data-unit="nh">nH</button>
+                                        <button class="unit-btn" data-unit="uh">μH</button>
+                                        <button class="unit-btn" data-unit="mh">mH</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="freq-display">
+                                <div>Center/Cutoff Frequency</div>
+                                <div class="freq-value" id="freq-value">15.9</div>
+                                <div class="freq-unit" id="freq-unit">kHz</div>
+                            </div>
+                            
+                            <!-- NEW: Component Order Display -->
+                            <div class="component-order">
+                                <div class="order-title">Component Order (Vin → GND)</div>
+                                <div class="order-diagram" id="order-diagram">
+                                    <div class="order-element">Vin</div>
+                                    <span class="order-arrow">→</span>
+                                    <div class="order-element" id="order-first">R</div>
+                                    <span class="order-arrow">→</span>
+                                    <div class="order-element" id="order-second">C</div>
+                                    <span class="order-arrow">→</span>
+                                    <div class="order-element">Vout</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel">
+                            <div class="chart-box">
+                                <canvas id="bodeChart"></canvas>
+                            </div>
+                            
+                            <div class="info-grid">
+                                <div class="info-box">
+                                    <div class="info-title">Filter Type</div>
+                                    <div class="info-value" id="filter-type">RC LPF</div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-title">-3dB Freq</div>
+                                    <div class="info-value" id="cutoff-freq">15.9</div>
+                                    <div class="info-unit" id="cutoff-unit">kHz</div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-title">Q Factor</div>
+                                    <div class="info-value" id="q-factor">0.5</div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-title">Bandwidth</div>
+                                    <div class="info-value" id="bandwidth">31.8</div>
+                                    <div class="info-unit" id="bandwidth-unit">kHz</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1150,21 +1589,45 @@
             ]
         };
 
+        // Filter Calculator JavaScript
+        let chart, filter = 'lpf-rc';
+        const comps = {
+            r: {val:10, unit:'ohm', mul:1},
+            c: {val:100, unit:'nf', mul:1e-9},
+            l: {val:10, unit:'nh', mul:1e-9}
+        };
+        const units = {
+            r: {ohm:1, kohm:1e3, mohm:1e6},
+            c: {nf:1e-9, uf:1e-6, mf:1e-3},
+            l: {nh:1e-9, uh:1e-6, mh:1e-3}
+        };
+
+        // Component order configurations
+        const filterOrders = {
+            'lpf-rc': {first: 'R', second: 'C', desc: 'Series R, Shunt C to GND'},
+            'hpf-rc': {first: 'C', second: 'R', desc: 'Series C, Shunt R to GND'},
+            'lpf-rl': {first: 'R', second: 'L', desc: 'Series R, Shunt L to GND'},
+            'hpf-rl': {first: 'L', second: 'R', desc: 'Series L, Shunt R to GND'},
+            'bpf-rlc': {first: 'R', second: 'LC', desc: 'Series R, Parallel LC to GND'},
+            'bsf-rlc': {first: 'LC', second: 'R', desc: 'Series LC, Shunt R to GND'}
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             // Track current active category
             let activeCategory = 'digital';
             
             // Initialize the application
             initializeApp();
+            initFilterCalculator();
             
-            // ====== INITIALIZATION ======
+            // ====== INITIALIZATION ====== */
             function initializeApp() {
                 renderAllBooks();
                 setupEventListeners();
                 showCategory('digital'); // Start with digital category
             }
             
-            // ====== BOOK RENDERING ======
+            // ====== BOOK RENDERING ====== */
             function renderAllBooks() {
                 Object.keys(bookData).forEach(categoryId => {
                     const categoryBooks = bookData[categoryId];
@@ -1224,7 +1687,7 @@
                 return names[categoryId] || categoryId;
             }
             
-            // ====== EVENT LISTENERS SETUP ======
+            // ====== EVENT LISTENERS SETUP ====== */
             function setupEventListeners() {
                 // Profile modal
                 const profilePic = document.getElementById('profilePic');
@@ -1251,6 +1714,13 @@
                 navIcons.forEach(icon => {
                     icon.addEventListener('click', (e) => {
                         const categoryId = icon.dataset.category;
+                        
+                        // If clicking tools, open filter calculator
+                        if (categoryId === 'tools') {
+                            const filterModal = document.getElementById('filterCalcModal');
+                            filterModal.classList.add('active');
+                            return;
+                        }
                         
                         // If clicking the same category, close it
                         if (categoryId === activeCategory) {
@@ -1300,6 +1770,25 @@
                 fileVaultModal.addEventListener('click', (e) => {
                     if (e.target === fileVaultModal) {
                         fileVaultModal.classList.remove('active');
+                    }
+                });
+                
+                // Tools button in FAB
+                const toolsBtn = document.getElementById('toolsBtn');
+                const filterModal = document.getElementById('filterCalcModal');
+                const closeFilterModal = document.getElementById('closeFilterModal');
+                
+                toolsBtn.addEventListener('click', () => {
+                    filterModal.classList.add('active');
+                });
+                
+                closeFilterModal.addEventListener('click', () => {
+                    filterModal.classList.remove('active');
+                });
+                
+                filterModal.addEventListener('click', (e) => {
+                    if (e.target === filterModal) {
+                        filterModal.classList.remove('active');
                     }
                 });
                 
@@ -1391,7 +1880,7 @@
                 });
             }
             
-            // ====== CATEGORY NAVIGATION ======
+            // ====== CATEGORY NAVIGATION ====== */
             function showCategory(categoryId) {
                 // Hide all content sections
                 document.querySelectorAll('.category-section').forEach(section => {
@@ -1408,7 +1897,7 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
             
-            // ====== FILE LOADING ======
+            // ====== FILE LOADING ====== */
             async function loadFiles() {
                 const ltspiceFiles = document.getElementById('ltspiceFiles');
                 
@@ -1467,7 +1956,7 @@
                 }
             }
             
-            // ====== FILE DOWNLOAD ======
+            // ====== FILE DOWNLOAD ====== */
             function downloadFile(filename, url) {
                 showNotification(`Downloading: ${filename}`);
                 
@@ -1486,7 +1975,7 @@
                 }, 1000);
             }
             
-            // ====== NOTIFICATION ======
+            // ====== NOTIFICATION ====== */
             function showNotification(message) {
                 const notification = document.getElementById('notification');
                 notification.textContent = message;
@@ -1495,6 +1984,204 @@
                 setTimeout(() => {
                     notification.classList.remove('show');
                 }, 3000);
+            }
+            
+            // ====== FILTER CALCULATOR FUNCTIONS ====== */
+            function initFilterCalculator() {
+                // Filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.onclick = function() {
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        filter = this.dataset.filter;
+                        updateDisabled();
+                        updateComponentOrder();
+                        calculate();
+                    };
+                });
+                
+                // Sliders
+                ['r','c','l'].forEach(id => {
+                    document.getElementById(id+'-slider').oninput = function() {
+                        comps[id].val = +this.value;
+                        document.getElementById(id+'-value').textContent = comps[id].val.toFixed(1);
+                        calculate();
+                    };
+                });
+                
+                // Unit buttons
+                document.querySelectorAll('.unit-btn').forEach(btn => {
+                    btn.onclick = function() {
+                        const unit = this.dataset.unit;
+                        const parent = this.closest('.comp-box');
+                        const id = parent.id.replace('-box','');
+                        
+                        parent.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        comps[id].unit = unit;
+                        comps[id].mul = units[id][unit];
+                        calculate();
+                    };
+                });
+                
+                // Initialize chart
+                const ctx = document.getElementById('bodeChart').getContext('2d');
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [
+                            {
+                                label: 'Magnitude (dB)',
+                                data: [],
+                                borderColor: '#e63946',
+                                backgroundColor: 'rgba(230, 57, 70, 0.1)',
+                                borderWidth: 1,
+                                pointRadius: 1,
+                                fill: true,
+                                yAxisID: 'y'
+                            },
+                            {
+                                label: 'Phase (°)',
+                                data: [],
+                                borderColor: '#2a9d2a',
+                                backgroundColor: 'rgba(42, 157, 42, 0.1)',
+                                borderWidth: 1,
+                                pointRadius: 1,
+                                fill: true,
+                                yAxisID: 'y1'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                type: 'logarithmic',
+                                title: {display:true, text:'Frequency (Hz)'},
+                                grid: {color:'rgba(0,0,0,0.1)'}
+                            },
+                            y: {
+                                position: 'left',
+                                title: {display:true, text:'Magnitude (dB)'},
+                                grid: {color:'rgba(0,0,0,0.1)'}
+                            },
+                            y1: {
+                                position: 'right',
+                                title: {display:true, text:'Phase (°)'},
+                                grid: {drawOnChartArea:false}
+                            }
+                        }
+                    }
+                });
+                
+                updateDisabled();
+                updateComponentOrder();
+                calculate();
+            }
+            
+            function updateDisabled() {
+                const isRC = filter.includes('rc');
+                const isRL = filter.includes('rl');
+                const isRLC = filter.includes('rlc');
+                
+                document.getElementById('c-box').classList.toggle('disabled', isRL && !isRLC);
+                document.getElementById('l-box').classList.toggle('disabled', isRC && !isRLC);
+            }
+            
+            function updateComponentOrder() {
+                const order = filterOrders[filter] || filterOrders['lpf-rc'];
+                document.getElementById('order-first').textContent = order.first;
+                document.getElementById('order-second').textContent = order.second;
+            }
+            
+            function calculate() {
+                const R = comps.r.val * comps.r.mul;
+                const C = comps.c.val * comps.c.mul;
+                const L = comps.l.val * comps.l.mul;
+                
+                let fc, q, bw;
+                
+                if (filter.includes('rc')) {
+                    fc = 1/(2*Math.PI*R*C);
+                    q = 0.5;
+                    bw = fc/q;
+                } else if (filter.includes('rl')) {
+                    fc = R/(2*Math.PI*L);
+                    q = 0.5;
+                    bw = fc/q;
+                } else {
+                    fc = 1/(2*Math.PI*Math.sqrt(L*C));
+                    q = (1/R)*Math.sqrt(L/C);
+                    bw = fc/q;
+                }
+                
+                // Update display
+                const fmt = formatFreq(fc);
+                document.getElementById('freq-value').textContent = fmt.val;
+                document.getElementById('freq-unit').textContent = fmt.unit;
+                
+                document.getElementById('filter-type').textContent = 
+                    filter.replace('lpf','LPF').replace('hpf','HPF').replace('bpf','BPF').replace('bsf','BSF').toUpperCase();
+                
+                const fmtCut = formatFreq(fc);
+                document.getElementById('cutoff-freq').textContent = fmtCut.val;
+                document.getElementById('cutoff-unit').textContent = fmtCut.unit;
+                
+                const fmtBw = formatFreq(bw);
+                document.getElementById('bandwidth').textContent = fmtBw.val;
+                document.getElementById('bandwidth-unit').textContent = fmtBw.unit;
+                
+                document.getElementById('q-factor').textContent = q.toFixed(2);
+                
+                // Bode plot
+                const start = 1;
+                const end = fc * (filter.includes('bp')||filter.includes('bs') ? 100 : 100);
+                const freq = [], mag = [], phase = [];
+                
+                for (let i=0; i<100; i++) {
+                    const f = Math.pow(10, Math.log10(start) + (Math.log10(end)-Math.log10(start))*i/99);
+                    let m, p;
+                    
+                    if (filter === 'lpf-rc') {
+                        m = 1/Math.sqrt(1+Math.pow(2*Math.PI*f*R*C,2));
+                        p = -Math.atan(2*Math.PI*f*R*C)*180/Math.PI;
+                    } else if (filter === 'hpf-rc') {
+                        m = (2*Math.PI*f*R*C)/Math.sqrt(1+Math.pow(2*Math.PI*f*R*C,2));
+                        p = 90 - Math.atan(2*Math.PI*f*R*C)*180/Math.PI;
+                    } else if (filter === 'lpf-rl') {
+                        m = R/Math.sqrt(R*R+Math.pow(2*Math.PI*f*L,2));
+                        p = -Math.atan(2*Math.PI*f*L/R)*180/Math.PI;
+                    } else if (filter === 'hpf-rl') {
+                        m = (2*Math.PI*f*L)/Math.sqrt(R*R+Math.pow(2*Math.PI*f*L,2));
+                        p = 90 - Math.atan(2*Math.PI*f*L/R)*180/Math.PI;
+                    } else if (filter === 'bpf-rlc') {
+                        const w = 2*Math.PI*f;
+                        m = (w*R*C)/Math.sqrt(Math.pow(1-w*w*L*C,2)+Math.pow(w*R*C,2));
+                        p = 90 - Math.atan((w*R*C)/(1-w*w*L*C))*180/Math.PI;
+                    } else {
+                        const w = 2*Math.PI*f;
+                        m = Math.abs(1-w*w*L*C)/Math.sqrt(Math.pow(1-w*w*L*C,2)+Math.pow(w*R*C,2));
+                        p = -Math.atan((w*R*C)/(1-w*w*L*C))*180/Math.PI;
+                    }
+                    
+                    freq.push(f>=1e6 ? (f/1e6).toFixed(1)+'M' : f>=1e3 ? (f/1e3).toFixed(1)+'k' : f.toFixed(1));
+                    mag.push(20*Math.log10(m));
+                    phase.push(p);
+                }
+                
+                chart.data.labels = freq;
+                chart.data.datasets[0].data = mag;
+                chart.data.datasets[1].data = phase;
+                chart.update();
+            }
+            
+            function formatFreq(f) {
+                if (f>=1e9) return {val:(f/1e9).toFixed(2), unit:'GHz'};
+                if (f>=1e6) return {val:(f/1e6).toFixed(2), unit:'MHz'};
+                if (f>=1e3) return {val:(f/1e3).toFixed(2), unit:'kHz'};
+                return {val:f.toFixed(2), unit:'Hz'};
             }
         });
     </script>
