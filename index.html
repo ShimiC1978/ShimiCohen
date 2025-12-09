@@ -1,2189 +1,502 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes"/>
-    <title>Shimi Cohen – Content Craft</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        /* ====== MOBILE-FIRST CSS VARIABLES ====== */
-        :root {
-            --primary-color: #0a0e27;
-            --accent-color: #e63946;
-            --accent-light: #f1faee;
-            --text-primary: #0a0e27;
-            --text-secondary: #454545;
-            --text-muted: #6c757d;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f9fa;
-            --bg-tertiary: #e9ecef;
-            --border-color: #dee2e6;
-            --shadow-sm: 0 2px 4px rgba(10, 14, 39, 0.05);
-            --shadow-md: 0 4px 6px rgba(10, 14, 39, 0.07);
-            --shadow-lg: 0 10px 15px rgba(10, 14, 39, 0.1);
-            --transition-fast: 0.15s ease;
-            --transition-base: 0.25s ease;
-            --transition-slow: 0.4s ease;
-        }
-
-        /* ====== RESET & BASE STYLES ====== */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-            padding-bottom: 5rem;
-        }
-
-        /* ====== CONTAINER ====== */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        /* ====== HEADER - MOBILE OPTIMIZED ====== */
-        header {
-            background-color: var(--bg-primary);
-            box-shadow: var(--shadow-md);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: transform 0.3s ease;
-        }
-
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 1rem;
-            min-height: 70px;
-        }
-
-        /* Logo and profile grouping */
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            flex: 1;
-            min-width: 0;
-        }
-
-        .profile-pic {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--accent-color);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .profile-pic:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.2);
-        }
-
-        /* Title section - SINGLE LINE for mobile */
-        .title-wrapper {
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            flex: 1;
-        }
-
-        .site-title-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            overflow: hidden;
-        }
-
-        .site-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            line-height: 1.2;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .title-chip {
-            color: var(--accent-color);
-            font-size: 0.8rem;
-            animation: chipFloat 6s ease-in-out infinite;
-        }
-
-        @keyframes chipFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-2px); }
-        }
-
-        .tagline {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-top: 0.125rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* LinkedIn Logo */
-        .linkedin-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 0.5rem;
-            flex-shrink: 0;
-            transition: transform 0.3s ease;
-}
-
-        .linkedin-logo-img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            transition: all 0.3s ease;
-}
-
-        .linkedin-logo:hover .linkedin-logo-img {
-            transform: scale(1.1);
-            filter: brightness(1.2);
-}
-              /* ====== NAVIGATION - COMPACT VERSION ====== */
-      .icon-nav {
-          background-color: var(--bg-secondary);
-          border-top: 1px solid var(--border-color);
-          padding: 0.5rem 0;
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-          scrollbar-width: none;
-      }
-      
-      .icon-nav::-webkit-scrollbar {
-          display: none;
-      }
-      
-      .nav-icons {
-          display: flex;
-          gap: 0.3rem; /* Very small gap */
-          padding: 0 0.25rem; /* Minimal padding */
-          list-style: none;
-          justify-content: space-around; /* Better distribution */
-          width: 100%;
-      }
-      
-      .nav-icon-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 0.15rem;
-          cursor: pointer;
-          padding: 0.15rem;
-          flex: 1;
-          min-width: 0;
-      }
-      
-      .nav-icon {
-          width: 32px;
-          height: 32px;
-          background-color: white;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 0.85rem;
-          color: var(--text-secondary);
-          transition: all 0.3s ease;
-          box-shadow: var(--shadow-sm);
-      }
-      
-      .nav-label {
-          font-size: 0.5rem;
-          color: var(--text-secondary);
-          font-weight: 500;
-          text-align: center;
-          line-height: 1;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          width: 100%;
-      }
-      
-      /* Hide labels on very small screens */
-      @media (max-width: 360px) {
-          .nav-label {
-              display: none;
-          }
-          
-          .nav-icon {
-              width: 36px;
-              height: 36px;
-              font-size: 1rem;
-          }
-      }
-
-        /* ====== CATEGORY CONTENT ====== */
-        .category-section {
-            margin-bottom: 2rem;
-            display: none;
-        }
-
-        .category-section.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .category-header {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            padding: 0 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* ====== BOOK GRID - MOBILE OPTIMIZED ====== */
-        .book-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 1rem;
-            padding: 0 1rem;
-        }
-
-        /* Book cards */
-        .book-card {
-            background-color: var(--bg-secondary);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            position: relative;
-            height: 200px;
-            cursor: pointer;
-        }
-
-        .book-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .book-card-inner {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .book-card-front, .book-card-back {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            transition: transform 0.6s ease;
-        }
-
-        .book-card-front {
-            background-color: var(--bg-secondary);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .book-card-back {
-            background-color: var(--bg-primary);
-            transform: rotateY(180deg);
-        }
-
-        .book-card.flipped .book-card-front {
-            transform: rotateY(180deg);
-        }
-
-        .book-card.flipped .book-card-back {
-            transform: rotateY(0deg);
-        }
-
-        .book-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .book-description {
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .book-badge {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background-color: var(--accent-color);
-            color: white;
-            font-size: 0.6rem;
-            font-weight: 600;
-            padding: 0.15rem 0.4rem;
-            border-radius: 3px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .book-cover {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* MOBILE-FRIENDLY BOOK ACTIONS - TRANSPARENT */
-        .book-actions {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(2px);
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 0.3rem;
-            gap: 0.2rem;
-        }
-
-        .book-action-btn {
-            flex: 1;
-            padding: 0.3rem;
-            background: rgba(230, 57, 70, 0.08);
-            border: none;
-            border-radius: 4px;
-            color: var(--accent-color);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.1rem;
-            font-size: 0.65rem;
-            font-weight: 500;
-        }
-
-        .book-action-btn:hover {
-            background: rgba(230, 57, 70, 0.15);
-        }
-
-        .book-action-btn i {
-            font-size: 0.8rem;
-        }
-
-        /* ====== PROFILE MODAL ====== */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(10, 14, 39, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            padding: 1rem;
-        }
-
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background-color: var(--bg-primary);
-            border-radius: 12px;
-            width: 100%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow: hidden;
-            box-shadow: var(--shadow-xl);
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-header {
-            padding: 1.25rem;
-            background-color: var(--accent-color);
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            font-size: 1.25rem;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 1.25rem;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .modal-close:hover {
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
-            padding: 1.5rem;
-            overflow-y: auto;
-        }
-
-        /* Profile content */
-        .profile-modal-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .modal-profile-pic {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--accent-color);
-        }
-
-        .profile-name {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .profile-title {
-            color: var(--accent-color);
-            font-weight: 500;
-            margin-top: 0.25rem;
-        }
-
-        .profile-bio {
-            line-height: 1.6;
-            color: var(--text-secondary);
-            padding: 1rem;
-            background-color: var(--bg-secondary);
-            border-radius: 8px;
-            border-left: 3px solid var(--accent-color);
-        }
-
-        .profile-highlights {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .highlight-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .highlight-item i {
-            color: var(--accent-color);
-        }
-
-        /* ====== FLOATING ACTION BUTTONS ====== */
-        .fab-container {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            z-index: 100;
-        }
-
-        .fab {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            box-shadow: var(--shadow-lg);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .fab:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4);
-        }
-
-        .fab-label {
-            position: absolute;
-            right: 60px;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0.4rem 0.75rem;
-            border-radius: 4px;
-            white-space: nowrap;
-            font-size: 0.75rem;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .fab:hover .fab-label {
-            opacity: 1;
-        }
-
-        /* ====== FILE VAULT MODAL - COMPACT FILES ====== */
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 1rem;
-            overflow-x: auto;
-        }
-
-        .tab {
-            padding: 0.5rem 0.75rem;
-            background: none;
-            border: none;
-            border-bottom: 2px solid transparent;
-            font-weight: 500;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            flex-shrink: 0;
-            font-size: 0.9rem;
-        }
-
-        .tab:hover {
-            color: var(--text-primary);
-        }
-
-        .tab.active {
-            color: var(--accent-color);
-            border-bottom-color: var(--accent-color);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* ====== FILE LIST - COMPACT DESIGN ====== */
-        .file-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 0.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .file-list {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-        }
-
-        @media (max-width: 480px) {
-            .file-list {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-                gap: 0.4rem;
-            }
-        }
-
-        .file-item {
-            background-color: var(--bg-secondary);
-            border-radius: 6px;
-            padding: 0.6rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-            min-height: 60px;
-        }
-
-        .file-item:hover {
-            background-color: var(--bg-tertiary);
-            border-color: var(--accent-color);
-        }
-
-        .file-icon {
-            width: 30px;
-            height: 30px;
-            background-color: var(--accent-color);
-            color: white;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            flex-shrink: 0;
-        }
-
-        .file-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .file-name {
-            font-weight: 500;
-            color: var(--text-primary);
-            font-size: 0.8rem;
-            margin-bottom: 0.15rem;
-            word-break: break-word;
-            line-height: 1.2;
-        }
-
-        .file-size {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-        }
-
-        /* ====== FOOTER ====== */
-        footer {
-            background-color: var(--bg-secondary);
-            padding: 1.5rem 0;
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--border-color);
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            z-index: 10;
-        }
-
-        /* ====== NOTIFICATION ====== */
-        .notification {
-            position: fixed;
-            bottom: 5rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0.75rem 1.25rem;
-            border-radius: 8px;
-            box-shadow: var(--shadow-lg);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 2000;
-            max-width: 90%;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        .notification.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-
-        /* ====== RESPONSIVE DESIGN ====== */
-        @media (min-width: 768px) {
-            .header-container {
-                padding: 1rem 2rem;
-            }
-            
-            .site-title {
-                font-size: 1.3rem;
-            }
-            
-            .tagline {
-                font-size: 0.85rem;
-            }
-            
-            .profile-pic {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .book-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-                padding: 0 2rem;
-            }
-            
-            .book-card {
-                height: 220px;
-            }
-            
-            .nav-icons {
-                /* This prevents the icons from spreading across the full width */
-                max-width: 650px; 
-                
-                /* This centers the entire block of icons on the page */
-                margin: 0 auto;
-                
-                /* This keeps the icons centered within their new, narrower container */
-                justify-content: center;
-                
-                gap: 1.5rem;
-            }
-            
-            .nav-icon {
-                width: 44px;
-                height: 44px;
-                font-size: 1.2rem;
-            }
-            
-            .nav-label {
-                font-size: 0.7rem;
-            }
-            
-            .modal-content {
-                max-width: 600px;
-            }
-            
-            .profile-modal-content {
-                flex-direction: row;
-                align-items: flex-start;
-            }
-            
-            .profile-header {
-                flex-direction: column;
-                text-align: center;
-                min-width: 180px;
-            }
-            
-            .modal-profile-pic {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .fab-container {
-                bottom: 2rem;
-                right: 2rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .book-grid {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-                gap: 1.5rem;
-            }
-            
-            .book-card {
-                height: 240px;
-            }
-            
-            .book-actions {
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-            
-            .book-card:hover .book-actions {
-                opacity: 1;
-            }
-            
-            .file-list {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-        }
-     /* ====== MOBILE MODAL COMPACT FIX ====== */
-    @media (max-width: 600px) {
-        .modal-content {
-            /* Use slightly more of the screen height */
-            max-height: 95vh; 
-            /* Add a small margin to prevent it from touching the screen edges */
-            margin: 1rem; 
-        }
-    
-        .modal-header {
-            /* Reduce padding in the header */
-            padding: 1rem; 
-        }
-    
-        .modal-title {
-            /* Make the modal title smaller */
-            font-size: 1.1rem; 
-        }
-    
-        .modal-body {
-            /* Reduce padding in the main content area */
-            padding: 1rem; 
-        }
-    
-        .profile-name {
-            /* Make the name smaller */
-            font-size: 1.2rem; 
-        }
-    
-        .profile-title {
-            /* Make the subtitle smaller */
-            font-size: 0.9rem; 
-        }
-    
-        .profile-bio {
-            /* Make the bio text smaller and reduce its internal padding */
-            font-size: 0.9rem; 
-            padding: 0.75rem; 
-        }
-    }
-    
-    /* ====== FILTER CALCULATOR STYLES ====== */
-    .calc-window {
-        background: white;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        max-width: 1200px;
-        margin: 0 auto;
-        max-height: 90vh;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .tool-header {
-        background: var(--primary-color);
-        color: white;
-        padding: 12px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-shrink: 0;
-    }
-    
-    .tool-header h2 {
-        font-size: 1.2rem;
-        font-weight: 600;
-    }
-    
-    .tool-tabs {
-        display: flex;
-        gap: 10px;
-    }
-    
-    .tool-tab {
-        padding: 6px 12px;
-        background: #333;
-        border-radius: 5px;
-        cursor: pointer;
-        border: none;
-        color: white;
-        font-family: inherit;
-        font-size: 0.85rem;
-    }
-    
-    .tool-tab.active {
-        background: var(--accent-color);
-    }
-    
-    .content-area {
-        display: grid;
-        grid-template-columns: 1fr 1.5fr;
-        gap: 20px;
-        padding: 20px;
-        flex: 1;
-        overflow: auto;
-    }
-    
-    @media (max-width: 768px) {
-        .content-area {
-            grid-template-columns: 1fr;
-        }
-    }
-    
-    .panel {
-        background: #f8f8f8;
-        border-radius: 8px;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .filter-btns {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-        margin-bottom: 20px;
-    }
-    
-    .filter-btn {
-        padding: 10px 5px;
-        background: #ddd;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: 600;
-        font-family: inherit;
-        font-size: 0.85rem;
-    }
-    
-    .filter-btn.active {
-        background: var(--accent-color);
-        color: white;
-    }
-    
-    .comp-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
-        margin-bottom: 15px;
-    }
-    
-    @media (max-width: 768px) {
-        .comp-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-    
-    .comp-box {
-        background: white;
-        border-radius: 8px;
-        padding: 12px;
-        border: 1px solid var(--border-color);
-        min-width: 150px;
-    }
-    
-    .comp-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 12px;
-    }
-    
-    .comp-letter {
-        font-size: 1.5rem; /* Reduced by 40% from 2.5rem */
-        font-weight: bold;
-        color: var(--accent-color);
-        margin-right: 8px;
-        width: 40px; /* Reduced width */
-    }
-    
-    .comp-value {
-        font-size: 1.3rem; /* Reduced by 40% from 2.2rem */
-        font-weight: bold;
-        color: var(--text-primary);
-        flex: 1;
-        text-align: right;
-    }
-    
-    .comp-slider {
-        width: 100%;
-        margin: 8px 0;
-        height: 6px;
-        border-radius: 3px;
-        background: #ddd;
-        outline: none;
-        -webkit-appearance: none;
-    }
-    
-    .comp-slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: var(--accent-color);
-        cursor: pointer;
-        border: 2px solid white;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    
-    .unit-btns {
-        display: flex;
-        justify-content: space-between;
-    }
-    
-    .unit-btn {
-        padding: 4px 8px;
-        background: #eee;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        font-family: inherit;
-        font-size: 0.75rem;
-    }
-    
-    .unit-btn.active {
-        background: var(--accent-color);
-        color: white;
-    }
-    
-    .freq-display {
-        text-align: center;
-        padding: 15px;
-        background: var(--primary-color);
-        color: white;
-        border-radius: 8px;
-        margin-top: 15px;
-    }
-    
-    .freq-value {
-        font-size: 2.2rem;
-        font-weight: bold;
-        margin: 5px 0;
-    }
-    
-    .freq-unit {
-        font-size: 1rem;
-    }
-    
-    /* New: Component order display */
-    .component-order {
-        background: var(--bg-secondary);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 12px;
-        margin-top: 15px;
-        text-align: center;
-    }
-    
-    .order-title {
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-        margin-bottom: 8px;
-        font-weight: 500;
-    }
-    
-    .order-diagram {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--text-primary);
-        min-height: 32px;
-    }
-    
-    .order-arrow {
-        color: var(--accent-color);
-        margin: 0 5px;
-    }
-    
-    .order-element {
-        background: white;
-        padding: 4px 8px;
-        border-radius: 4px;
-        border: 1px solid var(--border-color);
-        min-width: 30px;
-    }
-    
-    .chart-box {
-        height: 320px;
-        width: 100%;
-    }
-    
-    @media (max-width: 768px) {
-        .chart-box {
-            height: 250px;
-        }
-    }
-    
-    .info-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        margin-top: 20px;
-    }
-    
-    .info-box {
-        background: white;
-        padding: 12px;
-        border-radius: 5px;
-        border: 1px solid var(--border-color);
-    }
-    
-    .info-title {
-        color: #666;
-        font-size: 0.8rem;
-        margin-bottom: 5px;
-    }
-    
-    .info-value {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: var(--text-primary);
-    }
-    
-    .disabled {
-        opacity: 0.4;
-        pointer-events: none;
-    }
-    
-    .disabled .comp-letter {
-        color: #999;
-    }
-    
-    .filter-modal .modal-content {
-        max-width: 1200px;
-        width: 95%;
-        max-height: 95vh;
-    }
-    
-    .filter-modal .modal-body {
-        padding: 0;
-        overflow: hidden;
-    }
-    
-    .filter-modal .modal-header {
-        background: var(--primary-color);
-    }
-      </style>
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes"/>
+<title>Shimi Cohen</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--primary:#0a0e27;--accent:#e63946;--bg1:#fff;--bg2:#f8f9fa;--text1:#0a0e27;--text2:#454545;--border:#dee2e6;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg1);color:var(--text1);line-height:1.6;}
+.container{max-width:1200px;margin:0 auto;padding:0 1rem;}
+header{background:var(--bg1);box-shadow:0 4px 6px rgba(10,14,39,0.07);position:sticky;top:0;z-index:100;}
+.header-container{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1rem;min-height:70px;}
+.header-left{display:flex;align-items:center;gap:0.75rem;flex:1;}
+.profile-pic{width:50px;height:50px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);cursor:pointer;flex-shrink:0;}
+.site-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text1);text-decoration:none;}
+.tagline{font-size:0.75rem;color:var(--text2);margin-top:0.125rem;}
+.linkedin-logo-img{width:40px;height:40px;object-fit:contain;}
+.icon-nav{background:var(--bg2);border-top:1px solid var(--border);padding:0.5rem 0;}
+.nav-icons{display:flex;gap:0.3rem;padding:0 0.25rem;list-style:none;justify-content:space-around;}
+.nav-icon-item{display:flex;flex-direction:column;align-items:center;gap:0.15rem;cursor:pointer;padding:0.15rem;flex:1;}
+.nav-icon{width:32px;height:32px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:var(--text2);box-shadow:0 2px 4px rgba(10,14,39,0.05);}
+.nav-label{font-size:0.5rem;color:var(--text2);font-weight:500;}
+.category-section{margin-bottom:2rem;display:none;}
+.category-section.active{display:block;}
+.category-header{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;margin-bottom:1rem;padding:0 1rem;}
+.book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1rem;padding:0 1rem;}
+.book-card{background:var(--bg2);border-radius:8px;overflow:hidden;box-shadow:0 2px 4px rgba(10,14,39,0.05);position:relative;height:200px;cursor:pointer;}
+.book-card-inner{width:100%;height:100%;position:relative;overflow:hidden;}
+.book-card-front,.book-card-back{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;transition:transform 0.6s ease;}
+.book-card-front{background:var(--bg2);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:1rem;}
+.book-card-back{background:var(--bg1);transform:rotateY(180deg);}
+.book-card.flipped .book-card-front{transform:rotateY(180deg);}
+.book-card.flipped .book-card-back{transform:rotateY(0deg);}
+.book-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.9rem;color:var(--text1);margin-bottom:0.25rem;}
+.book-description{color:var(--text2);font-size:0.75rem;margin-bottom:0.5rem;}
+.book-badge{position:absolute;top:8px;right:8px;background:var(--accent);color:white;font-size:0.6rem;font-weight:600;padding:0.15rem 0.4rem;border-radius:3px;}
+.book-cover{width:100%;height:100%;object-fit:cover;}
+.book-actions{position:absolute;bottom:0;left:0;width:100%;display:flex;background:rgba(255,255,255,0.85);backdrop-filter:blur(2px);border-top:1px solid rgba(0,0,0,0.1);padding:0.3rem;gap:0.2rem;}
+.book-action-btn{flex:1;padding:0.3rem;background:rgba(230,57,70,0.08);border:none;border-radius:4px;color:var(--accent);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.1rem;font-size:0.65rem;font-weight:500;}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,14,39,0.8);display:flex;align-items:center;justify-content:center;z-index:2000;opacity:0;visibility:hidden;transition:all 0.3s ease;padding:1rem;}
+.modal.active{opacity:1;visibility:visible;}
+.modal-content{background:var(--bg1);border-radius:12px;width:100%;max-width:500px;max-height:90vh;overflow:hidden;box-shadow:0 10px 15px rgba(10,14,39,0.1);transform:scale(0.9);transition:transform 0.3s ease;}
+.modal.active .modal-content{transform:scale(1);}
+.modal-header{padding:1.25rem;background:var(--accent);color:white;display:flex;justify-content:space-between;align-items:center;}
+.modal-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1.25rem;}
+.modal-close{background:none;border:none;font-size:1.25rem;color:white;cursor:pointer;}
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1rem;overflow-x:auto;}
+.tab{padding:0.5rem 0.75rem;background:none;border:none;border-bottom:2px solid transparent;font-weight:500;color:var(--text2);cursor:pointer;white-space:nowrap;flex-shrink:0;font-size:0.9rem;}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+.file-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.5rem;}
+.file-item{background:var(--bg2);border-radius:6px;padding:0.6rem;display:flex;align-items:center;gap:0.6rem;cursor:pointer;border:1px solid transparent;min-height:60px;}
+.file-icon{width:30px;height:30px;background:var(--accent);color:white;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.file-name{font-weight:500;color:var(--text1);font-size:0.8rem;margin-bottom:0.15rem;}
+.file-size{font-size:0.7rem;color:var(--text2);}
+footer{background:var(--bg2);padding:1.5rem 0;text-align:center;color:var(--text2);font-size:0.8rem;border-top:1px solid var(--border);position:fixed;bottom:0;width:100%;z-index:10;}
+.fab-container{position:fixed;bottom:1rem;right:1rem;display:flex;flex-direction:column;gap:0.75rem;z-index:100;}
+.fab{width:50px;height:50px;border-radius:50%;background:var(--accent);color:white;border:none;box-shadow:0 10px 15px rgba(10,14,39,0.1);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.notification{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--primary);color:white;padding:0.75rem 1.25rem;border-radius:8px;box-shadow:0 10px 15px rgba(10,14,39,0.1);opacity:0;transition:all 0.3s ease;z-index:2000;max-width:90%;text-align:center;font-size:0.9rem;}
+.notification.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+/* Filter Calculator Styles */
+.filter-modal .modal-content{max-width:1200px;width:95%;max-height:95vh;}
+.filter-modal .modal-body{padding:0;overflow:hidden;}
+.filter-modal .modal-header{background:var(--accent);} /* CHANGED: Red background */
+.calc-window{background:white;border-radius:10px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,0.1);max-width:1200px;margin:0 auto;max-height:90vh;display:flex;flex-direction:column;}
+.tool-header{background:var(--primary);color:white;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.tool-header h2{font-size:1.2rem;font-weight:600;}
+.tool-tabs{display:flex;gap:10px;}
+.tool-tab{padding:6px 12px;background:#333;border-radius:5px;cursor:pointer;border:none;color:white;font-family:inherit;font-size:0.85rem;}
+.tool-tab.active{background:var(--accent);}
+.content-area{display:grid;grid-template-columns:1fr 1.5fr;gap:15px;padding:15px;flex:1;overflow:auto;}
+@media (max-width:768px){.content-area{grid-template-columns:1fr;padding:10px;}}
+.panel{background:#f8f8f8;border-radius:8px;padding:15px;display:flex;flex-direction:column;}
+.filter-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:15px;}
+.filter-btn{padding:8px 5px;background:#ddd;border:none;border-radius:5px;cursor:pointer;font-weight:600;font-family:inherit;font-size:0.85rem;}
+.filter-btn.active{background:var(--accent);color:white;}
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px;}
+@media (max-width:768px){.comp-grid{grid-template-columns:1fr;}}
+.comp-box{background:white;border-radius:8px;padding:10px;border:1px solid var(--border);}
+.comp-header{display:flex;align-items:center;margin-bottom:10px;}
+.comp-letter{font-size:1.5rem;font-weight:bold;color:var(--accent);margin-right:8px;width:40px;}
+.comp-value{font-size:1.3rem;font-weight:bold;color:var(--text1);flex:1;text-align:right;}
+.comp-slider{width:100%;margin:8px 0;height:6px;border-radius:3px;background:#ddd;outline:none;-webkit-appearance:none;}
+.comp-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid white;box-shadow:0 2px 5px rgba(0,0,0,0.2);}
+.unit-btns{display:flex;justify-content:space-between;}
+.unit-btn{padding:4px 8px;background:#eee;border:none;border-radius:3px;cursor:pointer;font-family:inherit;font-size:0.75rem;}
+.unit-btn.active{background:var(--accent);color:white;}
+.freq-display{text-align:center;padding:12px;background:var(--primary);color:white;border-radius:8px;margin-top:12px;}
+.freq-value{font-size:2rem;font-weight:bold;margin:5px 0;}
+.freq-unit{font-size:0.9rem;}
+.component-order{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px;margin-top:12px;text-align:center;}
+.order-title{font-size:0.85rem;color:var(--text2);margin-bottom:6px;font-weight:500;}
+.order-diagram{display:flex;justify-content:center;align-items:center;gap:6px;font-size:0.85rem;font-weight:600;color:var(--text1);}
+.order-arrow{color:var(--accent);margin:0 4px;}
+.order-element{background:white;padding:3px 6px;border-radius:4px;border:1px solid var(--border);min-width:25px;}
+.chart-box{height:280px;width:100%;}
+@media (max-width:768px){.chart-box{height:200px;}}
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:15px;}
+.info-box{background:white;padding:10px;border-radius:5px;border:1px solid var(--border);}
+.info-title{color:#666;font-size:0.75rem;margin-bottom:4px;}
+.info-value{font-size:1.4rem;font-weight:bold;color:var(--text1);}
+.disabled{opacity:0.4;pointer-events:none;}
+.disabled .comp-letter{color:#999;}
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-container">
-                <div class="header-left">
-                    <img src="./shimi linkedin pic.png" class="profile-pic" alt="Shimi Cohen" id="profilePic">
-                    <div class="title-wrapper">
-                        <div class="site-title-container">
-                            <a href="#" class="site-title">Shimi Cohen</a>
-                            <div class="title-chip">
-                                <i class="fas fa-microchip"></i>
-                            </div>
-                        </div>
-                        <div class="tagline">Board Design Book Selection</div>
-                    </div>
-                </div>
-                <!-- LinkedIn Logo -->
-                <a href="https://www.linkedin.com/in/shimic1978/" target="_blank" class="linkedin-logo">
-                    <img src="Linkedin Logo.png" alt="LinkedIn" class="linkedin-logo-img">
-                </a>
-            </div>
-        </div>
-    </header>
+<header><div class="container"><div class="header-container"><div class="header-left">
+<img src="./shimi linkedin pic.png" class="profile-pic" alt="Shimi Cohen" id="profilePic">
+<div><a href="#" class="site-title">Shimi Cohen</a><div class="tagline">Board Design Book Selection</div></div>
+</div><a href="https://www.linkedin.com/in/shimic1978/" target="_blank"><img src="Linkedin Logo.png" alt="LinkedIn" class="linkedin-logo-img"></a></div></div></header>
 
-    <!-- Icon-based Navigation -->
-    <nav class="icon-nav">
-        <ul class="nav-icons" id="navIcons">
-            <li class="nav-icon-item" data-category="digital">
-                <div class="nav-icon active">
-                    <i class="fas fa-microchip"></i>
-                </div>
-                <span class="nav-label">Digital</span>
-            </li>
-            <li class="nav-icon-item" data-category="analog">
-                <div class="nav-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <span class="nav-label">Analog</span>
-            </li>
-            <li class="nav-icon-item" data-category="practical">
-                <div class="nav-icon">
-                    <i class="fas fa-tools"></i>
-                </div>
-                <span class="nav-label">Practical</span>
-            </li>
-            <li class="nav-icon-item" data-category="components">
-                <div class="nav-icon">
-                    <i class="fas fa-cube"></i>
-                </div>
-                <span class="nav-label">Components</span>
-            </li>
-            <li class="nav-icon-item" data-category="series20">
-                <div class="nav-icon">
-                    <i class="fas fa-list-ol"></i>
-                </div>
-                <span class="nav-label">"20" Series</span>
-            </li>
-            <li class="nav-icon-item" data-category="tutorials">
-                <div class="nav-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <span class="nav-label">Tutorials</span>
-            </li>
-            <!-- NEW TOOLS ICON -->
-            <li class="nav-icon-item" data-category="tools">
-                <div class="nav-icon">
-                    <i class="fas fa-calculator"></i>
-                </div>
-                <span class="nav-label">Tools</span>
-            </li>
-        </ul>
-    </nav>
+<nav class="icon-nav"><ul class="nav-icons" id="navIcons">
+<li class="nav-icon-item" data-category="digital"><div class="nav-icon active"><i class="fas fa-microchip"></i></div><span class="nav-label">Digital</span></li>
+<li class="nav-icon-item" data-category="analog"><div class="nav-icon"><i class="fas fa-bolt"></i></div><span class="nav-label">Analog</span></li>
+<li class="nav-icon-item" data-category="practical"><div class="nav-icon"><i class="fas fa-tools"></i></div><span class="nav-label">Practical</span></li>
+<li class="nav-icon-item" data-category="components"><div class="nav-icon"><i class="fas fa-cube"></i></div><span class="nav-label">Components</span></li>
+<li class="nav-icon-item" data-category="series20"><div class="nav-icon"><i class="fas fa-list-ol"></i></div><span class="nav-label">"20" Series</span></li>
+<li class="nav-icon-item" data-category="tutorials"><div class="nav-icon"><i class="fas fa-graduation-cap"></i></div><span class="nav-label">Tutorials</span></li>
+</ul></nav>
 
-    <!-- Main Content -->
-    <main>
-        <div class="container">
-            <!-- Category sections -->
-            <div class="category-section active" id="digitalContent">
-                <!-- Digital content will be loaded here -->
-            </div>
-            
-            <div class="category-section" id="analogContent">
-                <!-- Analog content will be loaded here -->
-            </div>
-            
-            <div class="category-section" id="practicalContent">
-                <!-- Practical content will be loaded here -->
-            </div>
-            
-            <div class="category-section" id="componentsContent">
-                <!-- Components content will be loaded here -->
-            </div>
-            
-            <div class="category-section" id="series20Content">
-                <!-- "20" Series content will be loaded here -->
-            </div>
-            
-            <div class="category-section" id="tutorialsContent">
-                <!-- Tutorials content will be loaded here -->
-            </div>
-            
-            <!-- Tools Content (empty - handled by modal) -->
-            <div class="category-section" id="toolsContent" style="display: none;"></div>
-        </div>
-    </main>
+<main><div class="container">
+<div class="category-section active" id="digitalContent"></div>
+<div class="category-section" id="analogContent"></div>
+<div class="category-section" id="practicalContent"></div>
+<div class="category-section" id="componentsContent"></div>
+<div class="category-section" id="series20Content"></div>
+<div class="category-section" id="tutorialsContent"></div>
+</div></main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>© 2025 Shimi Cohen – Content Craft</p>
-        </div>
-    </footer>
+<footer><div class="container"><p>© 2025 Shimi Cohen – Content Craft</p></div></footer>
 
-    <!-- Floating Action Buttons -->
-    <div class="fab-container">
-        <button class="fab" id="downloadBtn">
-            <i class="fas fa-download"></i>
-            <span class="fab-label">Download Files</span>
-        </button>
-        <button class="fab" id="toolsBtn">
-            <i class="fas fa-calculator"></i>
-            <span class="fab-label">Engineering Tools</span>
-        </button>
-        <a href="https://buymeacoffee.com/shimic" target="_blank" class="fab" id="donateBtn">
-            <i class="fas fa-coffee"></i>
-            <span class="fab-label">Support My Work</span>
-        </a>
-    </div>
+<div class="fab-container">
+<button class="fab" id="downloadBtn"><i class="fas fa-download"></i></button>
+<button class="fab" id="toolsBtn"><i class="fas fa-calculator"></i></button>
+<a href="https://buymeacoffee.com/shimic" target="_blank" class="fab" id="donateBtn"><i class="fas fa-coffee"></i></a>
+</div>
 
-    <!-- Profile Modal -->
-    <div class="modal" id="profileModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">About Me</h2>
-                <button class="modal-close" id="closeProfileModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="profile-modal-content">
-                    <div class="profile-header">
-                        <img src="./shimi linkedin pic.png" class="modal-profile-pic" alt="Shimi Cohen">
-                        <div>
-                            <div class="profile-name">Shimi Cohen</div>
-                            <div class="profile-title">Hardware & Embedded Systems Expert</div>
-                        </div>
-                    </div>
-                    <div class="profile-bio">
-                        <p>I Began my career in HW engineering as a board designer, later transitioning into MCU FW development.</p>
-                        <p style="margin-top: 0.75rem;">I expanded into system engineering, team management and architecture.</p>
-                        <p style="margin-top: 0.75rem;">Today, I'm self-employed - consulting, developing and contributing to the  community by sharing content and interacting with engineers around the world.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="modal" id="profileModal"><div class="modal-content"><div class="modal-header">
+<h2 class="modal-title">About Me</h2><button class="modal-close" id="closeProfileModal"><i class="fas fa-times"></i></button>
+</div><div class="modal-body"><div class="profile-modal-content"><div class="profile-header">
+<img src="./shimi linkedin pic.png" class="modal-profile-pic" alt="Shimi Cohen">
+<div><div class="profile-name">Shimi Cohen</div><div class="profile-title">Hardware & Embedded Systems Expert</div></div>
+</div><div class="profile-bio">
+<p>I Began my career in HW engineering as a board designer, later transitioning into MCU FW development.</p>
+<p style="margin-top:0.75rem;">I expanded into system engineering, team management and architecture.</p>
+<p style="margin-top:0.75rem;">Today, I'm self-employed - consulting, developing and contributing to the  community by sharing content and interacting with engineers around the world.</p>
+</div></div></div></div></div>
 
-    <!-- File Vault Modal -->
-    <div class="modal" id="fileVaultModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">File Vault</h2>
-                <button class="modal-close" id="closeFileModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="tabs">
-                    <button class="tab active" data-tab="ltspice">LTSPICE</button>
-                    <button class="tab" data-tab="qspice">QSPICE</button>
-                    <button class="tab" data-tab="schematics">Schematics</button>
-                    <button class="tab" data-tab="docs">Docs</button>
-                </div>
-                <div class="tab-content active" id="ltspice">
-                    <div class="file-list" id="ltspiceFiles">
-                        <div class="loading">Loading LTSPICE files...</div>
-                    </div>
-                </div>
-                <div class="tab-content" id="qspice">
-                    <div class="file-list" id="qspiceFiles">
-                        <div class="empty-state">
-                            <h3>No Files Available</h3>
-                            <p>QSPICE files will be added soon.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-content" id="schematics">
-                    <div class="file-list" id="schematicsFiles">
-                        <div class="empty-state">
-                            <h3>No Files Available</h3>
-                            <p>Schematic files will be added soon.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-content" id="docs">
-                    <div class="file-list" id="docsFiles">
-                        <div class="empty-state">
-                            <h3>No Files Available</h3>
-                            <p>Documentation files will be added soon.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="modal" id="fileVaultModal"><div class="modal-content"><div class="modal-header">
+<h2 class="modal-title">File Vault</h2><button class="modal-close" id="closeFileModal"><i class="fas fa-times"></i></button>
+</div><div class="modal-body"><div class="tabs">
+<button class="tab active" data-tab="ltspice">LTSPICE</button>
+<button class="tab" data-tab="qspice">QSPICE</button>
+<button class="tab" data-tab="schematics">Schematics</button>
+<button class="tab" data-tab="docs">Docs</button>
+</div><div class="tab-content active" id="ltspice"><div class="file-list" id="ltspiceFiles"><div class="loading">Loading LTSPICE files...</div></div></div>
+<div class="tab-content" id="qspice"><div class="file-list" id="qspiceFiles"><div class="empty-state"><h3>No Files Available</h3><p>QSPICE files will be added soon.</p></div></div></div>
+<div class="tab-content" id="schematics"><div class="file-list" id="schematicsFiles"><div class="empty-state"><h3>No Files Available</h3><p>Schematic files will be added soon.</p></div></div></div>
+<div class="tab-content" id="docs"><div class="file-list" id="docsFiles"><div class="empty-state"><h3>No Files Available</h3><p>Documentation files will be added soon.</p></div></div></div>
+</div></div></div>
 
-    <!-- NEW: Filter Calculator Modal -->
-    <div class="modal filter-modal" id="filterCalcModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Engineering Toolbox</h2>
-                <button class="modal-close" id="closeFilterModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="calc-window">
-                    <div class="tool-header">
-                        <h2>Filter Calculator</h2>
-                        <div class="tool-tabs">
-                            <div class="tool-tab active">Filter Calc</div>
-                            <div class="tool-tab">Tool 2</div>
-                            <div class="tool-tab">Tool 3</div>
-                            <div class="tool-tab">Tool 4</div>
-                        </div>
-                    </div>
-                    
-                    <div class="content-area">
-                        <div class="panel">
-                            <div class="filter-btns">
-                                <button class="filter-btn active" data-filter="lpf-rc">RC LPF</button>
-                                <button class="filter-btn" data-filter="hpf-rc">RC HPF</button>
-                                <button class="filter-btn" data-filter="lpf-rl">RL LPF</button>
-                                <button class="filter-btn" data-filter="hpf-rl">RL HPF</button>
-                                <button class="filter-btn" data-filter="bpf-rlc">RLC BPF</button>
-                                <button class="filter-btn" data-filter="bsf-rlc">RLC BSF</button>
-                            </div>
-                            
-                            <div class="comp-grid">
-                                <div class="comp-box">
-                                    <div class="comp-header">
-                                        <div class="comp-letter">R</div>
-                                        <div class="comp-value" id="r-value">1.0</div>
-                                    </div>
-                                    <input type="range" min="1" max="1000" value="10" class="comp-slider" id="r-slider">
-                                    <div class="unit-btns">
-                                        <button class="unit-btn active" data-unit="ohm">Ω</button>
-                                        <button class="unit-btn" data-unit="kohm">kΩ</button>
-                                        <button class="unit-btn" data-unit="mohm">MΩ</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="comp-box" id="c-box">
-                                    <div class="comp-header">
-                                        <div class="comp-letter">C</div>
-                                        <div class="comp-value" id="c-value">1.0</div>
-                                    </div>
-                                    <input type="range" min="1" max="1000" value="100" class="comp-slider" id="c-slider">
-                                    <div class="unit-btns">
-                                        <button class="unit-btn active" data-unit="nf">nF</button>
-                                        <button class="unit-btn" data-unit="uf">μF</button>
-                                        <button class="unit-btn" data-unit="mf">mF</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="comp-box" id="l-box">
-                                    <div class="comp-header">
-                                        <div class="comp-letter">L</div>
-                                        <div class="comp-value" id="l-value">1.0</div>
-                                    </div>
-                                    <input type="range" min="1" max="1000" value="10" class="comp-slider" id="l-slider">
-                                    <div class="unit-btns">
-                                        <button class="unit-btn active" data-unit="nh">nH</button>
-                                        <button class="unit-btn" data-unit="uh">μH</button>
-                                        <button class="unit-btn" data-unit="mh">mH</button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="freq-display">
-                                <div>Center/Cutoff Frequency</div>
-                                <div class="freq-value" id="freq-value">15.9</div>
-                                <div class="freq-unit" id="freq-unit">kHz</div>
-                            </div>
-                            
-                            <!-- NEW: Component Order Display -->
-                            <div class="component-order">
-                                <div class="order-title">Component Order (Vin → GND)</div>
-                                <div class="order-diagram" id="order-diagram">
-                                    <div class="order-element">Vin</div>
-                                    <span class="order-arrow">→</span>
-                                    <div class="order-element" id="order-first">R</div>
-                                    <span class="order-arrow">→</span>
-                                    <div class="order-element" id="order-second">C</div>
-                                    <span class="order-arrow">→</span>
-                                    <div class="order-element">Vout</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="panel">
-                            <div class="chart-box">
-                                <canvas id="bodeChart"></canvas>
-                            </div>
-                            
-                            <div class="info-grid">
-                                <div class="info-box">
-                                    <div class="info-title">Filter Type</div>
-                                    <div class="info-value" id="filter-type">RC LPF</div>
-                                </div>
-                                <div class="info-box">
-                                    <div class="info-title">-3dB Freq</div>
-                                    <div class="info-value" id="cutoff-freq">15.9</div>
-                                    <div class="info-unit" id="cutoff-unit">kHz</div>
-                                </div>
-                                <div class="info-box">
-                                    <div class="info-title">Q Factor</div>
-                                    <div class="info-value" id="q-factor">0.5</div>
-                                </div>
-                                <div class="info-box">
-                                    <div class="info-title">Bandwidth</div>
-                                    <div class="info-value" id="bandwidth">31.8</div>
-                                    <div class="info-unit" id="bandwidth-unit">kHz</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="modal filter-modal" id="filterCalcModal"><div class="modal-content"><div class="modal-header">
+<h2 class="modal-title">Engineering Toolbox</h2><button class="modal-close" id="closeFilterModal"><i class="fas fa-times"></i></button>
+</div><div class="modal-body"><div class="calc-window">
+<div class="tool-header"><h2>Filter Calculator</h2><div class="tool-tabs">
+<div class="tool-tab active">Filter Calc</div><div class="tool-tab">Tool 2</div><div class="tool-tab">Tool 3</div><div class="tool-tab">Tool 4</div>
+</div></div>
+<div class="content-area"><div class="panel">
+<div class="filter-btns">
+<button class="filter-btn active" data-filter="lpf-rc">RC LPF</button>
+<button class="filter-btn" data-filter="hpf-rc">RC HPF</button>
+<button class="filter-btn" data-filter="lpf-rl">RL LPF</button>
+<button class="filter-btn" data-filter="hpf-rl">RL HPF</button>
+<button class="filter-btn" data-filter="bpf-rlc">RLC BPF</button>
+<button class="filter-btn" data-filter="bsf-rlc">RLC BSF</button>
+</div>
+<div class="comp-grid">
+<div class="comp-box"><div class="comp-header"><div class="comp-letter">R</div><div class="comp-value" id="r-value">1.0</div></div>
+<input type="range" min="1" max="1000" value="10" class="comp-slider" id="r-slider">
+<div class="unit-btns"><button class="unit-btn active" data-unit="ohm">Ω</button><button class="unit-btn" data-unit="kohm">kΩ</button><button class="unit-btn" data-unit="mohm">MΩ</button></div></div>
+<div class="comp-box" id="c-box"><div class="comp-header"><div class="comp-letter">C</div><div class="comp-value" id="c-value">1.0</div></div>
+<input type="range" min="1" max="1000" value="100" class="comp-slider" id="c-slider">
+<div class="unit-btns"><button class="unit-btn active" data-unit="nf">nF</button><button class="unit-btn" data-unit="uf">μF</button><button class="unit-btn" data-unit="mf">mF</button></div></div>
+<div class="comp-box" id="l-box"><div class="comp-header"><div class="comp-letter">L</div><div class="comp-value" id="l-value">1.0</div></div>
+<input type="range" min="1" max="1000" value="10" class="comp-slider" id="l-slider">
+<div class="unit-btns"><button class="unit-btn active" data-unit="nh">nH</button><button class="unit-btn" data-unit="uh">μH</button><button class="unit-btn" data-unit="mh">mH</button></div></div>
+</div>
+<div class="freq-display"><div>Center/Cutoff Frequency</div><div class="freq-value" id="freq-value">15.9</div><div class="freq-unit" id="freq-unit">kHz</div></div>
+<div class="component-order"><div class="order-title">Component Order (Vin → GND)</div>
+<div class="order-diagram" id="order-diagram"><div class="order-element">Vin</div><span class="order-arrow">→</span>
+<div class="order-element" id="order-first">R</div><span class="order-arrow">→</span><div class="order-element" id="order-second">C</div><span class="order-arrow">→</span><div class="order-element">Vout</div></div></div>
+</div><div class="panel">
+<div class="chart-box"><canvas id="bodeChart"></canvas></div>
+<div class="info-grid">
+<div class="info-box"><div class="info-title">Filter Type</div><div class="info-value" id="filter-type">RC LPF</div></div>
+<div class="info-box"><div class="info-title">-3dB Freq</div><div class="info-value" id="cutoff-freq">15.9</div><div class="info-unit" id="cutoff-unit">kHz</div></div>
+<div class="info-box"><div class="info-title">Q Factor</div><div class="info-value" id="q-factor">0.5</div></div>
+<div class="info-box"><div class="info-title">Bandwidth</div><div class="info-value" id="bandwidth">31.8</div><div class="info-unit" id="bandwidth-unit">kHz</div></div>
+</div></div></div></div></div></div></div></div>
 
-    <!-- Notification -->
-    <div class="notification" id="notification"></div>
+<div class="notification" id="notification"></div>
 
-    <script>
-        // Book data - organized by category
-        const bookData = {
-            digital: [
-                { title: "Communication", description: "Explore digital communication protocols and interfaces", link: "https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/", cover: "Serial Communication Cover.jpg" },
-                { title: "MCU", description: "Microcontroller architecture and programming", link: "https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/", cover: "MCU Cover.jpg" },
-                { title: "FPGA Architecture", description: "Field Programmable Gate Array design and implementation", link: "https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy", cover: "FPGA Cover.jpg" },
-                { title: "Video Protocols", description: "Digital video interfaces and transmission standards", link: "https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/", cover: "Digital Video Cover.jpg" },
-                { title: "CMOS Sensor", description: "Image sensor technology and applications", link: "https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX", cover: "CMOS Sensor Cover.jpg" },
-                { title: "Logic Gates", description: "Digital logic fundamentals and circuit design", link: "https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz", cover: "Logic Gates Cover.jpg" },
-                { title: "PID Control", description: "Proportional-Integral-Derivative control systems", link: "https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/", cover: "PID Control Cover.jpg", badge: true },
-                { title: "Wireless Comm", description: "Wireless communication technologies and protocols", link: "https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d", cover: "Wireless Communication Cover.jpg" },
-                { title: "DDR Memory", description: "Double Data Rate memory interfaces and design", link: "https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn", cover: "DDR Memory Cover.jpg", badge: true },
-                { title: "Firmware Coding 1", description: "Embedded software development fundamentals", link: "https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9", cover: "Firmware Coding Cover.jpg" },
-                { title: "Firmware Coding 2", description: "Advanced embedded software techniques", link: "https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40", cover: "Firmware Coding 2 Cover.jpg" }
-            ],
-            analog: [
-                { title: "Analog Filters", description: "Passive and active filter design principles", link: "https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/", cover: "Analog Filters Cover.jpg" },
-                { title: "Class Amplifiers", description: "Audio amplifier classes and circuit design", link: "https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/", cover: "Class Amplifiers Cover.jpg" },
-                { title: "OPAMPs", description: "Operational amplifier circuits and applications", link: "https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/", cover: "OPAMP Cover.jpg" },
-                { title: "Oscillators", description: "Signal generation and oscillator circuits", link: "https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/", cover: "Oscillators Cover.jpg" },
-                { title: "LED Drivers", description: "LED lighting circuits and driver design", link: "https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/", cover: "LED Drivers Cover.jpg" },
-                { title: "Power Design", description: "Power supply design and management", link: "https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/", cover: "Power Design Cover.jpg" },
-                { title: "RF Theory", description: "Radio frequency circuit design principles", link: "https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr", cover: "Radio Frequency Cover.jpg" },
-                { title: "Ground Rules", description: "PCB grounding techniques and best practices", link: "https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O", cover: "Ground Rules Cover.jpg", badge: true },
-                { title: "Battery Management", description: "Battery charging and monitoring systems", link: "https://www.linkedin.com/posts/shimic1978_battery-management-system-activity-7326196854382059521-rRNP", cover: "Battery Management Cover.jpg" }
-            ],
-            practical: [
-                { title: "PCB Design", description: "Printed Circuit Board layout and design", link: "https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm", cover: "PCB Design Cover.jpg", badge: true },
-                { title: "Hardware", description: "Hardware design fundamentals and principles", link: "https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/", cover: "Hardware Cover.jpg" },
-                { title: "Hardware Extended", description: "Advanced hardware design techniques", link: "https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/", cover: "Hardware Extended Cover.jpg" },
-                { title: "Design For Testability", description: "DFT principles and implementation strategies", link: "https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/", cover: "Design For Testability Cover.jpg" },
-                { title: "Protection Circuits", description: "Circuit protection techniques and components", link: "https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/", cover: "Protection Circuits Cover.jpg" },
-                { title: "Thermal Management", description: "Heat dissipation and thermal design", link: "https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/", cover: "Thermal Management Cover.jpg" },
-                { title: "Hardware Buffers", description: "Signal buffering and driver circuits", link: "https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N", cover: "Hardware Buffers Cover.jpg" },
-                { title: "Current Sensing", description: "Current measurement and sensing techniques", link: "https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/", cover: "Current Sensing Cover.jpg" },
-                { title: "ADC", description: "Analog-to-Digital Converter design", link: "https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb", cover: "ADC Cover.jpg", badge: true },
-                { title: "Hardware Drivers", description: "Driver circuit design and implementation", link: "https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu", cover: "Hardware Drivers Cover.jpg", badge: true },
-                { title: "Precision Circuits", description: "High-precision analog circuit design", link: "https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM", cover: "Precision Circuits Cover.jpg" },
-                { title: "Hardware Protection", description: "Circuit protection techniques and strategies", link: "https://www.linkedin.com/posts/shimic1978_board-design-protection-activity-7393852496705781760-NJ0Y", cover: "Hardware Protection Cover.jpg" }
-            ],
-            components: [
-                { title: "Component Selection", description: "Electronic component selection criteria", link: "https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/", cover: "Component Selection Cover.jpg" },
-                { title: "Capacitors", description: "Types and applications of capacitors", link: "https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW", cover: "Capacitors Comp Cover.jpg" },
-                { title: "Diodes", description: "Diode types and circuit applications", link: "https://www.linkedin.com/posts/shimic1978_diodes-activity-733771775899025409-Fwv0", cover: "Diodes Comp Cover.jpg" },
-                { title: "Inductors", description: "Inductor types and magnetic components", link: "https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/", cover: "Inductors Comp Cover.jpg" },
-                { title: "Transistors", description: "Transistor types and switching applications", link: "https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/", cover: "Transistors Comp Cover.jpg" },
-                { title: "Sensors", description: "Electronic sensors and interfacing", link: "https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag", cover: "Sensors Comp Cover.jpg" },
-                { title: "MEMS Gyro", description: "Microelectromechanical gyroscopes", link: "https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/", cover: "GYRO Comp Cover.jpg" },
-                { title: "Resistors", description: "Resistor types and precision considerations", link: "https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa", cover: "Resistors Comp Cover.jpg" },
-                { title: "Connectors and Cables", description: "Electrical connectors and cable selection", link: "https://www.linkedin.com/posts/shimic1978_connectors-cables-activity-7336588127437795328-boN_", cover: "Connectors Comp Cover.jpg" },
-                { title: "Transformers", description: "Transformer design and applications", link: "https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC", cover: "Transformers Comp Cover.jpg", badge: true },
-                { title: "Switches", description: "Electronic switches and relays", link: "https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc", cover: "Switches Comp Cover.jpg" },
-                { title: "Test Equipment", description: "Electronic test and measurement equipment", link: "https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH", cover: "Test Equipment Cover.jpg" }
-            ],
-            series20: [
-                { title: "20 Capacitors Apps", description: "Practical capacitor circuit applications", link: "https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f", cover: "Capacitors Cover.jpg" },
-                { title: "20 Resistors Apps", description: "Practical resistor circuit applications", link: "https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11", cover: "Resistors Cover.jpg" },
-                { title: "20 Active ICs", description: "Essential integrated circuit applications", link: "https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8", cover: "Active ICs Cover.jpg" },
-                { title: "20 Diodes Apps", description: "Practical diode circuit applications", link: "https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt", cover: "Diodes Cover.jpg" },
-                { title: "20 Transistors Apps", description: "Practical transistor circuit applications", link: "https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO", cover: "Transistors Cover.jpg", badge: true },
-                { title: "20 MCU Tips", description: "Essential microcontroller design tips", link: "https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe", cover: "MCU Tips Cover.jpg" },
-                { title: "20 Comm Problems", description: "Common communication issues and solutions", link: "https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_", cover: "COMM Problems Cover.jpg", badge: true },
-                { title: "20 Inductors Apps", description: "Practical inductor circuit applications", link: "https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H", cover: "Inductors Cover.jpg" },
-                { title: "20 OPAMP Apps", description: "Practical op-amp circuit applications", link: "https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G", cover: "OPAMP Apps Cover.jpg" },
-                { title: "20 DFM Tips", description: "Design for Manufacturing best practices", link: "https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN", cover: "DFM Cover.jpg" },
-                { title: "20 Signal Conversions", description: "Signal conversion techniques and circuits", link: "https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm", cover: "Signal Conversions Cover.jpg", badge: true }
-            ],
-            tutorials: [
-                { title: "Q&A Power/Analog", description: "Power and analog design Q&A", link: "https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY", cover: "Q&A Power Analog Cover.jpg" },
-                { title: "Power Tree", description: "Power distribution tree design", link: "https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm", cover: "Power Tree Cover.jpg" },
-                { title: "Bring Up", description: "Hardware bring-up procedures", link: "https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD", cover: "Bring Up Cover.jpg" },
-                { title: "EDA Free Tools", description: "Free Electronic Design Automation tools", link: "https://www.linkedin.com/posts/shimic1978_free-eda-tools-activity-7397117746196512768-t1RO", cover: "EDA Cover.jpg" },
-                { title: "LTSpice Tutorial Part1", description: "LTSpice simulation tutorial", link: "https://www.linkedin.com/posts/shimic1978_ltspice-from-scratch-activity-7398937815675371520-H3Fh", cover: "LTSpice Tutorial Part1 Cover.jpg", badge: true },
-                { title: "LTSpice Tutorial Part2", description: "Advanced LTSpice techniques", link: "https://www.linkedin.com/posts/shimic1978_ltspice-part-2-activity-7402562212386553856-2lLW", cover: "LTSpice Tutorial Part2 Cover.jpg", badge: true },
-                { title: "Troubleshooting", description: "Hardware troubleshooting techniques", link: "https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq", cover: "Troubleshooting Cover.jpg" }
-            ]
-        };
+<script>
+const bookData={digital:[
+{title:"Communication",description:"Digital communication protocols",link:"https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/",cover:"Serial Communication Cover.jpg"},
+{title:"MCU",description:"Microcontroller architecture",link:"https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/",cover:"MCU Cover.jpg"},
+{title:"FPGA Architecture",description:"FPGA design and implementation",link:"https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy",cover:"FPGA Cover.jpg"},
+{title:"Video Protocols",description:"Digital video interfaces",link:"https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/",cover:"Digital Video Cover.jpg"},
+{title:"CMOS Sensor",description:"Image sensor technology",link:"https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX",cover:"CMOS Sensor Cover.jpg"},
+{title:"Logic Gates",description:"Digital logic fundamentals",link:"https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz",cover:"Logic Gates Cover.jpg"},
+{title:"PID Control",description:"Control systems",link:"https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/",cover:"PID Control Cover.jpg",badge:true},
+{title:"Wireless Comm",description:"Wireless communication",link:"https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d",cover:"Wireless Communication Cover.jpg"},
+{title:"DDR Memory",description:"Memory interfaces",link:"https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn",cover:"DDR Memory Cover.jpg",badge:true},
+{title:"Firmware Coding 1",description:"Embedded software",link:"https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9",cover:"Firmware Coding Cover.jpg"},
+{title:"Firmware Coding 2",description:"Advanced techniques",link:"https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40",cover:"Firmware Coding 2 Cover.jpg"}
+],analog:[
+{title:"Analog Filters",description:"Filter design principles",link:"https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/",cover:"Analog Filters Cover.jpg"},
+{title:"Class Amplifiers",description:"Audio amplifier classes",link:"https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/",cover:"Class Amplifiers Cover.jpg"},
+{title:"OPAMPs",description:"Operational amplifiers",link:"https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/",cover:"OPAMP Cover.jpg"},
+{title:"Oscillators",description:"Signal generation",link:"https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/",cover:"Oscillators Cover.jpg"},
+{title:"LED Drivers",description:"LED lighting circuits",link:"https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/",cover:"LED Drivers Cover.jpg"},
+{title:"Power Design",description:"Power supply design",link:"https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/",cover:"Power Design Cover.jpg"},
+{title:"RF Theory",description:"Radio frequency design",link:"https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr",cover:"Radio Frequency Cover.jpg"},
+{title:"Ground Rules",description:"PCB grounding",link:"https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O",cover:"Ground Rules Cover.jpg",badge:true},
+{title:"Battery Management",description:"Battery systems",link:"https://www.linkedin.com/posts/shimic1978_battery-management-system-activity-7326196854382059521-rRNP",cover:"Battery Management Cover.jpg"}
+],practical:[
+{title:"PCB Design",description:"PCB layout and design",link:"https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm",cover:"PCB Design Cover.jpg",badge:true},
+{title:"Hardware",description:"Hardware fundamentals",link:"https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/",cover:"Hardware Cover.jpg"},
+{title:"Hardware Extended",description:"Advanced techniques",link:"https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/",cover:"Hardware Extended Cover.jpg"},
+{title:"Design For Testability",description:"DFT principles",link:"https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/",cover:"Design For Testability Cover.jpg"},
+{title:"Protection Circuits",description:"Circuit protection",link:"https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/",cover:"Protection Circuits Cover.jpg"},
+{title:"Thermal Management",description:"Heat dissipation",link:"https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/",cover:"Thermal Management Cover.jpg"},
+{title:"Hardware Buffers",description:"Signal buffering",link:"https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N",cover:"Hardware Buffers Cover.jpg"},
+{title:"Current Sensing",description:"Current measurement",link:"https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/",cover:"Current Sensing Cover.jpg"},
+{title:"ADC",description:"ADC design",link:"https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb",cover:"ADC Cover.jpg",badge:true},
+{title:"Hardware Drivers",description:"Driver circuits",link:"https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu",cover:"Hardware Drivers Cover.jpg",badge:true},
+{title:"Precision Circuits",description:"High-precision analog",link:"https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM",cover:"Precision Circuits Cover.jpg"},
+{title:"Hardware Protection",description:"Circuit protection",link:"https://www.linkedin.com/posts/shimic1978_board-design-protection-activity-7393852496705781760-NJ0Y",cover:"Hardware Protection Cover.jpg"}
+],components:[
+{title:"Component Selection",description:"Component criteria",link:"https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/",cover:"Component Selection Cover.jpg"},
+{title:"Capacitors",description:"Capacitor types",link:"https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW",cover:"Capacitors Comp Cover.jpg"},
+{title:"Diodes",description:"Diode types",link:"https://www.linkedin.com/posts/shimic1978_diodes-activity-733771775899025409-Fwv0",cover:"Diodes Comp Cover.jpg"},
+{title:"Inductors",description:"Inductor types",link:"https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/",cover:"Inductors Comp Cover.jpg"},
+{title:"Transistors",description:"Transistor types",link:"https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/",cover:"Transistors Comp Cover.jpg"},
+{title:"Sensors",description:"Electronic sensors",link:"https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag",cover:"Sensors Comp Cover.jpg"},
+{title:"MEMS Gyro",description:"Gyroscopes",link:"https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/",cover:"GYRO Comp Cover.jpg"},
+{title:"Resistors",description:"Resistor types",link:"https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa",cover:"Resistors Comp Cover.jpg"},
+{title:"Connectors and Cables",description:"Electrical connectors",link:"https://www.linkedin.com/posts/shimic1978_connectors-cables-activity-7336588127437795328-boN_",cover:"Connectors Comp Cover.jpg"},
+{title:"Transformers",description:"Transformer design",link:"https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC",cover:"Transformers Comp Cover.jpg",badge:true},
+{title:"Switches",description:"Electronic switches",link:"https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc",cover:"Switches Comp Cover.jpg"},
+{title:"Test Equipment",description:"Test equipment",link:"https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH",cover:"Test Equipment Cover.jpg"}
+],series20:[
+{title:"20 Capacitors Apps",description:"Capacitor circuits",link:"https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f",cover:"Capacitors Cover.jpg"},
+{title:"20 Resistors Apps",description:"Resistor circuits",link:"https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11",cover:"Resistors Cover.jpg"},
+{title:"20 Active ICs",description:"IC applications",link:"https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8",cover:"Active ICs Cover.jpg"},
+{title:"20 Diodes Apps",description:"Diode circuits",link:"https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt",cover:"Diodes Cover.jpg"},
+{title:"20 Transistors Apps",description:"Transistor circuits",link:"https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO",cover:"Transistors Cover.jpg",badge:true},
+{title:"20 MCU Tips",description:"MCU design tips",link:"https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe",cover:"MCU Tips Cover.jpg"},
+{title:"20 Comm Problems",description:"Communication issues",link:"https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_",cover:"COMM Problems Cover.jpg",badge:true},
+{title:"20 Inductors Apps",description:"Inductor circuits",link:"https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H",cover:"Inductors Cover.jpg"},
+{title:"20 OPAMP Apps",description:"Op-amp circuits",link:"https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G",cover:"OPAMP Apps Cover.jpg"},
+{title:"20 DFM Tips",description:"Manufacturing tips",link:"https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN",cover:"DFM Cover.jpg"},
+{title:"20 Signal Conversions",description:"Signal conversion",link:"https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm",cover:"Signal Conversions Cover.jpg",badge:true}
+],tutorials:[
+{title:"Q&A Power/Analog",description:"Power Q&A",link:"https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY",cover:"Q&A Power Analog Cover.jpg"},
+{title:"Power Tree",description:"Power distribution",link:"https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm",cover:"Power Tree Cover.jpg"},
+{title:"Bring Up",description:"Hardware bring-up",link:"https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD",cover:"Bring Up Cover.jpg"},
+{title:"EDA Free Tools",description:"Free EDA tools",link:"https://www.linkedin.com/posts/shimic1978_free-eda-tools-activity-7397117746196512768-t1RO",cover:"EDA Cover.jpg"},
+{title:"LTSpice Tutorial Part1",description:"LTSpice basics",link:"https://www.linkedin.com/posts/shimic1978_ltspice-from-scratch-activity-7398937815675371520-H3Fh",cover:"LTSpice Tutorial Part1 Cover.jpg",badge:true},
+{title:"LTSpice Tutorial Part2",description:"Advanced LTSpice",link:"https://www.linkedin.com/posts/shimic1978_ltspice-part-2-activity-7402562212386553856-2lLW",cover:"LTSpice Tutorial Part2 Cover.jpg",badge:true},
+{title:"Troubleshooting",description:"Troubleshooting",link:"https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq",cover:"Troubleshooting Cover.jpg"}
+]};
 
-        // Filter Calculator JavaScript
-        let chart, filter = 'lpf-rc';
-        const comps = {
-            r: {val:10, unit:'ohm', mul:1},
-            c: {val:100, unit:'nf', mul:1e-9},
-            l: {val:10, unit:'nh', mul:1e-9}
-        };
-        const units = {
-            r: {ohm:1, kohm:1e3, mohm:1e6},
-            c: {nf:1e-9, uf:1e-6, mf:1e-3},
-            l: {nh:1e-9, uh:1e-6, mh:1e-3}
-        };
+let chart,filter='lpf-rc';
+const comps={r:{val:10,unit:'ohm',mul:1},c:{val:100,unit:'nf',mul:1e-9},l:{val:10,unit:'nh',mul:1e-9}};
+const units={r:{ohm:1,kohm:1e3,mohm:1e6},c:{nf:1e-9,uf:1e-6,mf:1e-3},l:{nh:1e-9,uh:1e-6,mh:1e-3}};
+const filterOrders={'lpf-rc':{first:'R',second:'C'},'hpf-rc':{first:'C',second:'R'},'lpf-rl':{first:'R',second:'L'},'hpf-rl':{first:'L',second:'R'},'bpf-rlc':{first:'R',second:'LC'},'bsf-rlc':{first:'LC',second:'R'}};
 
-        // Component order configurations
-        const filterOrders = {
-            'lpf-rc': {first: 'R', second: 'C', desc: 'Series R, Shunt C to GND'},
-            'hpf-rc': {first: 'C', second: 'R', desc: 'Series C, Shunt R to GND'},
-            'lpf-rl': {first: 'R', second: 'L', desc: 'Series R, Shunt L to GND'},
-            'hpf-rl': {first: 'L', second: 'R', desc: 'Series L, Shunt R to GND'},
-            'bpf-rlc': {first: 'R', second: 'LC', desc: 'Series R, Parallel LC to GND'},
-            'bsf-rlc': {first: 'LC', second: 'R', desc: 'Series LC, Shunt R to GND'}
-        };
+document.addEventListener('DOMContentLoaded',()=>{
+let activeCategory='digital';
+initializeApp();initFilterCalculator();
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Track current active category
-            let activeCategory = 'digital';
-            
-            // Initialize the application
-            initializeApp();
-            initFilterCalculator();
-            
-            // ====== INITIALIZATION ====== */
-            function initializeApp() {
-                renderAllBooks();
-                setupEventListeners();
-                showCategory('digital'); // Start with digital category
-            }
-            
-            // ====== BOOK RENDERING ====== */
-            function renderAllBooks() {
-                Object.keys(bookData).forEach(categoryId => {
-                    const categoryBooks = bookData[categoryId];
-                    const categoryName = getCategoryName(categoryId);
-                    
-                    const categorySection = document.getElementById(`${categoryId}Content`);
-                    if (categorySection) {
-                        categorySection.innerHTML = `
-                            <h2 class="category-header">${categoryName}</h2>
-                            <div class="book-grid" id="${categoryId}Grid">
-                                ${categoryBooks.map(book => createBookHTML(book)).join('')}
-                            </div>
-                        `;
-                    }
-                });
-                
-                // Re-attach event listeners to new book cards
-                attachBookEventListeners();
-            }
-            
-            function createBookHTML(book) {
-                return `
-                    <div class="book-card" data-link="${book.link}">
-                        <div class="book-card-inner">
-                            <div class="book-card-front">
-                                <h3 class="book-title">${book.title}</h3>
-                                <p class="book-description">${book.description}</p>
-                                ${book.badge ? '<span class="book-badge">Top Pick</span>' : ''}
-                            </div>
-                            <div class="book-card-back">
-                                <img src="${book.cover}" alt="${book.title}" class="book-cover" loading="lazy">
-                            </div>
-                        </div>
-                        <div class="book-actions">
-                            <button class="book-action-btn view-btn">
-                                <i class="fas fa-eye"></i>
-                                <span>View</span>
-                            </button>
-                            <button class="book-action-btn link-btn">
-                                <i class="fas fa-link"></i>
-                                <span>Open</span>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            function getCategoryName(categoryId) {
-                const names = {
-                    digital: 'Digital & Communication',
-                    analog: 'Analog & Power',
-                    practical: 'Practical Design',
-                    components: 'Components',
-                    series20: '"20" Series',
-                    tutorials: 'Tutorials'
-                };
-                return names[categoryId] || categoryId;
-            }
-            
-            // ====== EVENT LISTENERS SETUP ====== */
-            function setupEventListeners() {
-                // Profile modal
-                const profilePic = document.getElementById('profilePic');
-                const profileModal = document.getElementById('profileModal');
-                const closeProfileModal = document.getElementById('closeProfileModal');
-                
-                profilePic.addEventListener('click', () => {
-                    profileModal.classList.add('active');
-                });
-                
-                closeProfileModal.addEventListener('click', () => {
-                    profileModal.classList.remove('active');
-                });
-                
-                profileModal.addEventListener('click', (e) => {
-                    if (e.target === profileModal) {
-                        profileModal.classList.remove('active');
-                    }
-                });
-                
-                // Navigation icons - FIXED BEHAVIOR
-                const navIcons = document.querySelectorAll('.nav-icon-item');
-                
-                navIcons.forEach(icon => {
-                    icon.addEventListener('click', (e) => {
-                        const categoryId = icon.dataset.category;
-                        
-                        // If clicking tools, open filter calculator
-                        if (categoryId === 'tools') {
-                            const filterModal = document.getElementById('filterCalcModal');
-                            filterModal.classList.add('active');
-                            return;
-                        }
-                        
-                        // If clicking the same category, close it
-                        if (categoryId === activeCategory) {
-                            // Hide current category
-                            document.querySelectorAll('.category-section').forEach(section => {
-                                section.classList.remove('active');
-                            });
-                            activeCategory = null;
-                            
-                            // Update icon state
-                            navIcons.forEach(i => {
-                                i.querySelector('.nav-icon').classList.remove('active');
-                            });
-                        } else {
-                            // Show new category
-                            showCategory(categoryId);
-                            
-                            // Update icon states
-                            navIcons.forEach(i => {
-                                const iconEl = i.querySelector('.nav-icon');
-                                if (i.dataset.category === categoryId) {
-                                    iconEl.classList.add('active');
-                                } else {
-                                    iconEl.classList.remove('active');
-                                }
-                            });
-                            
-                            activeCategory = categoryId;
-                        }
-                    });
-                });
-                
-                // File modal
-                const downloadBtn = document.getElementById('downloadBtn');
-                const fileVaultModal = document.getElementById('fileVaultModal');
-                const closeFileModal = document.getElementById('closeFileModal');
-                
-                downloadBtn.addEventListener('click', () => {
-                    fileVaultModal.classList.add('active');
-                    loadFiles();
-                });
-                
-                closeFileModal.addEventListener('click', () => {
-                    fileVaultModal.classList.remove('active');
-                });
-                
-                fileVaultModal.addEventListener('click', (e) => {
-                    if (e.target === fileVaultModal) {
-                        fileVaultModal.classList.remove('active');
-                    }
-                });
-                
-                // Tools button in FAB
-                const toolsBtn = document.getElementById('toolsBtn');
-                const filterModal = document.getElementById('filterCalcModal');
-                const closeFilterModal = document.getElementById('closeFilterModal');
-                
-                toolsBtn.addEventListener('click', () => {
-                    filterModal.classList.add('active');
-                });
-                
-                closeFilterModal.addEventListener('click', () => {
-                    filterModal.classList.remove('active');
-                });
-                
-                filterModal.addEventListener('click', (e) => {
-                    if (e.target === filterModal) {
-                        filterModal.classList.remove('active');
-                    }
-                });
-                
-                // Tabs
-                const tabs = document.querySelectorAll('.tab');
-                tabs.forEach(tab => {
-                    tab.addEventListener('click', () => {
-                        const tabId = tab.dataset.tab;
-                        
-                        // Remove active class from all tabs and contents
-                        tabs.forEach(t => t.classList.remove('active'));
-                        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-                        
-                        // Add active class to clicked tab and corresponding content
-                        tab.classList.add('active');
-                        document.getElementById(tabId).classList.add('active');
-                    });
-                });
-                
-                // Click anywhere outside to close category
-                document.addEventListener('click', (e) => {
-                    const isNavIcon = e.target.closest('.nav-icon-item');
-                    const isBookCard = e.target.closest('.book-card');
-                    
-                    if (!isNavIcon && !isBookCard && activeCategory) {
-                        // Clicked outside - close current category
-                        document.querySelectorAll('.category-section').forEach(section => {
-                            section.classList.remove('active');
-                        });
-                        
-                        // Update icon states
-                        navIcons.forEach(i => {
-                            i.querySelector('.nav-icon').classList.remove('active');
-                        });
-                        
-                        activeCategory = null;
-                    }
-                });
-                
-                // Scroll behavior for header
-                let lastScrollTop = 0;
-                const header = document.querySelector('header');
-                
-                window.addEventListener('scroll', () => {
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    
-                    if (scrollTop > lastScrollTop && scrollTop > 100) {
-                        header.style.transform = 'translateY(-100%)';
-                    } else {
-                        header.style.transform = 'translateY(0)';
-                    }
-                    
-                    lastScrollTop = scrollTop;
-                });
-            }
-            
-            function attachBookEventListeners() {
-                const bookCards = document.querySelectorAll('.book-card');
-                
-                bookCards.forEach(card => {
-                    const viewBtn = card.querySelector('.view-btn');
-                    const linkBtn = card.querySelector('.link-btn');
-                    
-                    // View button - flip card
-                    viewBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        card.classList.toggle('flipped');
-                    });
-                    
-                    // Link button - open link
-                    linkBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const link = card.dataset.link;
-                        if (link) {
-                            window.open(link, '_blank');
-                        }
-                    });
-                    
-                    // On desktop, only flip on button click, not hover
-                    if (window.innerWidth > 768) {
-                        card.addEventListener('mouseenter', () => {
-                            card.classList.add('flipped');
-                        });
-                        
-                        card.addEventListener('mouseleave', () => {
-                            card.classList.remove('flipped');
-                        });
-                    }
-                });
-            }
-            
-            // ====== CATEGORY NAVIGATION ====== */
-            function showCategory(categoryId) {
-                // Hide all content sections
-                document.querySelectorAll('.category-section').forEach(section => {
-                    section.classList.remove('active');
-                });
-                
-                // Show selected category
-                const categoryContent = document.getElementById(`${categoryId}Content`);
-                if (categoryContent) {
-                    categoryContent.classList.add('active');
-                }
-                
-                // Scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            
-            // ====== FILE LOADING ====== */
-            async function loadFiles() {
-                const ltspiceFiles = document.getElementById('ltspiceFiles');
-                
-                try {
-                    const response = await fetch('https://api.github.com/repos/ShimiC1978/Download/contents');
-                    const files = await response.json();
-                    
-                    const ascFiles = files.filter(file => 
-                        file.name.toLowerCase().endsWith('.asc') && 
-                        file.type === 'file'
-                    );
-                    
-                    if (ascFiles.length === 0) {
-                        ltspiceFiles.innerHTML = `
-                            <div class="empty-state">
-                                <h3>No LTSPICE Files Found</h3>
-                                <p>Check back soon for updates.</p>
-                            </div>
-                        `;
-                        return;
-                    }
-                    
-                    ltspiceFiles.innerHTML = '';
-                    
-                    ascFiles.forEach(file => {
-                        const fileSize = (file.size / 1024).toFixed(1);
-                        const fileItem = document.createElement('div');
-                        fileItem.className = 'file-item';
-                        fileItem.dataset.url = file.download_url;
-                        
-                        fileItem.innerHTML = `
-                            <div class="file-icon">
-                                <i class="fas fa-file-code"></i>
-                            </div>
-                            <div class="file-info">
-                                <div class="file-name">${file.name}</div>
-                                <div class="file-size">${fileSize} KB</div>
-                            </div>
-                        `;
-                        
-                        fileItem.addEventListener('click', () => {
-                            downloadFile(file.name, file.download_url);
-                        });
-                        
-                        ltspiceFiles.appendChild(fileItem);
-                    });
-                    
-                } catch (error) {
-                    console.error('Error loading files:', error);
-                    ltspiceFiles.innerHTML = `
-                        <div class="empty-state">
-                            <h3>Error Loading Files</h3>
-                            <p>Could not fetch files from GitHub. Please check your connection.</p>
-                        </div>
-                    `;
-                }
-            }
-            
-            // ====== FILE DOWNLOAD ====== */
-            function downloadFile(filename, url) {
-                showNotification(`Downloading: ${filename}`);
-                
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = filename;
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-                
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                setTimeout(() => {
-                    showNotification('Download complete!');
-                }, 1000);
-            }
-            
-            // ====== NOTIFICATION ====== */
-            function showNotification(message) {
-                const notification = document.getElementById('notification');
-                notification.textContent = message;
-                notification.classList.add('show');
-                
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 3000);
-            }
-            
-            // ====== FILTER CALCULATOR FUNCTIONS ====== */
-            function initFilterCalculator() {
-                // Filter buttons
-                document.querySelectorAll('.filter-btn').forEach(btn => {
-                    btn.onclick = function() {
-                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                        this.classList.add('active');
-                        filter = this.dataset.filter;
-                        updateDisabled();
-                        updateComponentOrder();
-                        calculate();
-                    };
-                });
-                
-                // Sliders
-                ['r','c','l'].forEach(id => {
-                    document.getElementById(id+'-slider').oninput = function() {
-                        comps[id].val = +this.value;
-                        document.getElementById(id+'-value').textContent = comps[id].val.toFixed(1);
-                        calculate();
-                    };
-                });
-                
-                // Unit buttons
-                document.querySelectorAll('.unit-btn').forEach(btn => {
-                    btn.onclick = function() {
-                        const unit = this.dataset.unit;
-                        const parent = this.closest('.comp-box');
-                        const id = parent.id.replace('-box','');
-                        
-                        parent.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
-                        this.classList.add('active');
-                        comps[id].unit = unit;
-                        comps[id].mul = units[id][unit];
-                        calculate();
-                    };
-                });
-                
-                // Initialize chart
-                const ctx = document.getElementById('bodeChart').getContext('2d');
-                chart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: [],
-                        datasets: [
-                            {
-                                label: 'Magnitude (dB)',
-                                data: [],
-                                borderColor: '#e63946',
-                                backgroundColor: 'rgba(230, 57, 70, 0.1)',
-                                borderWidth: 1,
-                                pointRadius: 1,
-                                fill: true,
-                                yAxisID: 'y'
-                            },
-                            {
-                                label: 'Phase (°)',
-                                data: [],
-                                borderColor: '#2a9d2a',
-                                backgroundColor: 'rgba(42, 157, 42, 0.1)',
-                                borderWidth: 1,
-                                pointRadius: 1,
-                                fill: true,
-                                yAxisID: 'y1'
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            x: {
-                                type: 'logarithmic',
-                                title: {display:true, text:'Frequency (Hz)'},
-                                grid: {color:'rgba(0,0,0,0.1)'}
-                            },
-                            y: {
-                                position: 'left',
-                                title: {display:true, text:'Magnitude (dB)'},
-                                grid: {color:'rgba(0,0,0,0.1)'}
-                            },
-                            y1: {
-                                position: 'right',
-                                title: {display:true, text:'Phase (°)'},
-                                grid: {drawOnChartArea:false}
-                            }
-                        }
-                    }
-                });
-                
-                updateDisabled();
-                updateComponentOrder();
-                calculate();
-            }
-            
-            function updateDisabled() {
-                const isRC = filter.includes('rc');
-                const isRL = filter.includes('rl');
-                const isRLC = filter.includes('rlc');
-                
-                document.getElementById('c-box').classList.toggle('disabled', isRL && !isRLC);
-                document.getElementById('l-box').classList.toggle('disabled', isRC && !isRLC);
-            }
-            
-            function updateComponentOrder() {
-                const order = filterOrders[filter] || filterOrders['lpf-rc'];
-                document.getElementById('order-first').textContent = order.first;
-                document.getElementById('order-second').textContent = order.second;
-            }
-            
-            function calculate() {
-                const R = comps.r.val * comps.r.mul;
-                const C = comps.c.val * comps.c.mul;
-                const L = comps.l.val * comps.l.mul;
-                
-                let fc, q, bw;
-                
-                if (filter.includes('rc')) {
-                    fc = 1/(2*Math.PI*R*C);
-                    q = 0.5;
-                    bw = fc/q;
-                } else if (filter.includes('rl')) {
-                    fc = R/(2*Math.PI*L);
-                    q = 0.5;
-                    bw = fc/q;
-                } else {
-                    fc = 1/(2*Math.PI*Math.sqrt(L*C));
-                    q = (1/R)*Math.sqrt(L/C);
-                    bw = fc/q;
-                }
-                
-                // Update display
-                const fmt = formatFreq(fc);
-                document.getElementById('freq-value').textContent = fmt.val;
-                document.getElementById('freq-unit').textContent = fmt.unit;
-                
-                document.getElementById('filter-type').textContent = 
-                    filter.replace('lpf','LPF').replace('hpf','HPF').replace('bpf','BPF').replace('bsf','BSF').toUpperCase();
-                
-                const fmtCut = formatFreq(fc);
-                document.getElementById('cutoff-freq').textContent = fmtCut.val;
-                document.getElementById('cutoff-unit').textContent = fmtCut.unit;
-                
-                const fmtBw = formatFreq(bw);
-                document.getElementById('bandwidth').textContent = fmtBw.val;
-                document.getElementById('bandwidth-unit').textContent = fmtBw.unit;
-                
-                document.getElementById('q-factor').textContent = q.toFixed(2);
-                
-                // Bode plot
-                const start = 1;
-                const end = fc * (filter.includes('bp')||filter.includes('bs') ? 100 : 100);
-                const freq = [], mag = [], phase = [];
-                
-                for (let i=0; i<100; i++) {
-                    const f = Math.pow(10, Math.log10(start) + (Math.log10(end)-Math.log10(start))*i/99);
-                    let m, p;
-                    
-                    if (filter === 'lpf-rc') {
-                        m = 1/Math.sqrt(1+Math.pow(2*Math.PI*f*R*C,2));
-                        p = -Math.atan(2*Math.PI*f*R*C)*180/Math.PI;
-                    } else if (filter === 'hpf-rc') {
-                        m = (2*Math.PI*f*R*C)/Math.sqrt(1+Math.pow(2*Math.PI*f*R*C,2));
-                        p = 90 - Math.atan(2*Math.PI*f*R*C)*180/Math.PI;
-                    } else if (filter === 'lpf-rl') {
-                        m = R/Math.sqrt(R*R+Math.pow(2*Math.PI*f*L,2));
-                        p = -Math.atan(2*Math.PI*f*L/R)*180/Math.PI;
-                    } else if (filter === 'hpf-rl') {
-                        m = (2*Math.PI*f*L)/Math.sqrt(R*R+Math.pow(2*Math.PI*f*L,2));
-                        p = 90 - Math.atan(2*Math.PI*f*L/R)*180/Math.PI;
-                    } else if (filter === 'bpf-rlc') {
-                        const w = 2*Math.PI*f;
-                        m = (w*R*C)/Math.sqrt(Math.pow(1-w*w*L*C,2)+Math.pow(w*R*C,2));
-                        p = 90 - Math.atan((w*R*C)/(1-w*w*L*C))*180/Math.PI;
-                    } else {
-                        const w = 2*Math.PI*f;
-                        m = Math.abs(1-w*w*L*C)/Math.sqrt(Math.pow(1-w*w*L*C,2)+Math.pow(w*R*C,2));
-                        p = -Math.atan((w*R*C)/(1-w*w*L*C))*180/Math.PI;
-                    }
-                    
-                    freq.push(f>=1e6 ? (f/1e6).toFixed(1)+'M' : f>=1e3 ? (f/1e3).toFixed(1)+'k' : f.toFixed(1));
-                    mag.push(20*Math.log10(m));
-                    phase.push(p);
-                }
-                
-                chart.data.labels = freq;
-                chart.data.datasets[0].data = mag;
-                chart.data.datasets[1].data = phase;
-                chart.update();
-            }
-            
-            function formatFreq(f) {
-                if (f>=1e9) return {val:(f/1e9).toFixed(2), unit:'GHz'};
-                if (f>=1e6) return {val:(f/1e6).toFixed(2), unit:'MHz'};
-                if (f>=1e3) return {val:(f/1e3).toFixed(2), unit:'kHz'};
-                return {val:f.toFixed(2), unit:'Hz'};
-            }
-        });
-    </script>
+function initializeApp(){renderAllBooks();setupEventListeners();showCategory('digital');}
+
+function renderAllBooks(){
+Object.keys(bookData).forEach(categoryId=>{
+const categoryBooks=bookData[categoryId];
+const categorySection=document.getElementById(`${categoryId}Content`);
+if(categorySection){
+categorySection.innerHTML=`<h2 class="category-header">${getCategoryName(categoryId)}</h2>
+<div class="book-grid" id="${categoryId}Grid">${categoryBooks.map(book=>createBookHTML(book)).join('')}</div>`;
+}});attachBookEventListeners();
+}
+
+function createBookHTML(book){
+return`<div class="book-card" data-link="${book.link}"><div class="book-card-inner">
+<div class="book-card-front"><h3 class="book-title">${book.title}</h3><p class="book-description">${book.description}</p>${book.badge?'<span class="book-badge">Top Pick</span>':''}</div>
+<div class="book-card-back"><img src="${book.cover}" alt="${book.title}" class="book-cover" loading="lazy"></div></div>
+<div class="book-actions"><button class="book-action-btn view-btn"><i class="fas fa-eye"></i><span>View</span></button>
+<button class="book-action-btn link-btn"><i class="fas fa-link"></i><span>Open</span></button></div></div>`;
+}
+
+function getCategoryName(categoryId){
+const names={digital:'Digital & Communication',analog:'Analog & Power',practical:'Practical Design',components:'Components',series20:'"20" Series',tutorials:'Tutorials'};
+return names[categoryId]||categoryId;
+}
+
+function setupEventListeners(){
+document.getElementById('profilePic').addEventListener('click',()=>document.getElementById('profileModal').classList.add('active'));
+document.getElementById('closeProfileModal').addEventListener('click',()=>document.getElementById('profileModal').classList.remove('active'));
+document.getElementById('profileModal').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('active');});
+
+const navIcons=document.querySelectorAll('.nav-icon-item');
+navIcons.forEach(icon=>{
+icon.addEventListener('click',e=>{
+const categoryId=icon.dataset.category;
+if(categoryId===activeCategory){
+document.querySelectorAll('.category-section').forEach(s=>s.classList.remove('active'));
+activeCategory=null;navIcons.forEach(i=>i.querySelector('.nav-icon').classList.remove('active'));
+}else{showCategory(categoryId);navIcons.forEach(i=>{
+const iconEl=i.querySelector('.nav-icon');
+i.dataset.category===categoryId?iconEl.classList.add('active'):iconEl.classList.remove('active');
+});activeCategory=categoryId;}
+});
+});
+
+document.getElementById('downloadBtn').addEventListener('click',()=>{
+document.getElementById('fileVaultModal').classList.add('active');loadFiles();
+});
+document.getElementById('closeFileModal').addEventListener('click',()=>document.getElementById('fileVaultModal').classList.remove('active'));
+document.getElementById('fileVaultModal').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('active');});
+
+document.getElementById('toolsBtn').addEventListener('click',()=>document.getElementById('filterCalcModal').classList.add('active'));
+document.getElementById('closeFilterModal').addEventListener('click',()=>document.getElementById('filterCalcModal').classList.remove('active'));
+document.getElementById('filterCalcModal').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('active');});
+
+document.querySelectorAll('.tab').forEach(tab=>{
+tab.addEventListener('click',()=>{
+const tabId=tab.dataset.tab;
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('.tab-content').forEach(tc=>tc.classList.remove('active'));
+tab.classList.add('active');document.getElementById(tabId).classList.add('active');
+});
+});
+
+window.addEventListener('scroll',()=>{
+const scrollTop=window.pageYOffset||document.documentElement.scrollTop;
+const header=document.querySelector('header');
+if(scrollTop>100)header.style.transform=scrollTop>100?'translateY(-100%)':'translateY(0)';
+});
+}
+
+function attachBookEventListeners(){
+document.querySelectorAll('.book-card').forEach(card=>{
+const viewBtn=card.querySelector('.view-btn'),linkBtn=card.querySelector('.link-btn');
+viewBtn.addEventListener('click',e=>{e.stopPropagation();card.classList.toggle('flipped');});
+linkBtn.addEventListener('click',e=>{e.stopPropagation();window.open(card.dataset.link,'_blank');});
+});
+}
+
+function showCategory(categoryId){
+document.querySelectorAll('.category-section').forEach(s=>s.classList.remove('active'));
+const categoryContent=document.getElementById(`${categoryId}Content`);
+if(categoryContent)categoryContent.classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function loadFiles(){
+const ltspiceFiles=document.getElementById('ltspiceFiles');
+try{
+const r=await fetch('https://api.github.com/repos/ShimiC1978/Download/contents');
+const files=await r.json();
+const ascFiles=files.filter(f=>f.name.toLowerCase().endsWith('.asc')&&f.type==='file');
+if(ascFiles.length===0){ltspiceFiles.innerHTML='<div class="empty-state"><h3>No LTSPICE Files Found</h3><p>Check back soon.</p></div>';return;}
+ltspiceFiles.innerHTML='';
+ascFiles.forEach(file=>{
+const fileItem=document.createElement('div');
+fileItem.className='file-item';fileItem.dataset.url=file.download_url;
+fileItem.innerHTML=`<div class="file-icon"><i class="fas fa-file-code"></i></div>
+<div class="file-info"><div class="file-name">${file.name}</div><div class="file-size">${(file.size/1024).toFixed(1)} KB</div></div>`;
+fileItem.addEventListener('click',()=>downloadFile(file.name,file.download_url));
+ltspiceFiles.appendChild(fileItem);
+});
+}catch(e){
+ltspiceFiles.innerHTML='<div class="empty-state"><h3>Error Loading Files</h3><p>Check connection.</p></div>';
+}
+}
+
+function downloadFile(filename,url){
+showNotification(`Downloading: ${filename}`);
+const link=document.createElement('a');
+link.href=url;link.download=filename;link.target='_blank';
+document.body.appendChild(link);link.click();document.body.removeChild(link);
+setTimeout(()=>showNotification('Download complete!'),1000);
+}
+
+function showNotification(m){
+const n=document.getElementById('notification');
+n.textContent=m;n.classList.add('show');
+setTimeout(()=>n.classList.remove('show'),3000);
+}
+
+function initFilterCalculator(){
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+btn.onclick=function(){
+document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+this.classList.add('active');filter=this.dataset.filter;
+updateDisabled();updateComponentOrder();calculate();
+};
+});
+
+['r','c','l'].forEach(id=>{
+document.getElementById(id+'-slider').oninput=function(){
+comps[id].val=+this.value;
+document.getElementById(id+'-value').textContent=comps[id].val.toFixed(1);
+calculate();
+};
+});
+
+document.querySelectorAll('.unit-btn').forEach(btn=>{
+btn.onclick=function(){
+const unit=this.dataset.unit,parent=this.closest('.comp-box'),id=parent.id.replace('-box','');
+parent.querySelectorAll('.unit-btn').forEach(b=>b.classList.remove('active'));
+this.classList.add('active');comps[id].unit=unit;comps[id].mul=units[id][unit];calculate();
+};
+});
+
+const ctx=document.getElementById('bodeChart').getContext('2d');
+chart=new Chart(ctx,{type:'line',data:{labels:[],datasets:[
+{label:'Magnitude (dB)',data:[],borderColor:'#e63946',backgroundColor:'rgba(230,57,70,0.1)',borderWidth:1,pointRadius:1,fill:true,yAxisID:'y'},
+{label:'Phase (°)',data:[],borderColor:'#2a9d2a',backgroundColor:'rgba(42,157,42,0.1)',borderWidth:1,pointRadius:1,fill:true,yAxisID:'y1'}
+]},options:{responsive:true,maintainAspectRatio:false,scales:{
+x:{type:'logarithmic',title:{display:true,text:'Frequency (Hz)'},grid:{color:'rgba(0,0,0,0.1)'}},
+y:{position:'left',title:{display:true,text:'Magnitude (dB)'},grid:{color:'rgba(0,0,0,0.1)'}},
+y1:{position:'right',title:{display:true,text:'Phase (°)'},grid:{drawOnChartArea:false}}
+}}});
+
+updateDisabled();updateComponentOrder();calculate();
+}
+
+function updateDisabled(){
+const isRC=filter.includes('rc'),isRL=filter.includes('rl'),isRLC=filter.includes('rlc');
+document.getElementById('c-box').classList.toggle('disabled',isRL&&!isRLC);
+document.getElementById('l-box').classList.toggle('disabled',isRC&&!isRLC);
+}
+
+function updateComponentOrder(){
+const order=filterOrders[filter]||filterOrders['lpf-rc'];
+document.getElementById('order-first').textContent=order.first;
+document.getElementById('order-second').textContent=order.second;
+}
+
+function calculate(){
+const R=comps.r.val*comps.r.mul,C=comps.c.val*comps.c.mul,L=comps.l.val*comps.l.mul;
+let fc,q,bw;
+if(filter.includes('rc')){fc=1/(2*Math.PI*R*C);q=0.5;bw=fc/q;}
+else if(filter.includes('rl')){fc=R/(2*Math.PI*L);q=0.5;bw=fc/q;}
+else{fc=1/(2*Math.PI*Math.sqrt(L*C));q=(1/R)*Math.sqrt(L/C);bw=fc/q;}
+
+const fmt=formatFreq(fc);
+document.getElementById('freq-value').textContent=fmt.val;
+document.getElementById('freq-unit').textContent=fmt.unit;
+document.getElementById('filter-type').textContent=filter.replace('lpf','LPF').replace('hpf','HPF').replace('bpf','BPF').replace('bsf','BSF').toUpperCase();
+const fmtCut=formatFreq(fc);
+document.getElementById('cutoff-freq').textContent=fmtCut.val;
+document.getElementById('cutoff-unit').textContent=fmtCut.unit;
+const fmtBw=formatFreq(bw);
+document.getElementById('bandwidth').textContent=fmtBw.val;
+document.getElementById('bandwidth-unit').textContent=fmtBw.unit;
+document.getElementById('q-factor').textContent=q.toFixed(2);
+
+const start=1,end=fc*(filter.includes('bp')||filter.includes('bs')?100:100);
+const freq=[],mag=[],phase=[];
+for(let i=0;i<100;i++){
+const f=Math.pow(10,Math.log10(start)+(Math.log10(end)-Math.log10(start))*i/99);
+let m,p;
+if(filter==='lpf-rc'){m=1/Math.sqrt(1+Math.pow(2*Math.PI*f*R*C,2));p=-Math.atan(2*Math.PI*f*R*C)*180/Math.PI;}
+else if(filter==='hpf-rc'){m=(2*Math.PI*f*R*C)/Math.sqrt(1+Math.pow(2*Math.PI*f*R*C,2));p=90-Math.atan(2*Math.PI*f*R*C)*180/Math.PI;}
+else if(filter==='lpf-rl'){m=R/Math.sqrt(R*R+Math.pow(2*Math.PI*f*L,2));p=-Math.atan(2*Math.PI*f*L/R)*180/Math.PI;}
+else if(filter==='hpf-rl'){m=(2*Math.PI*f*L)/Math.sqrt(R*R+Math.pow(2*Math.PI*f*L,2));p=90-Math.atan(2*Math.PI*f*L/R)*180/Math.PI;}
+else if(filter==='bpf-rlc'){const w=2*Math.PI*f;m=(w*R*C)/Math.sqrt(Math.pow(1-w*w*L*C,2)+Math.pow(w*R*C,2));p=90-Math.atan((w*R*C)/(1-w*w*L*C))*180/Math.PI;}
+else{const w=2*Math.PI*f;m=Math.abs(1-w*w*L*C)/Math.sqrt(Math.pow(1-w*w*L*C,2)+Math.pow(w*R*C,2));p=-Math.atan((w*R*C)/(1-w*w*L*C))*180/Math.PI;}
+freq.push(f>=1e6?(f/1e6).toFixed(1)+'M':f>=1e3?(f/1e3).toFixed(1)+'k':f.toFixed(1));
+mag.push(20*Math.log10(m));phase.push(p);
+}
+chart.data.labels=freq;chart.data.datasets[0].data=mag;chart.data.datasets[1].data=phase;chart.update();
+}
+
+function formatFreq(f){
+if(f>=1e9)return{val:(f/1e9).toFixed(2),unit:'GHz'};
+if(f>=1e6)return{val:(f/1e6).toFixed(2),unit:'MHz'};
+if(f>=1e3)return{val:(f/1e3).toFixed(2),unit:'kHz'};
+return{val:f.toFixed(2),unit:'Hz'};
+}
+});
+</script>
 </body>
 </html>
