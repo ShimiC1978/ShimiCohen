@@ -6,7 +6,7 @@
 <title>Shimi Cohen</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root{--primary:#0a0e27;--accent:#e63946;--bg1:#fff;--bg2:#f8f9fa;--text1:#0a0e27;--text2:#454545;--border:#dee2e6;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -77,7 +77,7 @@ footer .container{max-width:1200px;margin:0 auto;padding:0 1rem;}
 /* Filter Calculator Styles */
 .filter-modal .modal-content{max-width:1200px;width:95%;max-height:95vh;}
 .filter-modal .modal-body{padding:0;overflow:hidden;}
-.filter-modal .modal-header{background:var(--accent);} /* CHANGED: Red background */
+.filter-modal .modal-header{background:var(--accent);}
 .calc-window{background:white;border-radius:10px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,0.1);max-width:1200px;margin:0 auto;max-height:90vh;display:flex;flex-direction:column;}
 .tool-header{background:var(--primary);color:white;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
 .tool-header h2{font-size:1.2rem;font-weight:600;}
@@ -262,14 +262,14 @@ footer .container{max-width:1200px;margin:0 auto;padding:0 1rem;}
     <div class="container">
         <div class="header-container">
             <div class="header-left">
-                <img src="./shimi linkedin pic.png" class="profile-pic" alt="Shimi Cohen" id="profilePic">
+                <img src="./shimi linkedin /images/ShimiCohen.jpg" class="profile-pic" alt="Shimi Cohen" id="profilePic">
                 <div>
                     <a href="#" class="site-title">Shimi Cohen</a>
                     <div class="tagline">Board Design Book Selection</div>
                 </div>
             </div>
             <a href="https://www.linkedin.com/in/shimic1978/" target="_blank">
-                <img src="Linkedin Logo.png" alt="LinkedIn" class="linkedin-logo-img">
+                <img src="Linkedin /images/BoardDesign.jpg" alt="LinkedIn" class="linkedin-logo-img">
             </a>
         </div>
     </div>
@@ -336,7 +336,7 @@ footer .container{max-width:1200px;margin:0 auto;padding:0 1rem;}
         <div class="modal-body">
             <div class="profile-modal-content">
                 <div class="profile-header">
-                    <img src="./shimi linkedin pic.png" class="modal-profile-pic" alt="Shimi Cohen">
+                    <img src="./shimi linkedin /images/ShimiCohen.jpg" class="modal-profile-pic" alt="Shimi Cohen">
                     <div>
                         <div class="profile-name">Shimi Cohen</div>
                         <div class="profile-title">Hardware & Embedded Systems Expert</div>
@@ -407,12 +407,11 @@ footer .container{max-width:1200px;margin:0 auto;padding:0 1rem;}
         <div class="modal-body">
             <div class="calc-window">
                 <div class="tool-header">
-                    <h2>Filter Calculator</h2>
                     <div class="tool-tabs">
-                        <div class="tool-tab active">Filter Calc</div>
+                        <div class="tool-tab active">Filter Calculator</div>
+                        <div class="tool-tab">Tool 1</div>
                         <div class="tool-tab">Tool 2</div>
                         <div class="tool-tab">Tool 3</div>
-                        <div class="tool-tab">Tool 4</div>
                     </div>
                 </div>
                 <div class="content-area">
@@ -445,9 +444,9 @@ footer .container{max-width:1200px;margin:0 auto;padding:0 1rem;}
                                 </div>
                                 <input type="range" min="1" max="1000" value="100" class="comp-slider" id="c-slider">
                                 <div class="unit-btns">
+                                    <button class="unit-btn" data-unit="pf">pF</button>
                                     <button class="unit-btn active" data-unit="nf">nF</button>
                                     <button class="unit-btn" data-unit="uf">μF</button>
-                                    <button class="unit-btn" data-unit="mf">mF</button>
                                 </div>
                             </div>
                             <div class="comp-box" id="l-box">
@@ -517,84 +516,84 @@ footer .container{max-width:1200px;margin:0 auto;padding:0 1rem;}
 <script>
 const bookData={
     digital:[
-        {title:"Communication",description:"Digital communication protocols",link:"https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/",cover:"Serial Communication Cover.jpg"},
-        {title:"MCU",description:"Microcontroller architecture",link:"https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/",cover:"MCU Cover.jpg"},
-        {title:"FPGA Architecture",description:"FPGA design and implementation",link:"https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy",cover:"FPGA Cover.jpg"},
-        {title:"Video Protocols",description:"Digital video interfaces",link:"https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/",cover:"Digital Video Cover.jpg"},
-        {title:"CMOS Sensor",description:"Image sensor technology",link:"https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX",cover:"CMOS Sensor Cover.jpg"},
-        {title:"Logic Gates",description:"Digital logic fundamentals",link:"https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz",cover:"Logic Gates Cover.jpg"},
-        {title:"PID Control",description:"Control systems",link:"https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/",cover:"PID Control Cover.jpg",badge:true},
-        {title:"Wireless Comm",description:"Wireless communication",link:"https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d",cover:"Wireless Communication Cover.jpg"},
-        {title:"DDR Memory",description:"Memory interfaces",link:"https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn",cover:"DDR Memory Cover.jpg",badge:true},
-        {title:"Firmware Coding 1",description:"Embedded software",link:"https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9",cover:"Firmware Coding Cover.jpg"},
-        {title:"Firmware Coding 2",description:"Advanced techniques",link:"https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40",cover:"Firmware Coding 2 Cover.jpg"}
+        {title:"Communication",description:"Digital communication protocols",link:"https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/",cover:"Serial Communication /images/Cover.jpg"},
+        {title:"MCU",description:"Microcontroller architecture",link:"https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/",cover:"MCU /images/Cover.jpg"},
+        {title:"FPGA Architecture",description:"FPGA design and implementation",link:"https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy",cover:"FPGA /images/Cover.jpg"},
+        {title:"Video Protocols",description:"Digital video interfaces",link:"https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/",cover:"Digital Video /images/Cover.jpg"},
+        {title:"CMOS Sensor",description:"Image sensor technology",link:"https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX",cover:"CMOS Sensor /images/Cover.jpg"},
+        {title:"Logic Gates",description:"Digital logic fundamentals",link:"https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz",cover:"Logic Gates /images/Cover.jpg"},
+        {title:"PID Control",description:"Control systems",link:"https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/",cover:"PID Control /images/Cover.jpg",badge:true},
+        {title:"Wireless Comm",description:"Wireless communication",link:"https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d",cover:"Wireless Communication /images/Cover.jpg"},
+        {title:"DDR Memory",description:"Memory interfaces",link:"https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn",cover:"DDR Memory /images/Cover.jpg",badge:true},
+        {title:"Firmware Coding 1",description:"Embedded software",link:"https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9",cover:"Firmware Coding /images/Cover.jpg"},
+        {title:"Firmware Coding 2",description:"Advanced techniques",link:"https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40",cover:"Firmware Coding 2 /images/Cover.jpg"}
     ],
     analog:[
-        {title:"Analog Filters",description:"Filter design principles",link:"https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/",cover:"Analog Filters Cover.jpg"},
-        {title:"Class Amplifiers",description:"Audio amplifier classes",link:"https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/",cover:"Class Amplifiers Cover.jpg"},
-        {title:"OPAMPs",description:"Operational amplifiers",link:"https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/",cover:"OPAMP Cover.jpg"},
-        {title:"Oscillators",description:"Signal generation",link:"https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/",cover:"Oscillators Cover.jpg"},
-        {title:"LED Drivers",description:"LED lighting circuits",link:"https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/",cover:"LED Drivers Cover.jpg"},
-        {title:"Power Design",description:"Power supply design",link:"https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/",cover:"Power Design Cover.jpg"},
-        {title:"RF Theory",description:"Radio frequency design",link:"https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr",cover:"Radio Frequency Cover.jpg"},
-        {title:"Ground Rules",description:"PCB grounding",link:"https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O",cover:"Ground Rules Cover.jpg",badge:true},
-        {title:"Battery Management",description:"Battery systems",link:"https://www.linkedin.com/posts/shimic1978_battery-management-system-activity-7326196854382059521-rRNP",cover:"Battery Management Cover.jpg"}
+        {title:"Analog Filters",description:"Filter design principles",link:"https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/",cover:"Analog Filters /images/Cover.jpg"},
+        {title:"Class Amplifiers",description:"Audio amplifier classes",link:"https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/",cover:"Class Amplifiers /images/Cover.jpg"},
+        {title:"OPAMPs",description:"Operational amplifiers",link:"https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/",cover:"OPAMP /images/Cover.jpg"},
+        {title:"Oscillators",description:"Signal generation",link:"https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/",cover:"Oscillators /images/Cover.jpg"},
+        {title:"LED Drivers",description:"LED lighting circuits",link:"https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/",cover:"LED Drivers /images/Cover.jpg"},
+        {title:"Power Design",description:"Power supply design",link:"https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/",cover:"Power Design /images/Cover.jpg"},
+        {title:"RF Theory",description:"Radio frequency design",link:"https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr",cover:"Radio Frequency /images/Cover.jpg"},
+        {title:"Ground Rules",description:"PCB grounding",link:"https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O",cover:"Ground Rules /images/Cover.jpg",badge:true},
+        {title:"Battery Management",description:"Battery systems",link:"https://www.linkedin.com/posts/shimic1978_battery-management-system-activity-7326196854382059521-rRNP",cover:"Battery Management /images/Cover.jpg"}
     ],
     practical:[
-        {title:"PCB Design",description:"PCB layout and design",link:"https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm",cover:"PCB Design Cover.jpg",badge:true},
-        {title:"Hardware",description:"Hardware fundamentals",link:"https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/",cover:"Hardware Cover.jpg"},
-        {title:"Hardware Extended",description:"Advanced techniques",link:"https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/",cover:"Hardware Extended Cover.jpg"},
-        {title:"Design For Testability",description:"DFT principles",link:"https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/",cover:"Design For Testability Cover.jpg"},
-        {title:"Protection Circuits",description:"Circuit protection",link:"https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/",cover:"Protection Circuits Cover.jpg"},
-        {title:"Thermal Management",description:"Heat dissipation",link:"https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/",cover:"Thermal Management Cover.jpg"},
-        {title:"Hardware Buffers",description:"Signal buffering",link:"https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N",cover:"Hardware Buffers Cover.jpg"},
-        {title:"Current Sensing",description:"Current measurement",link:"https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/",cover:"Current Sensing Cover.jpg"},
-        {title:"ADC",description:"ADC design",link:"https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb",cover:"ADC Cover.jpg",badge:true},
-        {title:"Hardware Drivers",description:"Driver circuits",link:"https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu",cover:"Hardware Drivers Cover.jpg",badge:true},
-        {title:"Precision Circuits",description:"High-precision analog",link:"https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM",cover:"Precision Circuits Cover.jpg"},
-        {title:"Hardware Protection",description:"Circuit protection",link:"https://www.linkedin.com/posts/shimic1978_board-design-protection-activity-7393852496705781760-NJ0Y",cover:"Hardware Protection Cover.jpg"}
+        {title:"PCB Design",description:"PCB layout and design",link:"https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm",cover:"PCB Design /images/Cover.jpg",badge:true},
+        {title:"Hardware",description:"Hardware fundamentals",link:"https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/",cover:"Hardware /images/Cover.jpg"},
+        {title:"Hardware Extended",description:"Advanced techniques",link:"https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/",cover:"Hardware Extended /images/Cover.jpg"},
+        {title:"Design For Testability",description:"DFT principles",link:"https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/",cover:"Design For Testability /images/Cover.jpg"},
+        {title:"Protection Circuits",description:"Circuit protection",link:"https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/",cover:"Protection Circuits /images/Cover.jpg"},
+        {title:"Thermal Management",description:"Heat dissipation",link:"https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/",cover:"Thermal Management /images/Cover.jpg"},
+        {title:"Hardware Buffers",description:"Signal buffering",link:"https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N",cover:"Hardware Buffers /images/Cover.jpg"},
+        {title:"Current Sensing",description:"Current measurement",link:"https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/",cover:"Current Sensing /images/Cover.jpg"},
+        {title:"ADC",description:"ADC design",link:"https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb",cover:"ADC /images/Cover.jpg",badge:true},
+        {title:"Hardware Drivers",description:"Driver circuits",link:"https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu",cover:"Hardware Drivers /images/Cover.jpg",badge:true},
+        {title:"Precision Circuits",description:"High-precision analog",link:"https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM",cover:"Precision Circuits /images/Cover.jpg"},
+        {title:"Hardware Protection",description:"Circuit protection",link:"https://www.linkedin.com/posts/shimic1978_board-design-protection-activity-7393852496705781760-NJ0Y",cover:"Hardware Protection /images/Cover.jpg"}
     ],
     components:[
-        {title:"Component Selection",description:"Component criteria",link:"https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/",cover:"Component Selection Cover.jpg"},
-        {title:"Capacitors",description:"Capacitor types",link:"https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW",cover:"Capacitors Comp Cover.jpg"},
-        {title:"Diodes",description:"Diode types",link:"https://www.linkedin.com/posts/shimic1978_diodes-activity-733771775899025409-Fwv0",cover:"Diodes Comp Cover.jpg"},
-        {title:"Inductors",description:"Inductor types",link:"https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/",cover:"Inductors Comp Cover.jpg"},
-        {title:"Transistors",description:"Transistor types",link:"https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/",cover:"Transistors Comp Cover.jpg"},
-        {title:"Sensors",description:"Electronic sensors",link:"https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag",cover:"Sensors Comp Cover.jpg"},
-        {title:"MEMS Gyro",description:"Gyroscopes",link:"https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/",cover:"GYRO Comp Cover.jpg"},
-        {title:"Resistors",description:"Resistor types",link:"https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa",cover:"Resistors Comp Cover.jpg"},
-        {title:"Connectors and Cables",description:"Electrical connectors",link:"https://www.linkedin.com/posts/shimic1978_connectors-cables-activity-7336588127437795328-boN_",cover:"Connectors Comp Cover.jpg"},
-        {title:"Transformers",description:"Transformer design",link:"https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC",cover:"Transformers Comp Cover.jpg",badge:true},
-        {title:"Switches",description:"Electronic switches",link:"https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc",cover:"Switches Comp Cover.jpg"},
-        {title:"Test Equipment",description:"Test equipment",link:"https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH",cover:"Test Equipment Cover.jpg"}
+        {title:"Component Selection",description:"Component criteria",link:"https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/",cover:"Component Selection /images/Cover.jpg"},
+        {title:"Capacitors",description:"Capacitor types",link:"https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW",cover:"Capacitors Comp /images/Cover.jpg"},
+        {title:"Diodes",description:"Diode types",link:"https://www.linkedin.com/posts/shimic1978_diodes-activity-733771775899025409-Fwv0",cover:"Diodes Comp /images/Cover.jpg"},
+        {title:"Inductors",description:"Inductor types",link:"https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/",cover:"Inductors Comp /images/Cover.jpg"},
+        {title:"Transistors",description:"Transistor types",link:"https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/",cover:"Transistors Comp /images/Cover.jpg"},
+        {title:"Sensors",description:"Electronic sensors",link:"https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag",cover:"Sensors Comp /images/Cover.jpg"},
+        {title:"MEMS Gyro",description:"Gyroscopes",link:"https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/",cover:"GYRO Comp /images/Cover.jpg"},
+        {title:"Resistors",description:"Resistor types",link:"https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFe",cover:"Resistors Comp /images/Cover.jpg"},
+        {title:"Connectors and Cables",description:"Electrical connectors",link:"https://www.linkedin.com/posts/shimic1978_connectors-cables-activity-7336588127437795328-boN_",cover:"Connectors Comp /images/Cover.jpg"},
+        {title:"Transformers",description:"Transformer design",link:"https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC",cover:"Transformers Comp /images/Cover.jpg",badge:true},
+        {title:"Switches",description:"Electronic switches",link:"https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc",cover:"Switches Comp /images/Cover.jpg"},
+        {title:"Test Equipment",description:"Test equipment",link:"https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH",cover:"Test Equipment /images/Cover.jpg"}
     ],
     series20:[
-        {title:"20 Capacitors Apps",description:"Capacitor circuits",link:"https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f",cover:"Capacitors Cover.jpg"},
-        {title:"20 Resistors Apps",description:"Resistor circuits",link:"https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11",cover:"Resistors Cover.jpg"},
-        {title:"20 Active ICs",description:"IC applications",link:"https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8",cover:"Active ICs Cover.jpg"},
-        {title:"20 Diodes Apps",description:"Diode circuits",link:"https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt",cover:"Diodes Cover.jpg"},
-        {title:"20 Transistors Apps",description:"Transistor circuits",link:"https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO",cover:"Transistors Cover.jpg",badge:true},
-        {title:"20 MCU Tips",description:"MCU design tips",link:"https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe",cover:"MCU Tips Cover.jpg"},
-        {title:"20 Comm Problems",description:"Communication issues",link:"https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_",cover:"COMM Problems Cover.jpg",badge:true},
-        {title:"20 Inductors Apps",description:"Inductor circuits",link:"https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H",cover:"Inductors Cover.jpg"},
-        {title:"20 OPAMP Apps",description:"Op-amp circuits",link:"https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G",cover:"OPAMP Apps Cover.jpg"},
-        {title:"20 DFM Tips",description:"Manufacturing tips",link:"https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN",cover:"DFM Cover.jpg"},
-        {title:"20 Signal Conversions",description:"Signal conversion",link:"https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm",cover:"Signal Conversions Cover.jpg",badge:true}
+        {title:"20 Capacitors Apps",description:"Capacitor circuits",link:"https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f",cover:"Capacitors /images/Cover.jpg"},
+        {title:"20 Resistors Apps",description:"Resistor circuits",link:"https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11",cover:"Resistors /images/Cover.jpg"},
+        {title:"20 Active ICs",description:"IC applications",link:"https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8",cover:"Active ICs /images/Cover.jpg"},
+        {title:"20 Diodes Apps",description:"Diode circuits",link:"https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt",cover:"Diodes /images/Cover.jpg"},
+        {title:"20 Transistors Apps",description:"Transistor circuits",link:"https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO",cover:"Transistors /images/Cover.jpg",badge:true},
+        {title:"20 MCU Tips",description:"MCU design tips",link:"https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe",cover:"MCU Tips /images/Cover.jpg"},
+        {title:"20 Comm Problems",description:"Communication issues",link:"https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_",cover:"COMM Problems /images/Cover.jpg",badge:true},
+        {title:"20 Inductors Apps",description:"Inductor circuits",link:"https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H",cover:"Inductors /images/Cover.jpg"},
+        {title:"20 OPAMP Apps",description:"Op-amp circuits",link:"https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G",cover:"OPAMP Apps /images/Cover.jpg"},
+        {title:"20 DFM Tips",description:"Manufacturing tips",link:"https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN",cover:"DFM /images/Cover.jpg"},
+        {title:"20 Signal Conversions",description:"Signal conversion",link:"https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm",cover:"Signal Conversions /images/Cover.jpg",badge:true}
     ],
     tutorials:[
-        {title:"Q&A Power/Analog",description:"Power Q&A",link:"https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY",cover:"Q&A Power Analog Cover.jpg"},
-        {title:"Power Tree",description:"Power distribution",link:"https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm",cover:"Power Tree Cover.jpg"},
-        {title:"Bring Up",description:"Hardware bring-up",link:"https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD",cover:"Bring Up Cover.jpg"},
-        {title:"EDA Free Tools",description:"Free EDA tools",link:"https://www.linkedin.com/posts/shimic1978_free-eda-tools-activity-7397117746196512768-t1RO",cover:"EDA Cover.jpg"},
-        {title:"LTSpice Tutorial Part1",description:"LTSpice basics",link:"https://www.linkedin.com/posts/shimic1978_ltspice-from-scratch-activity-7398937815675371520-H3Fh",cover:"LTSpice Tutorial Part1 Cover.jpg",badge:true},
-        {title:"LTSpice Tutorial Part2",description:"Advanced LTSpice",link:"https://www.linkedin.com/posts/shimic1978_ltspice-part-2-activity-7402562212386553856-2lLW",cover:"LTSpice Tutorial Part2 Cover.jpg",badge:true},
-        {title:"Troubleshooting",description:"Troubleshooting",link:"https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq",cover:"Troubleshooting Cover.jpg"}
+        {title:"Q&A Power/Analog",description:"Power Q&A",link:"https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY",cover:"Q&A Power Analog /images/Cover.jpg"},
+        {title:"Power Tree",description:"Power distribution",link:"https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm",cover:"Power Tree /images/Cover.jpg"},
+        {title:"Bring Up",description:"Hardware bring-up",link:"https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD",cover:"Bring Up /images/Cover.jpg"},
+        {title:"EDA Free Tools",description:"Free EDA tools",link:"https://www.linkedin.com/posts/shimic1978_free-eda-tools-activity-7397117746196512768-t1RO",cover:"EDA /images/Cover.jpg"},
+        {title:"LTSpice Tutorial Part1",description:"LTSpice basics",link:"https://www.linkedin.com/posts/shimic1978_ltspice-from-scratch-activity-7398937815675371520-H3Fh",cover:"LTSpice Tutorial Part1 /images/Cover.jpg",badge:true},
+        {title:"LTSpice Tutorial Part2",description:"Advanced LTSpice",link:"https://www.linkedin.com/posts/shimic1978_ltspice-part-2-activity-7402562212386553856-2lLW",cover:"LTSpice Tutorial Part2 /images/Cover.jpg",badge:true},
+        {title:"Troubleshooting",description:"Troubleshooting",link:"https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq",cover:"Troubleshooting /images/Cover.jpg"}
     ]
 };
 
 let chart,filter='lpf-rc';
 const comps={r:{val:10,unit:'ohm',mul:1},c:{val:100,unit:'nf',mul:1e-9},l:{val:10,unit:'nh',mul:1e-9}};
-const units={r:{ohm:1,kohm:1e3,mohm:1e6},c:{nf:1e-9,uf:1e-6,mf:1e-3},l:{nh:1e-9,uh:1e-6,mh:1e-3}};
+const units={r:{ohm:1,kohm:1e3,mohm:1e6},c:{pf:1e-12,nf:1e-9,uf:1e-6},l:{nh:1e-9,uh:1e-6,mh:1e-3}};
 const filterOrders={'lpf-rc':{first:'R',second:'C'},'hpf-rc':{first:'C',second:'R'},'lpf-rl':{first:'R',second:'L'},'hpf-rl':{first:'L',second:'R'},'bpf-rlc':{first:'R',second:'LC'},'bsf-rlc':{first:'LC',second:'R'}};
 
 document.addEventListener('DOMContentLoaded',()=>{
@@ -841,41 +840,70 @@ document.addEventListener('DOMContentLoaded',()=>{
                         data:[],
                         borderColor:'#e63946',
                         backgroundColor:'rgba(230,57,70,0.1)',
-                        borderWidth:1,
-                        pointRadius:1,
+                        borderWidth:2,
+                        pointRadius:0,
                         fill:true,
-                        yAxisID:'y'
+                        yAxisID:'y',
+                        tension:0.4
                     },
                     {
                         label:'Phase (°)',
                         data:[],
-                        borderColor:'#2a9d2a',
-                        backgroundColor:'rgba(42,157,42,0.1)',
-                        borderWidth:1,
-                        pointRadius:1,
+                        borderColor:'#2a9d8f',
+                        backgroundColor:'rgba(42,157,143,0.1)',
+                        borderWidth:2,
+                        pointRadius:0,
                         fill:true,
-                        yAxisID:'y1'
+                        yAxisID:'y1',
+                        tension:0.4
                     }
                 ]
             },
             options:{
                 responsive:true,
                 maintainAspectRatio:false,
+                interaction:{
+                    mode:'index',
+                    intersect:false
+                },
+                plugins:{
+                    legend:{
+                        display:true,
+                        position:'top'
+                    },
+                    tooltip:{
+                        enabled:true,
+                        mode:'index',
+                        intersect:false
+                    }
+                },
                 scales:{
                     x:{
                         type:'logarithmic',
-                        title:{display:true,text:'Frequency (Hz)'},
-                        grid:{color:'rgba(0,0,0,0.1)'}
+                        title:{display:true,text:'Frequency (Hz)',font:{size:12,weight:'bold'}},
+                        grid:{color:'rgba(0,0,0,0.1)'},
+                        ticks:{
+                            callback:function(value){
+                                if(value>=1e6)return(value/1e6).toFixed(0)+'M';
+                                if(value>=1e3)return(value/1e3).toFixed(0)+'k';
+                                return value.toFixed(0);
+                            }
+                        }
                     },
                     y:{
                         position:'left',
-                        title:{display:true,text:'Magnitude (dB)'},
+                        title:{display:true,text:'Magnitude (dB)',font:{size:12,weight:'bold'}},
                         grid:{color:'rgba(0,0,0,0.1)'}
                     },
                     y1:{
                         position:'right',
-                        title:{display:true,text:'Phase (°)'},
-                        grid:{drawOnChartArea:false}
+                        title:{display:true,text:'Phase (°)',font:{size:12,weight:'bold'}},
+                        grid:{drawOnChartArea:false},
+                        ticks:{
+                            callback:function(value){
+                                return value.toFixed(0)+'°';
+                            }
+                        }
                     }
                 }
             }
@@ -905,13 +933,14 @@ document.addEventListener('DOMContentLoaded',()=>{
               C=comps.c.val*comps.c.mul,
               L=comps.l.val*comps.l.mul;
         let fc,q,bw;
+        
         if(filter.includes('rc')){
             fc=1/(2*Math.PI*R*C);
-            q=0.5;
+            q=0.707;
             bw=fc/q;
         }else if(filter.includes('rl')){
             fc=R/(2*Math.PI*L);
-            q=0.5;
+            q=0.707;
             bw=fc/q;
         }else{
             fc=1/(2*Math.PI*Math.sqrt(L*C));
@@ -924,7 +953,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         document.getElementById('freq-unit').textContent=fmt.unit;
         
         document.getElementById('filter-type').textContent=
-            filter.replace('lpf','LPF').replace('hpf','HPF').replace('bpf','BPF').replace('bsf','BSF').toUpperCase();
+            filter.replace('lpf','LPF').replace('hpf','HPF').replace('bpf','BPF').replace('bsf','BSF').replace('-rc',' RC').replace('-rl',' RL').replace('-rlc',' RLC');
         
         const fmtCut=formatFreq(fc);
         document.getElementById('cutoff-freq').textContent=fmtCut.val;
@@ -936,41 +965,64 @@ document.addEventListener('DOMContentLoaded',()=>{
         
         document.getElementById('q-factor').textContent=q.toFixed(2);
 
-        const start=1,
-              end=fc*(filter.includes('bp')||filter.includes('bs')?100:100);
-        const freq=[],mag=[],phase=[];
-        for(let i=0;i<100;i++){
-            const f=Math.pow(10,Math.log10(start)+(Math.log10(end)-Math.log10(start))*i/99);
-            let m,p;
+        // X-axis range: 1Hz to 10*fc
+        const startFreq=1;
+        const endFreq=fc*10;
+        const numPoints=200;
+        
+        const freqArray=[];
+        const magArray=[];
+        const phaseArray=[];
+        
+        for(let i=0;i<numPoints;i++){
+            const logStart=Math.log10(startFreq);
+            const logEnd=Math.log10(endFreq);
+            const f=Math.pow(10,logStart+(logEnd-logStart)*i/(numPoints-1));
+            
+            const w=2*Math.PI*f;
+            let mag,phase;
+            
             if(filter==='lpf-rc'){
-                m=1/Math.sqrt(1+Math.pow(2*Math.PI*f*R*C,2));
-                p=-Math.atan(2*Math.PI*f*R*C)*180/Math.PI;
+                const H=1/Math.sqrt(1+Math.pow(w*R*C,2));
+                mag=20*Math.log10(H);
+                phase=-Math.atan(w*R*C)*180/Math.PI;
             }else if(filter==='hpf-rc'){
-                m=(2*Math.PI*f*R*C)/Math.sqrt(1+Math.pow(2*Math.PI*f*R*C,2));
-                p=90-Math.atan(2*Math.PI*f*R*C)*180/Math.PI;
+                const H=(w*R*C)/Math.sqrt(1+Math.pow(w*R*C,2));
+                mag=20*Math.log10(H);
+                phase=90-Math.atan(w*R*C)*180/Math.PI;
             }else if(filter==='lpf-rl'){
-                m=R/Math.sqrt(R*R+Math.pow(2*Math.PI*f*L,2));
-                p=-Math.atan(2*Math.PI*f*L/R)*180/Math.PI;
+                const H=R/Math.sqrt(R*R+Math.pow(w*L,2));
+                mag=20*Math.log10(H);
+                phase=-Math.atan(w*L/R)*180/Math.PI;
             }else if(filter==='hpf-rl'){
-                m=(2*Math.PI*f*L)/Math.sqrt(R*R+Math.pow(2*Math.PI*f*L,2));
-                p=90-Math.atan(2*Math.PI*f*L/R)*180/Math.PI;
+                const H=(w*L)/Math.sqrt(R*R+Math.pow(w*L,2));
+                mag=20*Math.log10(H);
+                phase=90-Math.atan(w*L/R)*180/Math.PI;
             }else if(filter==='bpf-rlc'){
-                const w=2*Math.PI*f;
-                m=(w*R*C)/Math.sqrt(Math.pow(1-w*w*L*C,2)+Math.pow(w*R*C,2));
-                p=90-Math.atan((w*R*C)/(1-w*w*L*C))*180/Math.PI;
-            }else{
-                const w=2*Math.PI*f;
-                m=Math.abs(1-w*w*L*C)/Math.sqrt(Math.pow(1-w*w*L*C,2)+Math.pow(w*R*C,2));
-                p=-Math.atan((w*R*C)/(1-w*w*L*C))*180/Math.PI;
+                const num=w*R*C;
+                const denom=Math.sqrt(Math.pow(1-w*w*L*C,2)+Math.pow(w*R*C,2));
+                const H=num/denom;
+                mag=20*Math.log10(H);
+                phase=90-Math.atan((w*R*C)/(1-w*w*L*C))*180/Math.PI;
+            }else if(filter==='bsf-rlc'){
+                const num=Math.abs(1-w*w*L*C);
+                const denom=Math.sqrt(Math.pow(1-w*w*L*C,2)+Math.pow(w*R*C,2));
+                const H=num/denom;
+                mag=20*Math.log10(H);
+                phase=-Math.atan((w*R*C)/(1-w*w*L*C))*180/Math.PI;
             }
-            freq.push(f>=1e6?(f/1e6).toFixed(1)+'M':f>=1e3?(f/1e3).toFixed(1)+'k':f.toFixed(1));
-            mag.push(20*Math.log10(m));
-            phase.push(p);
+            
+            freqArray.push(f);
+            magArray.push(mag);
+            phaseArray.push(phase);
         }
-        chart.data.labels=freq;
-        chart.data.datasets[0].data=mag;
-        chart.data.datasets[1].data=phase;
-        chart.update();
+        
+        chart.data.labels=freqArray;
+        chart.data.datasets[0].data=magArray;
+        chart.data.datasets[1].data=phaseArray;
+        chart.options.scales.x.min=startFreq;
+        chart.options.scales.x.max=endFreq;
+        chart.update('none');
     }
 
     function formatFreq(f){
