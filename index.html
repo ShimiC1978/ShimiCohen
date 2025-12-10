@@ -119,6 +119,110 @@ footer .container{max-width:1200px;margin:0 auto;padding:0 1rem;}
 .disabled{opacity:0.4;pointer-events:none;}
 .disabled .comp-letter{color:#999;}
 
+/* PCB Trace Calculator Styles */
+.trace-3d-container {
+    margin-top: 15px;
+    background: var(--bg2);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trace-3d-title {
+    font-size: 0.85rem;
+    color: var(--text2);
+    margin-bottom: 15px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.trace-3d-viewport {
+    width: 100%;
+    height: 200px;
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.trace-3d-model {
+    width: 300px;
+    height: 150px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(30deg) rotateY(45deg);
+    transition: transform 0.5s ease;
+}
+
+.pcb-substrate {
+    position: absolute;
+    width: 300px;
+    height: 150px;
+    background: linear-gradient(135deg, #1a5f3f 0%, #2d7a57 100%);
+    border: 1px solid #0a3d26;
+    transform: translateZ(-10px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.copper-trace {
+    position: absolute;
+    background: linear-gradient(90deg, #b87333 0%, #daa520 50%, #b87333 100%);
+    border: 1px solid #8b5a2b;
+    transform: translateZ(0px);
+    box-shadow: 0 0 10px rgba(184, 115, 51, 0.5);
+    transition: all 0.3s ease;
+}
+
+.dimension-label {
+    position: absolute;
+    background: rgba(10, 14, 39, 0.8);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.dimension-line {
+    position: absolute;
+    background: var(--accent);
+    z-index: 5;
+}
+
+.trace-info {
+    margin-top: 15px;
+    background: var(--bg2);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid var(--border);
+}
+
+.trace-info-title {
+    font-size: 0.85rem;
+    color: var(--text2);
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.unit-display {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.unit-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text1);
+    text-align: center;
+}
+
 /* Desktop-specific fixes */
 @media (min-width: 768px) {
     .nav-icons {
@@ -267,14 +371,14 @@ footer .container{max-width:1200px;margin:0 auto;padding:0 1rem;}
     <div class="container">
         <div class="header-container">
             <div class="header-left">
-                <img src="./shimi linkedin /images/photo1765327503.jpg" class="profile-pic" alt="Shimi Cohen" id="profilePic">
+                <img src="shimi linkedin pic.png" class="profile-pic" alt="Shimi Cohen" id="profilePic">
                 <div>
                     <a href="#" class="site-title">Shimi Cohen</a>
                     <div class="tagline">Board Design Book Selection</div>
                 </div>
             </div>
             <a href="https://www.linkedin.com/in/shimic1978/" target="_blank">
-                <img src="Linkedin /images/photo1765327503.jpg" alt="LinkedIn" class="linkedin-logo-img">
+                <img src="Linkedin Logo.png" alt="LinkedIn" class="linkedin-logo-img">
             </a>
         </div>
     </div>
@@ -341,7 +445,7 @@ footer .container{max-width:1200px;margin:0 auto;padding:0 1rem;}
         <div class="modal-body">
             <div class="profile-modal-content">
                 <div class="profile-header">
-                    <img src="./shimi linkedin /images/photo1765327503.jpg" class="modal-profile-pic" alt="Shimi Cohen">
+                    <img src="shimi linkedin pic.png" class="modal-profile-pic" alt="Shimi Cohen">
                     <div>
                         <div class="profile-name">Shimi Cohen</div>
                         <div class="profile-title">Hardware & Embedded Systems Expert</div>
@@ -413,13 +517,15 @@ footer .container{max-width:1200px;margin:0 auto;padding:0 1rem;}
             <div class="calc-window">
                 <div class="tool-header">
                     <div class="tool-tabs">
-                        <div class="tool-tab active">Filter Calc</div>
-                        <div class="tool-tab">Tool 1</div>
-                        <div class="tool-tab">Tool 2</div>
+                        <div class="tool-tab active" data-tool="filter">Filter Calc</div>
+                        <div class="tool-tab" data-tool="trace">Trace Calc</div>
                         <div class="tool-tab">Tool 3</div>
+                        <div class="tool-tab">Tool 4</div>
                     </div>
                 </div>
-                <div class="content-area">
+                
+                <!-- Filter Calculator Content -->
+                <div class="content-area" id="filter-content">
                     <div class="panel">
                         <div class="filter-btns">
                             <button class="filter-btn active" data-filter="lpf-rc">RC LPF</button>
@@ -511,6 +617,113 @@ footer .container{max-width:1200px;margin:0 auto;padding:0 1rem;}
                         </div>
                     </div>
                 </div>
+                
+                <!-- PCB Trace Calculator Content -->
+                <div class="content-area" id="trace-content" style="display: none;">
+                    <div class="panel">
+                        <div class="comp-grid">
+                            <div class="comp-box">
+                                <div class="comp-label">Width</div>
+                                <div class="comp-value" id="width-value">10.0</div>
+                                <input type="range" min="1" max="100" value="10" class="comp-slider" id="width-slider">
+                                <div class="unit-btns">
+                                    <button class="unit-btn active" data-unit="mil">mil</button>
+                                    <button class="unit-btn" data-unit="mm">mm</button>
+                                </div>
+                            </div>
+                            <div class="comp-box">
+                                <div class="comp-label">Current</div>
+                                <div class="comp-value" id="current-value">1.0</div>
+                                <input type="range" min="0.1" max="10" step="0.1" value="1" class="comp-slider" id="current-slider">
+                                <div class="unit-btns">
+                                    <button class="unit-btn active" data-unit="A">A</button>
+                                </div>
+                            </div>
+                            <div class="comp-box">
+                                <div class="comp-label">Copper</div>
+                                <div class="comp-value" id="copper-value">1oz</div>
+                                <div class="unit-btns">
+                                    <button class="unit-btn" data-unit="0.5oz">0.5oz</button>
+                                    <button class="unit-btn active" data-unit="1oz">1oz</button>
+                                    <button class="unit-btn" data-unit="2oz">2oz</button>
+                                </div>
+                            </div>
+                            <div class="comp-box">
+                                <div class="comp-label">Temperature</div>
+                                <div class="comp-value" id="temp-value">10°C</div>
+                                <input type="range" min="10" max="100" value="10" class="comp-slider" id="temp-slider">
+                                <div class="unit-btns">
+                                    <button class="unit-btn active" data-unit="°C">°C</button>
+                                </div>
+                            </div>
+                            <div class="comp-box">
+                                <div class="comp-label">Dielectric</div>
+                                <div class="comp-value" id="dielectric-value">4.5</div>
+                                <input type="range" min="3" max="6" step="0.1" value="4.5" class="comp-slider" id="dielectric-slider">
+                                <div class="unit-btns">
+                                    <button class="unit-btn active" data-unit="Er">Er</button>
+                                </div>
+                            </div>
+                            <div class="comp-box">
+                                <div class="comp-label">PCB Thickness</div>
+                                <div class="comp-value" id="pcb-value">62</div>
+                                <input type="range" min="30" max="120" value="62" class="comp-slider" id="pcb-slider">
+                                <div class="unit-btns">
+                                    <button class="unit-btn active" data-unit="mil">mil</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="trace-3d-container">
+                            <div class="trace-3d-title">3D Trace Visualization</div>
+                            <div class="trace-3d-viewport">
+                                <div class="trace-3d-model" id="trace-3d-model">
+                                    <div class="pcb-substrate"></div>
+                                    <div class="copper-trace" id="copper-trace"></div>
+                                    <div class="dimension-label" id="width-dimension">10.0 mil</div>
+                                    <div class="dimension-label" id="thickness-dimension">1.4 mil</div>
+                                    <div class="dimension-line" id="width-line"></div>
+                                    <div class="dimension-line" id="thickness-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="trace-info">
+                            <div class="trace-info-title">Width in Different Units</div>
+                            <div class="unit-display">
+                                <div class="unit-value" id="width-mil">10.0 mil</div>
+                                <div class="unit-value" id="width-mm">0.254 mm</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="info-grid">
+                            <div class="info-box">
+                                <div class="info-title">Max Current</div>
+                                <div class="info-value" id="max-current">1.5</div>
+                                <div class="info-unit">A</div>
+                            </div>
+                            <div class="info-box">
+                                <div class="info-title">Impedance</div>
+                                <div class="info-value" id="impedance">50.2</div>
+                                <div class="info-unit">Ω</div>
+                            </div>
+                            <div class="info-box">
+                                <div class="info-title">Resistance</div>
+                                <div class="info-value" id="resistance">0.1</div>
+                                <div class="info-unit">Ω/in</div>
+                            </div>
+                            <div class="info-box">
+                                <div class="info-title">Voltage Drop</div>
+                                <div class="info-value" id="voltage-drop">0.15</div>
+                                <div class="info-unit">V</div>
+                            </div>
+                        </div>
+                        <div class="chart-box">
+                            <canvas id="currentChart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -566,7 +779,7 @@ const bookData={
         {title:"Transistors",description:"Transistor types",link:"https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/",cover:"Transistors Comp Cover.jpg"},
         {title:"Sensors",description:"Electronic sensors",link:"https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag",cover:"Sensors Comp Cover.jpg"},
         {title:"MEMS Gyro",description:"Gyroscopes",link:"https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/",cover:"GYRO Comp Cover.jpg"},
-        {title:"Resistors",description:"Resistor types",link:"https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFe",cover:"Resistors Comp Cover.jpg"},
+        {title:"Resistors",description:"Resistor types",link:"https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa",cover:"Resistors Comp Cover.jpg"},
         {title:"Connectors and Cables",description:"Electrical connectors",link:"https://www.linkedin.com/posts/shimic1978_connectors-cables-activity-7336588127437795328-boN_",cover:"Connectors Comp Cover.jpg"},
         {title:"Transformers",description:"Transformer design",link:"https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC",cover:"Transformers Comp Cover.jpg",badge:true},
         {title:"Switches",description:"Electronic switches",link:"https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc",cover:"Switches Comp Cover.jpg"},
@@ -596,17 +809,21 @@ const bookData={
     ]
 };
 
-let chart,filter='lpf-rc';
+let chart, traceChart, filter='lpf-rc';
 const comps={r:{val:10,unit:'ohm',mul:1},c:{val:100,unit:'nf',mul:1e-9},l:{val:10,unit:'nh',mul:1e-9}};
 const units={r:{ohm:1,kohm:1e3,mohm:1e6},c:{pf:1e-12,nf:1e-9,uf:1e-6},l:{nh:1e-9,uh:1e-6,mh:1e-3}};
 const filterOrders={'lpf-rc':{first:'R',second:'C'},'hpf-rc':{first:'C',second:'R'},'lpf-rl':{first:'R',second:'L'},'hpf-rl':{first:'L',second:'R'},'bpf-rlc':{first:'R',second:'LC'},'bsf-rlc':{first:'LC',second:'R'}};
 
 document.addEventListener('DOMContentLoaded',()=>{
     let activeCategory='digital';
-    initializeApp();initFilterCalculator();
+    initializeApp();
+    initFilterCalculator();
+    initTraceCalculator();
 
     function initializeApp(){
-        renderAllBooks();setupEventListeners();showCategory('digital');
+        renderAllBooks();
+        setupEventListeners();
+        showCategory('digital');
     }
 
     function renderAllBooks(){
@@ -723,6 +940,26 @@ document.addEventListener('DOMContentLoaded',()=>{
             });
         });
 
+        // Tool tab switching
+        document.querySelectorAll('.tool-tab').forEach(tab=>{
+            tab.addEventListener('click',()=>{
+                const toolType=tab.dataset.tool;
+                
+                // Update active tab
+                document.querySelectorAll('.tool-tab').forEach(t=>t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show/hide content areas
+                if(toolType==='filter'){
+                    document.getElementById('filter-content').style.display='grid';
+                    document.getElementById('trace-content').style.display='none';
+                }else if(toolType==='trace'){
+                    document.getElementById('filter-content').style.display='none';
+                    document.getElementById('trace-content').style.display='grid';
+                }
+            });
+        });
+
         window.addEventListener('scroll',()=>{
             const scrollTop=window.pageYOffset||document.documentElement.scrollTop;
             const header=document.querySelector('header');
@@ -821,7 +1058,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             };
         });
 
-        document.querySelectorAll('.unit-btn').forEach(btn=>{
+        document.querySelectorAll('#filter-content .unit-btn').forEach(btn=>{
             btn.onclick=function(){
                 const unit=this.dataset.unit,
                       parent=this.closest('.comp-box'),
@@ -1035,6 +1272,253 @@ document.addEventListener('DOMContentLoaded',()=>{
         if(f>=1e6)return{val:(f/1e6).toFixed(2),unit:'MHz'};
         if(f>=1e3)return{val:(f/1e3).toFixed(2),unit:'kHz'};
         return{val:f.toFixed(2),unit:'Hz'};
+    }
+    
+    // PCB Trace Calculator Functions
+    function initTraceCalculator() {
+        // Set up sliders
+        document.getElementById('width-slider').addEventListener('input', updateTraceCalculator);
+        document.getElementById('current-slider').addEventListener('input', updateTraceCalculator);
+        document.getElementById('temp-slider').addEventListener('input', updateTraceCalculator);
+        document.getElementById('dielectric-slider').addEventListener('input', updateTraceCalculator);
+        document.getElementById('pcb-slider').addEventListener('input', updateTraceCalculator);
+        
+        // Set up unit buttons
+        document.querySelectorAll('#trace-content .unit-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const parent = this.closest('.comp-box');
+                parent.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                updateTraceCalculator();
+            });
+        });
+        
+        // Initialize the 3D trace visualization
+        update3DTrace();
+        
+        // Initialize the current chart
+        const ctx = document.getElementById('currentChart').getContext('2d');
+        traceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Current Capacity vs. Width',
+                    data: [],
+                    borderColor: '#e63946',
+                    backgroundColor: 'rgba(230, 57, 70, 0.1)',
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Width (mil)',
+                            font: {
+                                size: 12,
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Current (A)',
+                            font: {
+                                size: 12,
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Initial calculation
+        updateTraceCalculator();
+    }
+    
+    function updateTraceCalculator() {
+        // Get current values
+        const width = parseFloat(document.getElementById('width-slider').value);
+        const current = parseFloat(document.getElementById('current-slider').value);
+        const temp = parseFloat(document.getElementById('temp-slider').value);
+        const dielectric = parseFloat(document.getElementById('dielectric-slider').value);
+        const pcbThickness = parseFloat(document.getElementById('pcb-slider').value);
+        
+        const widthUnit = document.querySelector('#width-slider').closest('.comp-box').querySelector('.unit-btn.active').dataset.unit;
+        const copperWeight = document.querySelector('[data-unit="0.5oz"], [data-unit="1oz"], [data-unit="2oz"]').closest('.comp-box').querySelector('.unit-btn.active').dataset.unit;
+        
+        // Convert width to mils for calculations
+        const widthMils = widthUnit === 'mm' ? width / 0.0254 : width;
+        
+        // Convert copper weight to thickness in mils
+        const copperThickness = {
+            '0.5oz': 0.7,
+            '1oz': 1.4,
+            '2oz': 2.8
+        }[copperWeight];
+        
+        // Calculate max current using IPC-2152 formula (simplified)
+        const maxCurrent = calculateMaxCurrent(widthMils, copperThickness, temp);
+        
+        // Calculate impedance (microstrip)
+        const impedance = calculateImpedance(widthMils, copperThickness, dielectric, pcbThickness);
+        
+        // Calculate resistance
+        const resistance = calculateResistance(widthMils, copperThickness);
+        
+        // Calculate voltage drop
+        const voltageDrop = current * resistance;
+        
+        // Update display values
+        document.getElementById('width-value').textContent = width.toFixed(1);
+        document.getElementById('current-value').textContent = current.toFixed(1);
+        document.getElementById('temp-value').textContent = temp.toFixed(0) + '°C';
+        document.getElementById('dielectric-value').textContent = dielectric.toFixed(1);
+        document.getElementById('pcb-value').textContent = pcbThickness.toFixed(0);
+        document.getElementById('copper-value').textContent = copperWeight;
+        
+        // Update width in different units
+        document.getElementById('width-mil').textContent = widthMils.toFixed(1) + ' mil';
+        document.getElementById('width-mm').textContent = (widthMils * 0.0254).toFixed(3) + ' mm';
+        
+        // Update calculated values
+        document.getElementById('max-current').textContent = maxCurrent.toFixed(2);
+        document.getElementById('impedance').textContent = impedance.toFixed(1);
+        document.getElementById('resistance').textContent = resistance.toFixed(3);
+        document.getElementById('voltage-drop').textContent = voltageDrop.toFixed(3);
+        
+        // Update 3D trace visualization
+        update3DTrace(widthMils, copperThickness);
+        
+        // Update current chart
+        updateCurrentChart(widthMils, copperThickness, temp);
+    }
+    
+    function calculateMaxCurrent(width, thickness, temp) {
+        // IPC-2152 formula for internal conductors
+        // I = k * (ΔT^b) * (A^c)
+        // Using constants based on temperature rise
+        const k = 0.048 * Math.pow(temp/10, 0.44);
+        const b = 0.44;
+        const c = 0.725;
+        const area = width * thickness; // Cross-sectional area in mil²
+        return k * Math.pow(area, c);
+    }
+    
+    function calculateImpedance(width, thickness, dielectric, pcbHeight) {
+        // Microstrip impedance calculation
+        // Z0 = (87 / sqrt(Er + 1.41)) * ln(5.98 * H / (0.8 * W + T))
+        const Er = dielectric;
+        const H = pcbHeight; // Height of dielectric in mils
+        const W = width;
+        const T = thickness;
+        
+        return (87 / Math.sqrt(Er + 1.41)) * Math.log(5.98 * H / (0.8 * W + T));
+    }
+    
+    function calculateResistance(width, thickness) {
+        // Calculate resistance in ohms per inch
+        // R = ρ / (W * T)
+        // Using copper resistivity ρ = 1.724e-6 Ω·cm
+        const resistivity = 1.724e-6; // Ω·cm
+        const widthCm = width * 0.00254; // Convert mil to cm
+        const thicknessCm = thickness * 0.00254; // Convert mil to cm
+        
+        return resistivity / (widthCm * thicknessCm) * 2.54; // Convert to ohms per inch
+    }
+    
+    function update3DTrace(widthMils = 10, copperThickness = 1.4) {
+        const trace = document.getElementById('copper-trace');
+        const widthDimension = document.getElementById('width-dimension');
+        const thicknessDimension = document.getElementById('thickness-dimension');
+        const widthLine = document.getElementById('width-line');
+        const thicknessLine = document.getElementById('thickness-line');
+        
+        // Scale for visualization (1 mil = 3 pixels)
+        const traceWidth = Math.min(widthMils * 3, 280);
+        const traceHeight = Math.max(copperThickness * 10, 10); // Minimum 10px for visibility
+        
+        // Update trace dimensions
+        trace.style.width = traceWidth + 'px';
+        trace.style.height = traceHeight + 'px';
+        trace.style.left = '50%';
+        trace.style.top = '50%';
+        trace.style.transform = 'translate(-50%, -50%) translateZ(0px)';
+        
+        // Update dimension labels
+        widthDimension.textContent = widthMils.toFixed(1) + ' mil';
+        widthDimension.style.left = '50%';
+        widthDimension.style.top = '20%';
+        widthDimension.style.transform = 'translateX(-50%)';
+        
+        thicknessDimension.textContent = copperThickness.toFixed(1) + ' mil';
+        thicknessDimension.style.right = '10%';
+        thicknessDimension.style.top = '50%';
+        thicknessDimension.style.transform = 'translateY(-50%)';
+        
+        // Update dimension lines
+        widthLine.style.width = (traceWidth + 20) + 'px';
+        widthLine.style.height = '1px';
+        widthLine.style.left = '50%';
+        widthLine.style.top = '20%';
+        widthLine.style.transform = 'translateX(-50%)';
+        
+        thicknessLine.style.width = '1px';
+        thicknessLine.style.height = (traceHeight + 20) + 'px';
+        thicknessLine.style.right = '10%';
+        thicknessLine.style.top = '50%';
+        thicknessLine.style.transform = 'translateY(-50%)';
+    }
+    
+    function updateCurrentChart(currentWidth, copperThickness, temp) {
+        // Generate data for the chart
+        const widths = [];
+        const currents = [];
+        
+        for (let w = 1; w <= 100; w += 1) {
+            widths.push(w);
+            currents.push(calculateMaxCurrent(w, copperThickness, temp));
+        }
+        
+        // Update chart data
+        traceChart.data.labels = widths;
+        traceChart.data.datasets[0].data = currents;
+        
+        // Add a marker for current width
+        const currentIndex = Math.round(currentWidth) - 1;
+        if (currentIndex >= 0 && currentIndex < widths.length) {
+            traceChart.data.datasets[0].pointBackgroundColor = Array(widths.length).fill('transparent');
+            traceChart.data.datasets[0].pointBackgroundColor[currentIndex] = '#e63946';
+            traceChart.data.datasets[0].pointRadius = Array(widths.length).fill(0);
+            traceChart.data.datasets[0].pointRadius[currentIndex] = 5;
+        }
+        
+        traceChart.update();
     }
 });
 </script>
