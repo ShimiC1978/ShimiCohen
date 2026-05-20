@@ -167,8 +167,7 @@ header {
 
 /* category sections */
 .category-section {
-  margin-bottom: 2.5rem;
-  display: block;
+  margin-bottom: 2rem;
   width: 100%;
 }
 
@@ -185,17 +184,17 @@ header {
   padding-left: 1rem;
 }
 
-/* book grid */
+/* book grid - MORE COMPACT (reduced by ~30% from original) to show full JPG without cropping */
 .book-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
 .book-card {
   background: var(--bg-light);
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: transform 0.2s ease, box-shadow 0.2s;
@@ -206,64 +205,71 @@ header {
 }
 
 .book-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-md);
 }
 
-/* Cover image area: always visible as main focus */
+/* Cover image area: FULL JPG VISIBLE - object-fit contain ensures no cropping */
 .book-cover-wrapper {
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--bg-offwhite);
+  background: #f1f5f9;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0.25rem;
 }
 
 .book-cover {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+  object-fit: contain;
+  transition: transform 0.2s ease;
 }
 
 .book-card:hover .book-cover {
   transform: scale(1.02);
 }
 
-/* Compact single link button (replaces both previous buttons + flip) */
+/* Single clean link button - BLACK background, text only */
 .book-link-btn {
   display: block;
-  background: var(--accent);
+  background: #1e293b;
   color: white;
   text-align: center;
-  padding: 0.65rem 0.5rem;
+  padding: 0.6rem 0.3rem;
   font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.3px;
+  font-size: 0.75rem;
+  letter-spacing: 0.2px;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: all 0.2s;
   border: none;
   width: 100%;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
-  border-top: 1px solid rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
 .book-link-btn:hover {
-  background: #c1121f;
+  background: #0f172a;
+  transform: translateY(-1px);
 }
 
+.book-link-btn:active {
+  transform: translateY(0);
+}
+
+/* badge styling */
 .book-badge {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   background: var(--accent);
   color: white;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  padding: 0.2rem 0.6rem;
+  padding: 0.15rem 0.5rem;
   border-radius: 20px;
   z-index: 2;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -671,14 +677,18 @@ footer {
   justify-content: center;
 }
 
-/* responsive */
+/* responsive adjustments for smaller screens */
 @media (max-width: 640px) {
   .book-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.8rem;
   }
   .category-header {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+  }
+  .book-link-btn {
+    font-size: 0.7rem;
+    padding: 0.5rem 0.2rem;
   }
 }
 
@@ -739,7 +749,7 @@ footer {
   <a href="https://buymeacoffee.com/shimic" target="_blank" class="fab"><i class="fas fa-coffee"></i></a>
 </div>
 
-<!-- Modals (Profile, File vault, Filter/Trace) -->
+<!-- Modals -->
 <div class="modal" id="profileModal"><div class="modal-content"><div class="modal-header"><h2 class="modal-title">About Me</h2><button class="modal-close" id="closeProfileModal"><i class="fas fa-times"></i></button></div><div class="modal-body"><div class="profile-modal-content"><div class="profile-header"><img src="shimi linkedin pic.png" class="modal-profile-pic"><div><div class="profile-name">Shimi Cohen</div><div class="profile-title">Hardware & Embedded Systems Expert</div></div></div><div class="profile-bio"><p>I began my career in HW engineering as a board designer, later transitioning into MCU FW development.</p><p style="margin-top:0.75rem;">I expanded into system engineering, team management and architecture.</p><p style="margin-top:0.75rem;">Today, I'm self-employed — consulting, developing and contributing to the community by sharing content and interacting with engineers worldwide.</p></div></div></div></div></div>
 
 <div class="modal" id="fileVaultModal"><div class="modal-content"><div class="modal-header"><h2 class="modal-title">File Vault</h2><button class="modal-close" id="closeFileModal"><i class="fas fa-times"></i></button></div><div class="modal-body"><div class="tabs"><button class="tab active" data-tab="ltspice">LTSPICE</button><button class="tab" data-tab="qspice">QSPICE</button><button class="tab" data-tab="schematics">Schematics</button><button class="tab" data-tab="docs">Docs</button></div><div class="tab-content active" id="ltspice"><div class="file-list" id="ltspiceFiles"><div class="empty-state">Loading files...</div></div></div><div class="tab-content" id="qspice"><div class="empty-state"><h3>QSPICE</h3><p>Content coming soon.</p></div></div><div class="tab-content" id="schematics"><div class="empty-state"><h3>Schematics</h3><p>More resources soon.</p></div></div><div class="tab-content" id="docs"><div class="empty-state"><h3>Docs</h3><p>Stay tuned.</p></div></div></div></div></div>
@@ -749,7 +759,7 @@ footer {
 <div class="notification" id="notification"></div>
 
 <script>
-// BOOK DATA (full original)
+// Full book data
 const bookData = {
   digital: [ {title:"Communication", description:"Digital communication protocols", link:"https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/", cover:"Serial Communication Cover.jpg" }, {title:"MCU", description:"Microcontroller architecture", link:"https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/", cover:"MCU Cover.jpg" }, {title:"FPGA Architecture", link:"https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy", cover:"FPGA Cover.jpg" }, {title:"Video Protocols", link:"https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/", cover:"Digital Video Cover.jpg" }, {title:"CMOS Sensor", link:"https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX", cover:"CMOS Sensor Cover.jpg" }, {title:"Logic Gates", link:"https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz", cover:"Logic Gates Cover.jpg" }, {title:"PID Control", link:"https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/", cover:"PID Control Cover.jpg", badge:true }, {title:"Wireless Comm", link:"https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d", cover:"Wireless Communication Cover.jpg" }, {title:"DDR Memory", link:"https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn", cover:"DDR Memory Cover.jpg", badge:true }, {title:"Firmware Coding 1", link:"https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9", cover:"Firmware Coding Cover.jpg" }, {title:"Firmware Coding 2", link:"https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40", cover:"Firmware Coding 2 Cover.jpg" }, {title:"CAN Protocol", link:"https://www.linkedin.com/posts/shimic1978_can-protocol-activity-7416320567240409088-psjY", cover:"CAN Protocol Cover.jpg", badge:true } ],
   analog: [ {title:"Analog Filters", link:"https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/", cover:"Analog Filters Cover.jpg" }, {title:"Class Amplifiers", link:"https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/", cover:"Class Amplifiers Cover.jpg" }, {title:"OPAMPs", link:"https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/", cover:"OPAMP Cover.jpg" }, {title:"Oscillators", link:"https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/", cover:"Oscillators Cover.jpg" }, {title:"LED Drivers", link:"https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/", cover:"LED Drivers Cover.jpg" }, {title:"Power Design", link:"https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/", cover:"Power Design Cover.jpg" }, {title:"RF Theory", link:"https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr", cover:"Radio Frequency Cover.jpg" }, {title:"Ground Rules", link:"https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O", cover:"Ground Rules Cover.jpg", badge:true }, {title:"Battery Management", link:"https://www.linkedin.com/posts/shimic1978_battery-management-system-activity-7326196854382059521-rRNP", cover:"Battery Management Cover.jpg" } ],
@@ -801,7 +811,6 @@ function switchCategory(categoryId) {
 
 document.addEventListener('DOMContentLoaded', () => {
   renderAll();
-  // default digital visible
   switchCategory('digital');
   document.querySelectorAll('.nav-icon-item').forEach(item => {
     item.addEventListener('click', (e) => {
@@ -847,10 +856,7 @@ async function loadFiles() {
   } catch(e) { container.innerHTML = '<div class="empty-state">Failed to load files</div>'; }
 }
 function showNotification(msg) { const n = document.getElementById('notification'); n.textContent = msg; n.classList.add('show'); setTimeout(() => n.classList.remove('show'), 2500); }
-
-// placeholder for full filter/trace logic (legacy but functional from original)
-function initFilterAndTrace() { console.log("tools ready (filter/trace logic preserved)"); }
+function initFilterAndTrace() { console.log("tools ready"); }
 </script>
 </body>
 </html>
-```
