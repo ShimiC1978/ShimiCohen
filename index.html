@@ -8,695 +8,276 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --primary-dark: #0a0e27;
-  --accent: #e63946;
-  --bg-light: #ffffff;
-  --bg-offwhite: #f8fafc;
-  --text-main: #0f172a;
-  --text-muted: #475569;
-  --border-light: #e2e8f0;
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.08);
+  --primary-dark: #050505;
+  --accent: #0A66C2; /* LinkedIn Blue */
+  --accent-glow: rgba(10, 102, 194, 0.6);
+  --bg-dark: #09090b;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-light: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(9, 9, 11, 0.75);
 }
 
+/* Moving Animated Background */
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--bg-light);
+  background-color: var(--bg-dark);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(10, 102, 194, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(10, 102, 194, 0.1) 0%, transparent 40%);
+  background-attachment: fixed;
   color: var(--text-main);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+  animation: bgPulse 15s ease-in-out infinite alternate;
 }
 
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+@keyframes bgPulse {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
 }
 
-/* header */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+
+/* Glass Header */
 header {
-  background: var(--bg-light);
-  box-shadow: var(--shadow-sm);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-light);
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(2px);
-  background: rgba(255,255,255,0.96);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 0;
-  min-height: 70px;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex: 1;
-}
+.header-container { display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 0; min-height: 70px; }
+.header-left { display: flex; align-items: center; gap: 1rem; flex: 1; }
 
 .profile-pic {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--accent);
-  cursor: pointer;
-  transition: transform 0.2s ease;
+  width: 50px; height: 50px; border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--accent); cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px var(--accent-glow);
 }
+.profile-pic:hover { transform: scale(1.1) rotate(5deg); }
 
-.profile-pic:hover {
-  transform: scale(1.02);
-}
+.site-title { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.25rem; color: #fff; letter-spacing: -0.5px; }
+.tagline { font-size: 0.7rem; color: var(--accent); font-weight: 700; margin-top: 0.1rem; text-transform: uppercase; letter-spacing: 1px; }
+.linkedin-logo-img { width: 38px; height: 38px; object-fit: contain; filter: invert(1); transition: transform 0.3s, filter 0.3s; }
+.linkedin-logo-img:hover { transform: scale(1.15) translateY(-2px); filter: invert(1) drop-shadow(0 0 8px var(--accent)); }
 
-.site-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--text-main);
-  text-decoration: none;
-}
-
-.tagline {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 0.15rem;
-}
-
-.linkedin-logo-img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  transition: opacity 0.2s;
-}
-
-.linkedin-logo-img:hover {
-  opacity: 0.8;
-}
-
-/* icon nav */
+/* WILD NAVIGATION - Horizontally Scrollable, Bigger Icons */
 .icon-nav {
-  background: var(--bg-offwhite);
+  background: rgba(15, 15, 20, 0.9);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-light);
   position: sticky;
   top: 70px;
   z-index: 99;
+  /* Hide scrollbar but keep functionality */
+  overflow-x: auto;
+  scrollbar-width: none; 
 }
+.icon-nav::-webkit-scrollbar { display: none; }
 
-.nav-icons {
-  display: flex;
-  gap: 0.25rem;
-  list-style: none;
-  justify-content: space-around;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0.5rem 1rem;
-}
-
-.nav-icon-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  cursor: pointer;
-  padding: 0.25rem;
-  flex: 1;
-  transition: all 0.2s;
-}
+.nav-icons { display: flex; gap: 1.5rem; list-style: none; max-width: 1280px; margin: 0 auto; padding: 0.8rem 1.5rem; width: max-content; }
+.nav-icon-item { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; cursor: pointer; transition: all 0.3s; min-width: 60px; }
 
 .nav-icon {
-  width: 42px;
-  height: 42px;
-  background: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  color: var(--text-muted);
-  box-shadow: var(--shadow-sm);
-  transition: all 0.2s;
+  width: 54px; height: 54px; background: #121216; border: 1px solid var(--border-light);
+  border-radius: 16px; display: flex; align-items: center; justify-content: center; 
+  font-size: 1.3rem; color: var(--text-muted); 
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
+.nav-icon-item:hover .nav-icon { color: #fff; border-color: rgba(255,255,255,0.3); transform: translateY(-4px); }
 
 .nav-icon-item.active .nav-icon {
-  background: var(--accent);
-  color: white;
-  box-shadow: 0 4px 10px rgba(230,57,70,0.3);
+  background: var(--accent); color: white; border-color: var(--accent);
+  box-shadow: 0 0 25px var(--accent-glow);
+  transform: translateY(-4px) scale(1.05);
 }
 
-.nav-label {
-  font-size: 0.6rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
+.nav-label { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.3s; }
+.nav-icon-item.active .nav-label { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
 
-.nav-icon-item.active .nav-label {
-  color: var(--accent);
-}
-
-/* category sections */
-.category-section {
-  margin-bottom: 2rem;
-  width: 100%;
-}
-
-.category-section.hidden-section {
-  display: none;
-}
+/* Sections & Grid */
+.category-section { margin-bottom: 3rem; width: 100%; display: none; }
+.category-section:not(.hidden-section) { display: block; }
 
 .category-header {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.8rem;
-  margin: 1.5rem 0 1.25rem 0;
-  letter-spacing: -0.02em;
-  border-left: 5px solid var(--accent);
-  padding-left: 1rem;
+  font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; margin: 2rem 0 1.5rem 0;
+  letter-spacing: -0.5px; color: #fff; display: flex; align-items: center; gap: 12px;
+}
+.category-header::before {
+  content: ''; display: block; width: 6px; height: 28px;
+  background: var(--accent); border-radius: 3px;
+  box-shadow: 0 0 15px var(--accent-glow);
 }
 
-/* book grid - MORE COMPACT (reduced by ~30% from original) to show full JPG without cropping */
-.book-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
+/* Book Grid */
+.book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.8rem; }
+@media (min-width: 640px) { .book-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.2rem; } }
 
+/* The Glassy 3D Card */
 .book-card {
-  background: var(--bg-light);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, box-shadow 0.2s;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
+  background: var(--bg-card); border-radius: 16px; overflow: hidden;
   border: 1px solid var(--border-light);
+  display: flex; flex-direction: column; position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  /* Staggered Entrance */
+  opacity: 0; transform: translateY(20px);
+  animation: cardEntrance 0.5s ease forwards;
 }
+
+@keyframes cardEntrance { to { opacity: 1; transform: translateY(0); } }
 
 .book-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-8px) scale(1.03) rotateX(2deg) rotateY(2deg);
+  border-color: var(--accent);
+  box-shadow: 0 15px 30px -5px var(--accent-glow), 0 0 0 1px var(--accent) inset;
+  z-index: 10;
 }
 
-/* Cover image area: FULL JPG VISIBLE - object-fit contain ensures no cropping */
-.book-cover-wrapper {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  background: #f1f5f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.25rem;
-}
-
-.book-cover {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  transition: transform 0.2s ease;
-}
-
-.book-card:hover .book-cover {
-  transform: scale(1.02);
-}
-
-/* Single clean link button - BLACK background, text only */
-.book-link-btn {
-  display: block;
-  background: #1e293b;
-  color: white;
-  text-align: center;
-  padding: 0.6rem 0.3rem;
-  font-weight: 600;
-  font-size: 0.75rem;
-  letter-spacing: 0.2px;
-  text-decoration: none;
-  transition: all 0.2s;
-  border: none;
-  width: 100%;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.book-link-btn:hover {
-  background: #0f172a;
-  transform: translateY(-1px);
-}
-
-.book-link-btn:active {
-  transform: translateY(0);
-}
-
-/* badge styling */
-.book-badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: var(--accent);
-  color: white;
-  font-size: 0.6rem;
-  font-weight: 700;
-  padding: 0.15rem 0.5rem;
-  border-radius: 20px;
-  z-index: 2;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.book-card {
+/* Cover Area */
+.book-cover-wrapper { 
+  width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: transparent; 
+  display: flex; align-items: center; justify-content: center; padding: 0.6rem; 
   position: relative;
 }
+.book-cover { width: 100%; height: 100%; object-fit: contain; transition: transform 0.5s ease; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
+.book-card:hover .book-cover { transform: scale(1.08); filter: drop-shadow(0 8px 16px rgba(0,0,0,0.8)); }
 
-/* modals */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(10, 14, 39, 0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.25s ease;
-  padding: 1rem;
+/* Light Sweep Effect on Hover */
+.book-cover-wrapper::after {
+  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+  transform: rotate(45deg); transition: all 0.6s ease; z-index: 2; opacity: 0;
 }
+.book-card:hover .book-cover-wrapper::after { opacity: 1; left: 100%; }
 
-.modal.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.modal-content {
-  background: var(--bg-light);
-  border-radius: 20px;
-  width: 100%;
-  max-width: 520px;
-  max-height: 85vh;
-  overflow: hidden;
-  box-shadow: 0 20px 35px rgba(0,0,0,0.2);
-  transform: scale(0.96);
-  transition: transform 0.2s ease;
-}
-
-.modal.active .modal-content {
-  transform: scale(1);
-}
-
-.modal-header {
-  padding: 1.2rem 1.5rem;
+/* 🚀 THE NEW SMALL "VIEW" BUTTON 🚀 */
+.view-btn {
+  position: absolute;
+  bottom: 10px; right: 10px;
+  width: 36px; height: 36px;
   background: var(--accent);
   color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.modal-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 600;
-  font-size: 1.3rem;
-}
-
-.modal-close {
-  background: none;
-  border: none;
-  font-size: 1.3rem;
-  color: white;
-  cursor: pointer;
-  opacity: 0.8;
-  transition: opacity 0.2s;
-}
-
-.modal-close:hover {
-  opacity: 1;
-}
-
-.profile-modal-content {
-  padding: 1.8rem;
-}
-
-.profile-header {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  margin-bottom: 1.5rem;
-}
-
-.modal-profile-pic {
-  width: 80px;
-  height: 80px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--accent);
-}
-
-.profile-name {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 1.6rem;
-}
-
-.profile-title {
-  font-size: 0.9rem;
-  color: var(--accent);
-  font-weight: 500;
-}
-
-.profile-bio p {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-  margin-top: 0.75rem;
-}
-
-/* file vault tabs */
-.tabs {
-  display: flex;
-  border-bottom: 1px solid var(--border-light);
-  padding: 0 1rem;
-  gap: 0.5rem;
-  overflow-x: auto;
-}
-
-.tab {
-  padding: 0.7rem 1rem;
-  background: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
   border: none;
-  font-weight: 600;
-  color: var(--text-muted);
   cursor: pointer;
-  border-bottom: 2px solid transparent;
-  font-size: 0.85rem;
+  z-index: 5;
+  box-shadow: 0 4px 10px rgba(10, 102, 194, 0.5);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0.8;
+}
+.book-card:hover .view-btn {
+  opacity: 1; transform: scale(1.15) rotate(-10deg); box-shadow: 0 0 20px var(--accent-glow);
 }
 
-.tab.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+/* Glowing Badge */
+.book-badge {
+  position: absolute; top: 10px; right: 10px;
+  background: var(--accent); color: white;
+  font-size: 0.55rem; font-weight: 800; padding: 0.2rem 0.5rem;
+  border-radius: 6px; z-index: 3; text-transform: uppercase; letter-spacing: 0.5px;
+  box-shadow: 0 0 12px var(--accent-glow);
+  animation: pulseBadge 2s infinite;
+}
+@keyframes pulseBadge {
+  0% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  70% { box-shadow: 0 0 0 6px rgba(10, 102, 194, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(10, 102, 194, 0); }
 }
 
-.tab-content {
-  display: none;
-  padding: 1.2rem;
-  max-height: 55vh;
-  overflow-y: auto;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-.file-list {
-  display: grid;
-  gap: 0.6rem;
-}
-
-.file-item {
-  background: var(--bg-offwhite);
-  border-radius: 12px;
-  padding: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.file-item:hover {
-  background: #eef2ff;
-}
-
-.file-icon {
-  width: 40px;
-  height: 40px;
-  background: var(--accent);
-  color: white;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 2rem;
-  color: var(--text-muted);
-}
-
-/* FAB + footer */
-.fab-container {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  z-index: 150;
-}
-
+/* Floating Action Buttons (FABs) */
+.fab-container { position: fixed; bottom: 1.5rem; right: 1.5rem; display: flex; flex-direction: column; gap: 1rem; z-index: 150; }
 .fab {
-  width: 52px;
-  height: 52px;
-  border-radius: 28px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  transition: transform 0.15s, background 0.2s;
-}
-
-.fab:hover {
-  background: #b91c2c;
-  transform: scale(1.05);
-}
-
-footer {
-  background: var(--bg-offwhite);
-  padding: 1.5rem 0;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  border-top: 1px solid var(--border-light);
-  margin-top: 2rem;
-}
-
-.notification {
-  position: fixed;
-  bottom: 5rem;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: var(--primary-dark);
-  color: white;
-  padding: 0.7rem 1.4rem;
-  border-radius: 40px;
-  font-size: 0.85rem;
-  opacity: 0;
-  transition: all 0.25s;
-  z-index: 2000;
-  pointer-events: none;
-}
-
-.notification.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
-
-/* Engineering toolbox modals (wide) */
-.filter-modal .modal-content {
-  max-width: 1300px;
-  width: 95%;
-}
-
-.calc-window {
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.tool-header {
-  background: var(--primary-dark);
-  color: white;
-  padding: 12px 20px;
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.tool-tab {
-  background: #2d3748;
-  padding: 6px 14px;
-  border-radius: 40px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 500;
-  border: none;
-  color: #e2e8f0;
-}
-
-.tool-tab.active {
-  background: var(--accent);
-  color: white;
-}
-
-.content-area {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 20px;
-  padding: 20px;
-  max-height: 70vh;
-  overflow-y: auto;
-}
-
-@media (max-width: 760px) {
-  .content-area {
-    grid-template-columns: 1fr;
-  }
-}
-
-.panel {
-  background: #f9fafb;
-  border-radius: 20px;
-  padding: 18px;
-}
-
-.comp-grid {
-  display: grid;
-  gap: 16px;
-}
-
-.comp-box {
-  background: white;
-  border-radius: 16px;
-  padding: 12px;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(20, 20, 25, 0.9); color: var(--text-main);
   border: 1px solid var(--border-light);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: floatFab 4s ease-in-out infinite;
 }
+.fab:nth-child(1) { animation-delay: 0s; }
+.fab:nth-child(2) { animation-delay: 0.5s; }
+.fab:nth-child(3) { animation-delay: 1s; }
 
-.comp-header {
-  display: flex;
-  justify-content: space-between;
-  font-weight: 700;
+@keyframes floatFab {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
 }
+.fab:hover { background: var(--accent); transform: scale(1.1) !important; box-shadow: 0 0 25px var(--accent-glow); animation: none; border-color: var(--accent); }
 
-.comp-slider {
-  width: 100%;
-  margin: 8px 0;
-}
+/* Modals (Dark Glass) */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.3s ease; padding: 1rem; }
+.modal.active { opacity: 1; visibility: visible; }
+.modal-content { background: #121216; border: 1px solid var(--border-light); border-radius: 24px; width: 100%; max-width: 520px; max-height: 85vh; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8); transform: scale(0.95) translateY(20px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.modal.active .modal-content { transform: scale(1) translateY(0); }
+.modal-header { padding: 1.2rem 1.5rem; background: var(--accent); color: white; display: flex; justify-content: space-between; align-items: center; }
+.modal-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.4rem; }
+.modal-close { background: none; border: none; font-size: 1.3rem; color: white; cursor: pointer; opacity: 0.8; transition: transform 0.2s; }
+.modal-close:hover { opacity: 1; transform: rotate(90deg); }
+.profile-modal-content { padding: 1.8rem; }
+.profile-header { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1.5rem; }
+.modal-profile-pic { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
+.profile-name { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.6rem; color: #fff; }
+.profile-title { font-size: 0.9rem; color: var(--accent); font-weight: 600; }
+.profile-bio p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-top: 0.75rem; }
+.tabs { display: flex; border-bottom: 1px solid var(--border-light); padding: 0 1rem; gap: 0.5rem; overflow-x: auto; background: #16161a; }
+.tab { padding: 0.8rem 1rem; background: none; border: none; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; font-size: 0.85rem; transition: all 0.2s; }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-content { display: none; padding: 1.2rem; max-height: 55vh; overflow-y: auto; }
+.tab-content.active { display: block; }
+.file-list { display: grid; gap: 0.6rem; }
+.file-item { background: #1a1a20; border-radius: 12px; padding: 0.8rem; display: flex; align-items: center; gap: 0.8rem; cursor: pointer; transition: all 0.2s; border: 1px solid var(--border-light); }
+.file-item:hover { background: #22222a; border-color: var(--accent); transform: translateX(4px); }
+.file-icon { width: 42px; height: 42px; background: rgba(10, 102, 194, 0.1); color: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.file-name { color: white; font-weight: 500; }
+.file-size { color: var(--text-muted); font-size: 0.75rem; }
+.empty-state { text-align: center; padding: 2rem; color: var(--text-muted); }
 
-.unit-btns {
-  display: flex;
-  gap: 8px;
-}
+footer { background: transparent; padding: 2rem 0; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-light); margin-top: 3rem; }
+.notification { position: fixed; bottom: 5rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--accent); color: white; padding: 0.8rem 1.5rem; border-radius: 40px; font-size: 0.9rem; font-weight: 600; opacity: 0; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 2000; pointer-events: none; box-shadow: 0 10px 20px var(--accent-glow); }
+.notification.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-.unit-btn {
-  background: #eef2ff;
-  border: none;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  cursor: pointer;
-}
-
-.unit-btn.active {
-  background: var(--accent);
-  color: white;
-}
-
-.freq-display {
-  background: var(--primary-dark);
-  color: white;
-  padding: 12px;
-  border-radius: 16px;
-  text-align: center;
-  margin-top: 12px;
-}
-
-.freq-value {
-  font-size: 1.8rem;
-  font-weight: 800;
-}
-
-.chart-box {
-  height: 260px;
-  margin-bottom: 18px;
-}
-
-.info-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.info-box {
-  background: white;
-  border-radius: 14px;
-  padding: 10px;
-  border: 1px solid var(--border-light);
-}
-
-.disabled {
-  opacity: 0.45;
-  pointer-events: none;
-}
-
-/* trace 3d simplified */
-.trace-3d-container {
-  background: #f1f5f9;
-  border-radius: 18px;
-  padding: 15px;
-  text-align: center;
-  margin-top: 14px;
-}
-
-.trace-3d-viewport {
-  background: #e9ecef;
-  border-radius: 14px;
-  height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* responsive adjustments for smaller screens */
-@media (max-width: 640px) {
-  .book-grid {
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 0.8rem;
-  }
-  .category-header {
-    font-size: 1.4rem;
-  }
-  .book-link-btn {
-    font-size: 0.7rem;
-    padding: 0.5rem 0.2rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .nav-icons {
-    gap: 0.8rem;
-  }
-}
+/* Calculator Toolbox */
+.filter-modal .modal-content { max-width: 1300px; width: 95%; }
+.calc-window { background: #121216; border-radius: 20px; overflow: hidden; }
+.tool-header { background: #16161a; border-bottom: 1px solid var(--border-light); color: white; padding: 12px 20px; display: flex; gap: 15px; flex-wrap: wrap; }
+.tool-tab { background: #1a1a20; padding: 8px 16px; border-radius: 40px; cursor: pointer; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--border-light); color: var(--text-muted); transition: all 0.2s; }
+.tool-tab.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
+.content-area { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; padding: 20px; max-height: 70vh; overflow-y: auto; }
+@media (max-width: 760px) { .content-area { grid-template-columns: 1fr; } }
+.panel { background: #16161a; border-radius: 20px; padding: 18px; border: 1px solid var(--border-light); }
+.comp-grid { display: grid; gap: 16px; }
+.comp-box { background: #1a1a20; border-radius: 16px; padding: 12px; border: 1px solid var(--border-light); color: white; }
+.comp-header { display: flex; justify-content: space-between; font-weight: 700; }
+.comp-slider { width: 100%; margin: 8px 0; accent-color: var(--accent); }
+.unit-btns { display: flex; gap: 8px; }
+.unit-btn { background: #22222a; border: 1px solid var(--border-light); padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; color: var(--text-muted); }
+.unit-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+.freq-display { background: var(--accent); color: white; padding: 15px; border-radius: 16px; text-align: center; margin-top: 12px; box-shadow: 0 10px 20px var(--accent-glow); }
+.freq-value { font-size: 2rem; font-weight: 800; }
+.chart-box { height: 260px; margin-bottom: 18px; }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.info-box { background: #1a1a20; border-radius: 14px; padding: 12px; border: 1px solid var(--border-light); }
+.info-value { color: white; font-weight: 600; margin-top: 4px; }
+.trace-3d-container { background: #1a1a20; border-radius: 18px; padding: 15px; text-align: center; margin-top: 14px; border: 1px solid var(--border-light); }
+.trace-3d-viewport { background: #0a0a0c; border-radius: 14px; height: 140px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
 </style>
 </head>
 <body>
@@ -707,12 +288,10 @@ footer {
         <img src="shimi linkedin pic.png" class="profile-pic" alt="Shimi Cohen" id="profilePic">
         <div>
           <div class="site-title">Shimi Cohen</div>
-          <div class="tagline">Board Design & Embedded Systems</div>
+          <div class="tagline">Hardware & Embedded</div>
         </div>
       </div>
-      <a href="https://www.linkedin.com/in/shimic1978/" target="_blank">
-        <img src="Linkedin Logo.png" alt="LinkedIn" class="linkedin-logo-img">
-      </a>
+      <a href="https://www.linkedin.com/in/shimic1978/" target="_blank"><img src="Linkedin Logo.png" alt="LinkedIn" class="linkedin-logo-img"></a>
     </div>
   </div>
 </header>
@@ -721,10 +300,11 @@ footer {
   <ul class="nav-icons" id="navIcons">
     <li class="nav-icon-item active" data-category="digital"><div class="nav-icon"><i class="fas fa-microchip"></i></div><span class="nav-label">Digital</span></li>
     <li class="nav-icon-item" data-category="analog"><div class="nav-icon"><i class="fas fa-bolt"></i></div><span class="nav-label">Analog</span></li>
-    <li class="nav-icon-item" data-category="practical"><div class="nav-icon"><i class="fas fa-tools"></i></div><span class="nav-label">Practical</span></li>
-    <li class="nav-icon-item" data-category="components"><div class="nav-icon"><i class="fas fa-cube"></i></div><span class="nav-label">Components</span></li>
-    <li class="nav-icon-item" data-category="series20"><div class="nav-icon"><i class="fas fa-list-ol"></i></div><span class="nav-label">"20" Series</span></li>
-    <li class="nav-icon-item" data-category="tutorials"><div class="nav-icon"><i class="fas fa-graduation-cap"></i></div><span class="nav-label">Tutorials</span></li>
+    <li class="nav-icon-item" data-category="pcb"><div class="nav-icon"><i class="fas fa-layer-group"></i></div><span class="nav-label">PCB</span></li>
+    <li class="nav-icon-item" data-category="components"><div class="nav-icon"><i class="fas fa-cube"></i></div><span class="nav-label">Parts</span></li>
+    <li class="nav-icon-item" data-category="systems"><div class="nav-icon"><i class="fas fa-project-diagram"></i></div><span class="nav-label">Systems</span></li>
+    <li class="nav-icon-item" data-category="series20"><div class="nav-icon"><i class="fas fa-list-ol"></i></div><span class="nav-label">20 Series</span></li>
+    <li class="nav-icon-item" data-category="tutorials"><div class="nav-icon"><i class="fas fa-graduation-cap"></i></div><span class="nav-label">Tools</span></li>
   </ul>
 </nav>
 
@@ -732,52 +312,129 @@ footer {
   <div class="container">
     <div id="digitalContent" class="category-section"></div>
     <div id="analogContent" class="category-section hidden-section"></div>
-    <div id="practicalContent" class="category-section hidden-section"></div>
+    <div id="pcbContent" class="category-section hidden-section"></div>
     <div id="componentsContent" class="category-section hidden-section"></div>
+    <div id="systemsContent" class="category-section hidden-section"></div>
     <div id="series20Content" class="category-section hidden-section"></div>
     <div id="tutorialsContent" class="category-section hidden-section"></div>
   </div>
 </main>
 
-<footer>
-  <div class="container"><p>© 2026 Shimi Cohen – Hardware Wisdom Library</p></div>
-</footer>
+<footer><div class="container"><p>© 2026 Shimi Cohen – Hardware Wisdom Library</p></div></footer>
 
 <div class="fab-container">
-  <button class="fab" id="downloadBtn"><i class="fas fa-download"></i></button>
-  <button class="fab" id="toolsBtn"><i class="fas fa-calculator"></i></button>
-  <a href="https://buymeacoffee.com/shimic" target="_blank" class="fab"><i class="fas fa-coffee"></i></a>
+  <button class="fab" id="downloadBtn" title="File Vault"><i class="fas fa-download"></i></button>
+  <button class="fab" id="toolsBtn" title="Engineering Toolbox"><i class="fas fa-calculator"></i></button>
+  <a href="https://buymeacoffee.com/shimic" target="_blank" class="fab" title="Buy me a coffee"><i class="fas fa-coffee"></i></a>
 </div>
 
-<!-- Modals -->
 <div class="modal" id="profileModal"><div class="modal-content"><div class="modal-header"><h2 class="modal-title">About Me</h2><button class="modal-close" id="closeProfileModal"><i class="fas fa-times"></i></button></div><div class="modal-body"><div class="profile-modal-content"><div class="profile-header"><img src="shimi linkedin pic.png" class="modal-profile-pic"><div><div class="profile-name">Shimi Cohen</div><div class="profile-title">Hardware & Embedded Systems Expert</div></div></div><div class="profile-bio"><p>I began my career in HW engineering as a board designer, later transitioning into MCU FW development.</p><p style="margin-top:0.75rem;">I expanded into system engineering, team management and architecture.</p><p style="margin-top:0.75rem;">Today, I'm self-employed — consulting, developing and contributing to the community by sharing content and interacting with engineers worldwide.</p></div></div></div></div></div>
 
 <div class="modal" id="fileVaultModal"><div class="modal-content"><div class="modal-header"><h2 class="modal-title">File Vault</h2><button class="modal-close" id="closeFileModal"><i class="fas fa-times"></i></button></div><div class="modal-body"><div class="tabs"><button class="tab active" data-tab="ltspice">LTSPICE</button><button class="tab" data-tab="qspice">QSPICE</button><button class="tab" data-tab="schematics">Schematics</button><button class="tab" data-tab="docs">Docs</button></div><div class="tab-content active" id="ltspice"><div class="file-list" id="ltspiceFiles"><div class="empty-state">Loading files...</div></div></div><div class="tab-content" id="qspice"><div class="empty-state"><h3>QSPICE</h3><p>Content coming soon.</p></div></div><div class="tab-content" id="schematics"><div class="empty-state"><h3>Schematics</h3><p>More resources soon.</p></div></div><div class="tab-content" id="docs"><div class="empty-state"><h3>Docs</h3><p>Stay tuned.</p></div></div></div></div></div>
 
-<div class="modal filter-modal" id="filterCalcModal"><div class="modal-content"><div class="modal-header"><h2 class="modal-title">Engineering Toolbox</h2><button class="modal-close" id="closeFilterModal"><i class="fas fa-times"></i></button></div><div class="modal-body"><div class="calc-window"><div class="tool-header"><div class="tool-tab active" data-tool="filter">Filter Calc</div><div class="tool-tab" data-tool="trace">Trace Calc</div></div><div class="content-area" id="filter-content"><div class="panel"><div class="filter-btns" style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px;"><button class="filter-btn active" data-filter="lpf-rc">RC LPF</button><button class="filter-btn" data-filter="hpf-rc">RC HPF</button><button class="filter-btn" data-filter="lpf-rl">RL LPF</button><button class="filter-btn" data-filter="hpf-rl">RL HPF</button><button class="filter-btn" data-filter="bpf-rlc">RLC BPF</button><button class="filter-btn" data-filter="bsf-rlc">RLC BSF</button></div><div class="comp-grid"><div class="comp-box"><div class="comp-header"><span>R</span><span id="r-value">10.0</span></div><input type="range" id="r-slider" min="1" max="1000" value="10"><div class="unit-btns"><button class="unit-btn active" data-unit="ohm">Ω</button><button class="unit-btn" data-unit="kohm">kΩ</button><button class="unit-btn" data-unit="mohm">MΩ</button></div></div><div class="comp-box" id="c-box"><div class="comp-header"><span>C</span><span id="c-value">100.0</span></div><input type="range" id="c-slider" min="1" max="1000" value="100"><div class="unit-btns"><button class="unit-btn" data-unit="pf">pF</button><button class="unit-btn active" data-unit="nf">nF</button><button class="unit-btn" data-unit="uf">μF</button></div></div><div class="comp-box" id="l-box"><div class="comp-header"><span>L</span><span id="l-value">10.0</span></div><input type="range" id="l-slider" min="1" max="1000" value="10"><div class="unit-btns"><button class="unit-btn active" data-unit="nh">nH</button><button class="unit-btn" data-unit="uh">μH</button><button class="unit-btn" data-unit="mh">mH</button></div></div></div><div class="freq-display"><div>Cutoff / Center Freq</div><div class="freq-value" id="freq-value">—</div><div class="freq-unit" id="freq-unit">Hz</div></div><div class="component-order" style="margin-top:12px; font-size:0.8rem;"><span>Order: </span><span id="order-diagram">R → C</span></div></div><div class="panel"><div class="chart-box"><canvas id="bodeChart"></canvas></div><div class="info-grid"><div class="info-box"><div class="info-title">Type</div><div class="info-value" id="filter-type">RC LPF</div></div><div class="info-box"><div class="info-title">-3dB Freq</div><div class="info-value" id="cutoff-freq">—</div></div><div class="info-box"><div class="info-title">Q Factor</div><div class="info-value" id="q-factor">0.71</div></div><div class="info-box"><div class="info-title">Bandwidth</div><div class="info-value" id="bandwidth">—</div></div></div></div></div><div class="content-area" id="trace-content" style="display: none;"><div class="panel"><div class="comp-grid"><div class="comp-box"><div>Width</div><div id="width-value">10.0</div><input type="range" id="width-slider" min="1" max="100" value="10"><div class="unit-btns"><button class="unit-btn active" data-unit="mil">mil</button><button class="unit-btn" data-unit="mm">mm</button></div></div><div class="comp-box"><div>Current (A)</div><div id="current-value">1.0</div><input type="range" id="current-slider" min="0.1" max="10" step="0.1" value="1"></div><div class="comp-box"><div>Copper</div><div id="copper-value">1oz</div><div class="unit-btns"><button class="unit-btn" data-unit="0.5oz">0.5oz</button><button class="unit-btn active" data-unit="1oz">1oz</button><button class="unit-btn" data-unit="2oz">2oz</button></div></div><div class="comp-box"><div>Temp Rise</div><div id="temp-value">10°C</div><input type="range" id="temp-slider" min="10" max="100" value="10"></div></div><div class="trace-3d-container"><div class="trace-3d-viewport"><div style="background: #cbd5e1; width:100%; border-radius:12px; padding: 8px;">🔌 3D Trace preview (width visualization)</div></div></div></div><div class="panel"><div class="info-grid"><div class="info-box"><div>Max Current</div><div id="max-current" class="info-value">—</div></div><div class="info-box"><div>Impedance</div><div id="impedance" class="info-value">—</div></div><div class="info-box"><div>Resistance (Ω/in)</div><div id="resistance" class="info-value">—</div></div><div class="info-box"><div>Voltage Drop</div><div id="voltage-drop" class="info-value">—</div></div></div><div class="chart-box"><canvas id="currentChart"></canvas></div></div></div></div></div></div></div>
+<div class="modal filter-modal" id="filterCalcModal"><div class="modal-content"><div class="modal-header"><h2 class="modal-title">Engineering Toolbox</h2><button class="modal-close" id="closeFilterModal"><i class="fas fa-times"></i></button></div><div class="modal-body"><div class="calc-window"><div class="tool-header"><div class="tool-tab active" data-tool="filter">Filter Calc</div><div class="tool-tab" data-tool="trace">Trace Calc</div></div><div class="content-area" id="filter-content"><div class="panel"><div class="filter-btns" style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px;"><button class="filter-btn active" data-filter="lpf-rc">RC LPF</button><button class="filter-btn" data-filter="hpf-rc">RC HPF</button><button class="filter-btn" data-filter="lpf-rl">RL LPF</button><button class="filter-btn" data-filter="hpf-rl">RL HPF</button><button class="filter-btn" data-filter="bpf-rlc">RLC BPF</button><button class="filter-btn" data-filter="bsf-rlc">RLC BSF</button></div><div class="comp-grid"><div class="comp-box"><div class="comp-header"><span>R</span><span id="r-value">10.0</span></div><input type="range" id="r-slider" min="1" max="1000" value="10" class="comp-slider"><div class="unit-btns"><button class="unit-btn active" data-unit="ohm">Ω</button><button class="unit-btn" data-unit="kohm">kΩ</button><button class="unit-btn" data-unit="mohm">MΩ</button></div></div><div class="comp-box" id="c-box"><div class="comp-header"><span>C</span><span id="c-value">100.0</span></div><input type="range" id="c-slider" min="1" max="1000" value="100" class="comp-slider"><div class="unit-btns"><button class="unit-btn active" data-unit="pf">pF</button><button class="unit-btn" data-unit="nf">nF</button><button class="unit-btn" data-unit="uf">μF</button></div></div><div class="comp-box" id="l-box"><div class="comp-header"><span>L</span><span id="l-value">10.0</span></div><input type="range" id="l-slider" min="1" max="1000" value="10" class="comp-slider"><div class="unit-btns"><button class="unit-btn active" data-unit="nh">nH</button><button class="unit-btn" data-unit="uh">μH</button><button class="unit-btn" data-unit="mh">mH</button></div></div></div><div class="freq-display"><div>Cutoff / Center Freq</div><div class="freq-value" id="freq-value">—</div><div class="freq-unit" id="freq-unit">Hz</div></div><div class="component-order" style="margin-top:12px; font-size:0.8rem;"><span>Order: </span><span id="order-diagram">R → C</span></div></div><div class="panel"><div class="chart-box"><canvas id="bodeChart"></canvas></div><div class="info-grid"><div class="info-box"><div class="info-title">Type</div><div class="info-value" id="filter-type">RC LPF</div></div><div class="info-box"><div class="info-title">-3dB Freq</div><div class="info-value" id="cutoff-freq">—</div></div><div class="info-box"><div class="info-title">Q Factor</div><div class="info-value" id="q-factor">0.71</div></div><div class="info-box"><div class="info-title">Bandwidth</div><div class="info-value" id="bandwidth">—</div></div></div></div></div><div class="content-area" id="trace-content" style="display: none;"><div class="panel"><div class="comp-grid"><div class="comp-box"><div>Width</div><div id="width-value">10.0</div><input type="range" id="width-slider" min="1" max="100" value="10" class="comp-slider"><div class="unit-btns"><button class="unit-btn active" data-unit="mil">mil</button><button class="unit-btn" data-unit="mm">mm</button></div></div><div class="comp-box"><div>Current (A)</div><div id="current-value">1.0</div><input type="range" id="current-slider" min="0.1" max="10" step="0.1" value="1" class="comp-slider"></div><div class="comp-box"><div>Copper</div><div id="copper-value">1oz</div><div class="unit-btns"><button class="unit-btn" data-unit="0.5oz">0.5oz</button><button class="unit-btn active" data-unit="1oz">1oz</button><button class="unit-btn" data-unit="2oz">2oz</button></div></div><div class="comp-box"><div>Temp Rise</div><div id="temp-value">10°C</div><input type="range" id="temp-slider" min="10" max="100" value="10" class="comp-slider"></div></div><div class="trace-3d-container"><div class="trace-3d-viewport">🔌 3D Trace preview</div></div></div><div class="panel"><div class="info-grid"><div class="info-box"><div>Max Current</div><div id="max-current" class="info-value">—</div></div><div class="info-box"><div>Impedance</div><div id="impedance" class="info-value">—</div></div><div class="info-box"><div>Resistance (Ω/in)</div><div id="resistance" class="info-value">—</div></div><div class="info-box"><div>Voltage Drop</div><div id="voltage-drop" class="info-value">—</div></div></div><div class="chart-box"><canvas id="currentChart"></canvas></div></div></div></div></div></div></div>
 
 <div class="notification" id="notification"></div>
 
 <script>
-// Full book data
 const bookData = {
-  digital: [ {title:"Communication", description:"Digital communication protocols", link:"https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/", cover:"Serial Communication Cover.jpg" }, {title:"MCU", description:"Microcontroller architecture", link:"https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/", cover:"MCU Cover.jpg" }, {title:"FPGA Architecture", link:"https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy", cover:"FPGA Cover.jpg" }, {title:"Video Protocols", link:"https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/", cover:"Digital Video Cover.jpg" }, {title:"CMOS Sensor", link:"https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX", cover:"CMOS Sensor Cover.jpg" }, {title:"Logic Gates", link:"https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz", cover:"Logic Gates Cover.jpg" }, {title:"PID Control", link:"https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/", cover:"PID Control Cover.jpg", badge:true }, {title:"Wireless Comm", link:"https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d", cover:"Wireless Communication Cover.jpg" }, {title:"DDR Memory", link:"https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn", cover:"DDR Memory Cover.jpg", badge:true }, {title:"Firmware Coding 1", link:"https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9", cover:"Firmware Coding Cover.jpg" }, {title:"Firmware Coding 2", link:"https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40", cover:"Firmware Coding 2 Cover.jpg" }, {title:"CAN Protocol", link:"https://www.linkedin.com/posts/shimic1978_can-protocol-activity-7416320567240409088-psjY", cover:"CAN Protocol Cover.jpg", badge:true } ],
-  analog: [ {title:"Analog Filters", link:"https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/", cover:"Analog Filters Cover.jpg" }, {title:"Class Amplifiers", link:"https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/", cover:"Class Amplifiers Cover.jpg" }, {title:"OPAMPs", link:"https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/", cover:"OPAMP Cover.jpg" }, {title:"Oscillators", link:"https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/", cover:"Oscillators Cover.jpg" }, {title:"LED Drivers", link:"https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/", cover:"LED Drivers Cover.jpg" }, {title:"Power Design", link:"https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/", cover:"Power Design Cover.jpg" }, {title:"RF Theory", link:"https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr", cover:"Radio Frequency Cover.jpg" }, {title:"Ground Rules", link:"https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O", cover:"Ground Rules Cover.jpg", badge:true }, {title:"Battery Management", link:"https://www.linkedin.com/posts/shimic1978_battery-management-system-activity-7326196854382059521-rRNP", cover:"Battery Management Cover.jpg" } ],
-  practical: [ {title:"PCB Design", link:"https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm", cover:"PCB Design Cover.jpg", badge:true }, {title:"Hardware", link:"https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/", cover:"Hardware Cover.jpg" }, {title:"Hardware Extended", link:"https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/", cover:"Hardware Extended Cover.jpg" }, {title:"Design For Testability", link:"https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/", cover:"Design For Testability Cover.jpg" }, {title:"Protection Circuits", link:"https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/", cover:"Protection Circuits Cover.jpg" }, {title:"Thermal Management", link:"https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/", cover:"Thermal Management Cover.jpg" }, {title:"Hardware Buffers", link:"https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N", cover:"Hardware Buffers Cover.jpg" }, {title:"Current Sensing", link:"https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/", cover:"Current Sensing Cover.jpg" }, {title:"ADC", link:"https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb", cover:"ADC Cover.jpg", badge:true }, {title:"Hardware Drivers", link:"https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu", cover:"Hardware Drivers Cover.jpg", badge:true }, {title:"Precision Circuits", link:"https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM", cover:"Precision Circuits Cover.jpg" }, {title:"Hardware Protection", link:"https://www.linkedin.com/posts/shimic1978_board-design-protection-activity-7393852496705781760-NJ0Y", cover:"Hardware Protection Cover.jpg" } ],
-  components: [ {title:"Component Selection", link:"https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/", cover:"Component Selection Cover.jpg" }, {title:"Capacitors", link:"https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW", cover:"Capacitors Comp Cover.jpg" }, {title:"Diodes", link:"https://www.linkedin.com/posts/shimic1978_diodes-activity-733771775899025409-Fwv0", cover:"Diodes Comp Cover.jpg" }, {title:"Inductors", link:"https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/", cover:"Inductors Comp Cover.jpg" }, {title:"Transistors", link:"https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/", cover:"Transistors Comp Cover.jpg" }, {title:"Sensors", link:"https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag", cover:"Sensors Comp Cover.jpg" }, {title:"MEMS Gyro", link:"https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/", cover:"GYRO Comp Cover.jpg" }, {title:"Resistors", link:"https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa", cover:"Resistors Comp Cover.jpg" }, {title:"Connectors and Cables", link:"https://www.linkedin.com/posts/shimic1978_connectors-cables-activity-7336588127437795328-boN_", cover:"Connectors Comp Cover.jpg" }, {title:"Transformers", link:"https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC", cover:"Transformers Comp Cover.jpg", badge:true }, {title:"Switches", link:"https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc", cover:"Switches Comp Cover.jpg" }, {title:"Test Equipment", link:"https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH", cover:"Test Equipment Cover.jpg" } ],
-  series20: [ {title:"20 Capacitors Apps", link:"https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f", cover:"Capacitors Cover.jpg" }, {title:"20 Resistors Apps", link:"https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11", cover:"Resistors Cover.jpg" }, {title:"20 Active ICs", link:"https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8", cover:"Active ICs Cover.jpg" }, {title:"20 Diodes Apps", link:"https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt", cover:"Diodes Cover.jpg" }, {title:"20 Transistors Apps", link:"https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO", cover:"Transistors Cover.jpg", badge:true }, {title:"20 MCU Tips", link:"https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe", cover:"MCU Tips Cover.jpg" }, {title:"20 Comm Problems", link:"https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_", cover:"COMM Problems Cover.jpg", badge:true }, {title:"20 Inductors Apps", link:"https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H", cover:"Inductors Cover.jpg" }, {title:"20 OPAMP Apps", link:"https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G", cover:"OPAMP Apps Cover.jpg" }, {title:"20 DFM Tips", link:"https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN", cover:"DFM Cover.jpg" }, {title:"20 Signal Conversions", link:"https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm", cover:"Signal Conversions Cover.jpg", badge:true } ],
-  tutorials: [ {title:"Q&A Power/Analog", link:"https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY", cover:"Q&A Power Analog Cover.jpg" }, {title:"Power Tree", link:"https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm", cover:"Power Tree Cover.jpg" }, {title:"Bring Up", link:"https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD", cover:"Bring Up Cover.jpg" }, {title:"EDA Free Tools", link:"https://www.linkedin.com/posts/shimic1978_free-eda-tools-activity-7397117746196512768-t1RO", cover:"EDA Cover.jpg" }, {title:"LTSpice Tutorial Part1", link:"https://www.linkedin.com/posts/shimic1978_ltspice-from-scratch-activity-7398937815675371520-H3Fh", cover:"LTSpice Tutorial Part1 Cover.jpg", badge:true }, {title:"LTSpice Tutorial Part2", link:"https://www.linkedin.com/posts/shimic1978_ltspice-part-2-activity-7402562212386553856-2lLW", cover:"LTSpice Tutorial Part2 Cover.jpg", badge:true }, {title:"QSpice Tutorial", link:"https://www.linkedin.com/posts/shimic1978_qspice-tutorial-part-1-activity-7404383701314400256-laq3", cover:"QSpice Tutorial Guide.jpg", badge:true }, {title:"Troubleshooting", link:"https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq", cover:"Troubleshooting Cover.jpg" }, {title:"Power Box Design", link:"https://www.linkedin.com/posts/shimic1978_power-box-activity-7412028936634863616-bjIX", cover:"Power Box Cover.jpg", badge:true } ]
+  digital: [
+    {title:"Communication", link:"https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/", cover:"Serial Communication Cover.jpg" },
+    {title:"MCU", link:"https://www.linkedin.com/feed/update/urn:li:activity:7311990597001654274/", cover:"MCU Cover.jpg" },
+    {title:"FPGA Architecture", link:"https://www.linkedin.com/posts/shimic1978_fpga-architecture-activity-7342423604543848449-gLRy", cover:"FPGA Cover.jpg" },
+    {title:"Video Protocols", link:"https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/", cover:"Digital Video Cover.jpg" },
+    {title:"CMOS Sensor", link:"https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX", cover:"CMOS Sensor Cover.jpg" },
+    {title:"Logic Gates", link:"https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz", cover:"Logic Gates Cover.jpg" },
+    {title:"PID Control", link:"https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/", cover:"PID Control Cover.jpg", badge:true },
+    {title:"Wireless Comm", link:"https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d", cover:"Wireless Communication Cover.jpg" },
+    {title:"DDR Memory", link:"https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn", cover:"DDR Memory Cover.jpg", badge:true },
+    {title:"Firmware Coding 1", link:"https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9", cover:"Firmware Coding Cover.jpg" },
+    {title:"Firmware Coding 2", link:"https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40", cover:"Firmware Coding 2 Cover.jpg" },
+    {title:"CAN Protocol", link:"https://www.linkedin.com/posts/shimic1978_can-protocol-activity-7416320567240409088-psjY", cover:"CAN Protocol Cover.jpg", badge:true }
+  ],
+  analog: [
+    {title:"Analog Filters", link:"https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/", cover:"Analog Filters Cover.jpg" },
+    {title:"Class Amplifiers", link:"https://www.linkedin.com/feed/update/urn:li:activity:7327558667304648704/", cover:"Class Amplifiers Cover.jpg" },
+    {title:"OPAMPs", link:"https://www.linkedin.com/feed/update/urn:li:activity:7325021649647374337/", cover:"OPAMP Cover.jpg" },
+    {title:"Oscillators", link:"https://www.linkedin.com/feed/update/urn:li:activity:7319660521429860352/", cover:"Oscillators Cover.jpg" },
+    {title:"LED Drivers", link:"https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/", cover:"LED Drivers Cover.jpg" },
+    {title:"Power Design", link:"https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/", cover:"Power Design Cover.jpg" },
+    {title:"RF Theory", link:"https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr", cover:"Radio Frequency Cover.jpg" },
+    {title:"Ground Rules", link:"https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O", cover:"Ground Rules Cover.jpg", badge:true },
+    {title:"Battery Management", link:"https://www.linkedin.com/posts/shimic1978_battery-management-system-activity-7326196854382059521-rRNP", cover:"Battery Management Cover.jpg" },
+    {title:"Designing Signal Path", link:"https://www.linkedin.com/posts/shimic1978_designing-a-signal-path-ugcPost-7474961575637041152-HXJv/", cover:"Designing Signal Path Cover.jpg", badge:true }
+  ],
+  pcb: [
+    {title:"PCB Design", link:"https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm", cover:"PCB Design Cover.jpg", badge:true },
+    {title:"Schematics Standard", link:"https://www.linkedin.com/posts/shimic1978_schematics-standard-ugcPost-7476646950604427265-_ksZ/", cover:"Schematics Standard Cover.jpg" },
+    {title:"High Voltage Board", link:"https://www.linkedin.com/posts/shimic1978_high-voltage-board-design-ugcPost-7462289724402159616-bjzx/", cover:"High Voltage Cover.jpg", badge:true },
+    {title:"Design For Testability", link:"https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/", cover:"Design For Testability Cover.jpg" },
+    {title:"Protection Circuits", link:"https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/", cover:"Protection Circuits Cover.jpg" },
+    {title:"Thermal Management", link:"https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/", cover:"Thermal Management Cover.jpg" },
+    {title:"Hardware", link:"https://www.linkedin.com/feed/update/urn:li:activity:7306060843387904000/", cover:"Hardware Cover.jpg" },
+    {title:"Hardware Extended", link:"https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/", cover:"Hardware Extended Cover.jpg" },
+    {title:"Hardware Buffers", link:"https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N", cover:"Hardware Buffers Cover.jpg" },
+    {title:"Current Sensing", link:"https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/", cover:"Current Sensing Cover.jpg" },
+    {title:"ADC", link:"https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb", cover:"ADC Cover.jpg", badge:true },
+    {title:"Hardware Drivers", link:"https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu", cover:"Hardware Drivers Cover.jpg", badge:true },
+    {title:"Precision Circuits", link:"https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM", cover:"Precision Circuits Cover.jpg" },
+    {title:"Hardware Protection", link:"https://www.linkedin.com/posts/shimic1978_board-design-protection-activity-7393852496705781760-NJ0Y", cover:"Hardware Protection Cover.jpg" }
+  ],
+  components: [
+    {title:"Component Selection", link:"https://www.linkedin.com/feed/update/urn:li:activity:7323938044456103936/", cover:"Component Selection Cover.jpg" },
+    {title:"Capacitors", link:"https://www.linkedin.com/posts/shimic1978_capacitors-activity-7341302613377724416-gvFW", cover:"Capacitors Comp Cover.jpg" },
+    {title:"Diodes", link:"https://www.linkedin.com/posts/shimic1978_diodes-activity-733771775899025409-Fwv0", cover:"Diodes Comp Cover.jpg" },
+    {title:"Inductors", link:"https://www.linkedin.com/feed/update/urn:li:activity:7320324982067150848/", cover:"Inductors Comp Cover.jpg" },
+    {title:"Transistors", link:"https://www.linkedin.com/feed/update/urn:li:activity:7318161028251328514/", cover:"Transistors Comp Cover.jpg" },
+    {title:"Sensors", link:"https://www.linkedin.com/posts/shimic1978_sensors-activity-7346425181088768001-icag", cover:"Sensors Comp Cover.jpg" },
+    {title:"MEMS Gyro", link:"https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/", cover:"GYRO Comp Cover.jpg" },
+    {title:"Resistors", link:"https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa", cover:"Resistors Comp Cover.jpg" },
+    {title:"Connectors and Cables", link:"https://www.linkedin.com/posts/shimic1978_connectors-cables-activity-7336588127437795328-boN_", cover:"Connectors Comp Cover.jpg" },
+    {title:"Transformers", link:"https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC", cover:"Transformers Comp Cover.jpg", badge:true },
+    {title:"Switches", link:"https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc", cover:"Switches Comp Cover.jpg" },
+    {title:"Test Equipment", link:"https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH", cover:"Test Equipment Cover.jpg" }
+  ],
+  systems: [
+    {title:"Automation", link:"https://www.linkedin.com/posts/shimic1978_automation-for-multi-disciplinary-systems-ugcPost-7498228319696420864-vKBs/", cover:"Automation Cover.jpg", badge:true },
+    {title:"Project 7-Stage Model", link:"https://www.linkedin.com/posts/shimic1978_project-7-stage-model-ugcPost-7482990348089221120-5ps4/", cover:"Project 7-Stage Model Cover.jpg", badge:true },
+    {title:"Bring Up", link:"https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD", cover:"Bring Up Cover.jpg" },
+    {title:"Power Tree", link:"https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm", cover:"Power Tree Cover.jpg" },
+    {title:"Power Box Design", link:"https://www.linkedin.com/posts/shimic1978_power-box-activity-7412028936634863616-bjIX", cover:"Power Box Cover.jpg", badge:true },
+    {title:"Troubleshooting", link:"https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq", cover:"Troubleshooting Cover.jpg" }
+  ],
+  series20: [
+    {title:"20 Capacitors Apps", link:"https://www.linkedin.com/posts/shimic1978_capacitor-applications-activity-7371735495065821184-2T3f", cover:"Capacitors Cover.jpg" },
+    {title:"20 Resistors Apps", link:"https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11", cover:"Resistors Cover.jpg" },
+    {title:"20 Active ICs", link:"https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8", cover:"Active ICs Cover.jpg" },
+    {title:"20 Diodes Apps", link:"https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt", cover:"Diodes Cover.jpg" },
+    {title:"20 Transistors Apps", link:"https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO", cover:"Transistors Cover.jpg", badge:true },
+    {title:"20 MCU Tips", link:"https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe", cover:"MCU Tips Cover.jpg" },
+    {title:"20 Comm Problems", link:"https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_", cover:"COMM Problems Cover.jpg", badge:true },
+    {title:"20 Inductors Apps", link:"https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H", cover:"Inductors Cover.jpg" },
+    {title:"20 OPAMP Apps", link:"https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G", cover:"OPAMP Apps Cover.jpg" },
+    {title:"20 DFM Tips", link:"https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN", cover:"DFM Cover.jpg" },
+    {title:"20 Signal Conversions", link:"https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm", cover:"Signal Conversions Cover.jpg", badge:true }
+  ],
+  tutorials: [
+    {title:"LTSpice Tutorial Part1", link:"https://www.linkedin.com/posts/shimic1978_ltspice-from-scratch-activity-7398937815675371520-H3Fh", cover:"LTSpice Tutorial Part1 Cover.jpg", badge:true },
+    {title:"LTSpice Tutorial Part2", link:"https://www.linkedin.com/posts/shimic1978_ltspice-part-2-activity-7402562212386553856-2lLW", cover:"LTSpice Tutorial Part2 Cover.jpg", badge:true },
+    {title:"QSpice Tutorial", link:"https://www.linkedin.com/posts/shimic1978_qspice-tutorial-part-1-activity-7404383701314400256-laq3", cover:"QSpice Tutorial Guide.jpg", badge:true },
+    {title:"EDA Free Tools", link:"https://www.linkedin.com/posts/shimic1978_free-eda-tools-activity-7397117746196512768-t1RO", cover:"EDA Cover.jpg" },
+    {title:"Q&A Power/Analog", link:"https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY", cover:"Q&A Power Analog Cover.jpg" }
+  ]
 };
 
 function buildCategoryHTML(categoryId, booksArr) {
-  let html = `<h2 class="category-header">${categoryId.charAt(0).toUpperCase()+categoryId.slice(1)} Library</h2><div class="book-grid">`;
-  booksArr.forEach(book => {
-    html += `<div class="book-card" data-link="${book.link}">
+  let html = `<h2 class="category-header">${categoryId === 'pcb' ? 'PCB & Board Design' : categoryId.charAt(0).toUpperCase()+categoryId.slice(1) + (categoryId === 'series20' ? ' Library' : (categoryId === 'tutorials' ? ' & Sim' : ' Library'))}</h2><div class="book-grid">`;
+  
+  booksArr.forEach((book, index) => {
+    const delay = index * 0.05; 
+    html += `<div class="book-card" data-link="${book.link}" style="animation-delay: ${delay}s">
       ${book.badge ? '<span class="book-badge">Top Pick</span>' : ''}
       <div class="book-cover-wrapper">
         <img src="${book.cover}" alt="${book.title}" class="book-cover" loading="lazy">
+        <button class="view-btn" title="View Post"><i class="fab fa-linkedin"></i></button>
       </div>
-      <button class="book-link-btn">View Book</button>
     </div>`;
   });
   html += `</div>`;
@@ -793,16 +450,35 @@ function renderAll() {
 }
 
 function attachBookEvents() {
-  document.querySelectorAll('.book-link-btn').forEach(btn => {
+  document.querySelectorAll('.view-btn').forEach(btn => {
     const card = btn.closest('.book-card');
     if(card) btn.addEventListener('click', (e) => { e.stopPropagation(); window.open(card.dataset.link, '_blank'); });
+  });
+  // Make the whole card clickable as well for better UX
+  document.querySelectorAll('.book-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if(e.target.closest('.view-btn')) return; // ignore if already handled
+      window.open(card.dataset.link, '_blank');
+    });
   });
 }
 
 function switchCategory(categoryId) {
   document.querySelectorAll('.category-section').forEach(sec => sec.classList.add('hidden-section'));
+  
   const activeSec = document.getElementById(`${categoryId}Content`);
-  if(activeSec) activeSec.classList.remove('hidden-section');
+  if(activeSec) {
+    activeSec.classList.remove('hidden-section');
+    
+    const cards = activeSec.querySelectorAll('.book-card');
+    cards.forEach((card, index) => {
+      card.style.animation = 'none';
+      card.offsetHeight; 
+      card.style.animation = `cardEntrance 0.5s ease forwards`;
+      card.style.animationDelay = `${index * 0.05}s`;
+    });
+  }
+  
   document.querySelectorAll('.nav-icon-item').forEach(item => {
     if(item.dataset.category === categoryId) item.classList.add('active');
     else item.classList.remove('active');
@@ -813,12 +489,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderAll();
   switchCategory('digital');
   document.querySelectorAll('.nav-icon-item').forEach(item => {
-    item.addEventListener('click', (e) => {
-      const cat = item.dataset.category;
-      switchCategory(cat);
-    });
+    item.addEventListener('click', () => switchCategory(item.dataset.category));
   });
-  // modal handlers
   document.getElementById('profilePic').onclick = () => document.getElementById('profileModal').classList.add('active');
   document.getElementById('closeProfileModal').onclick = () => document.getElementById('profileModal').classList.remove('active');
   document.getElementById('downloadBtn').onclick = () => { document.getElementById('fileVaultModal').classList.add('active'); loadFiles(); };
@@ -826,7 +498,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('toolsBtn').onclick = () => document.getElementById('filterCalcModal').classList.add('active');
   document.getElementById('closeFilterModal').onclick = () => document.getElementById('filterCalcModal').classList.remove('active');
   document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', (e) => { if(e.target === m) m.classList.remove('active'); }));
-  // tool tabs
   document.querySelectorAll('.tool-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       const tool = tab.dataset.tool;
