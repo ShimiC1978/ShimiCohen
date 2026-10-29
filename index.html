@@ -99,10 +99,10 @@ h1 span { color:var(--yellow); }
 .search-icon { position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--yellow); }
 .result-count { color:var(--white-soft); font-size:.82rem; white-space:nowrap; }
 
-/* Horizontally Scrollable Filters (Mobile Fix) */
+/* Horizontally Scrollable Filters */
 .filters { 
   display:flex; overflow-x:auto; gap:8px; margin:0 0 25px; padding-bottom: 8px;
-  -ms-overflow-style: none; scrollbar-width: none; /* Hide scrollbar */
+  -ms-overflow-style: none; scrollbar-width: none;
 }
 .filters::-webkit-scrollbar { display: none; }
 .filter {
@@ -126,7 +126,6 @@ h1 span { color:var(--yellow); }
   transform-style: preserve-3d;
   will-change: transform;
 }
-
 .book-card:hover {
   border-color: var(--yellow);
   box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(255,181,46,0.2);
@@ -157,15 +156,22 @@ h1 span { color:var(--yellow); }
   text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
-/* Badges */
-.top-pick {
-  position: absolute; top: 10px; left: 10px; z-index: 3; padding: 4px 8px;
-  background: var(--yellow); color: var(--black); border-radius: 6px;
-  font-size: 0.6rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;
+/* 🔥 Hot Pick (Trending) Badge */
+.hot-pick {
+  position: absolute; top: 10px; left: 10px; z-index: 3; padding: 5px 10px;
+  background: linear-gradient(135deg, #ff4b2b, #ff416c); color: var(--white); border-radius: 6px;
+  font-size: 0.65rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;
   transform: translateZ(40px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 12px rgba(255, 75, 43, 0.6);
+  animation: pulseFire 2s infinite;
+}
+@keyframes pulseFire {
+  0% { box-shadow: 0 0 0 0 rgba(255, 75, 43, 0.6); }
+  70% { box-shadow: 0 0 0 8px rgba(255, 75, 43, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 75, 43, 0); }
 }
 
+/* Engagement Badge */
 .engagement-badge {
   position: absolute; top: 10px; right: 10px; z-index: 3;
   background: rgba(5,5,5,0.85); color: var(--yellow);
@@ -290,7 +296,7 @@ footer { padding:24px 0 35px; color:var(--white-soft); font-size:.78rem; border-
 </div>
 
 <script>
-// Only verified post-Sept 25, 2025 data is included here.
+// Data strictly using verified post-Sept 25, 2025 numbers
 const bookData = {
   digital: [
     {title:"Communication", link:"https://www.linkedin.com/feed/update/urn:li:activity:7317483976552579072/", cover:"Serial Communication Cover.jpg" },
@@ -299,12 +305,12 @@ const bookData = {
     {title:"Video Protocols", link:"https://www.linkedin.com/feed/update/urn:li:activity:7314531371652198402/", cover:"Digital Video Cover.jpg" },
     {title:"CMOS Sensor", link:"https://www.linkedin.com/posts/shimic1978_cmos-sensor-activity-7340242468480647168-dWyX", cover:"CMOS Sensor Cover.jpg" },
     {title:"Logic Gates", link:"https://www.linkedin.com/posts/shimic1978_logic-gates-activity-7347852609208094720-E2uz", cover:"Logic Gates Cover.jpg" },
-    {title:"PID Control", link:"https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/", cover:"PID Control Cover.jpg", badge:true },
+    {title:"PID Control", link:"https://www.linkedin.com/feed/update/urn:li:activity:7335885761071702016/", cover:"PID Control Cover.jpg" },
     {title:"Wireless Comm", link:"https://www.linkedin.com/posts/shimic1978_wireless-comm-activity-7359048181919137792-7k7d", cover:"Wireless Communication Cover.jpg" },
-    {title:"DDR Memory", link:"https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn", cover:"DDR Memory Cover.jpg", badge:true },
+    {title:"DDR Memory", link:"https://www.linkedin.com/posts/shimic1978_ddr-memory-activity-7353250055870472192-gQrn", cover:"DDR Memory Cover.jpg" },
     {title:"Firmware Coding 1", link:"https://www.linkedin.com/posts/shimic1978_fw-coding-activity-7348557775871868930-S7v9", cover:"Firmware Coding Cover.jpg" },
     {title:"Firmware Coding 2", link:"https://www.linkedin.com/posts/shimic1978_fw-coding-chapter-2-activity-7350011094557470722-rs40", cover:"Firmware Coding 2 Cover.jpg" },
-    {title:"CAN Protocol", link:"https://www.linkedin.com/posts/shimic1978_can-protocol-activity-7416320567240409088-psjY", cover:"CAN Protocol Cover.jpg", badge:true, reactions: "1.1k" }
+    {title:"CAN Protocol", link:"https://www.linkedin.com/posts/shimic1978_can-protocol-activity-7416320567240409088-psjY", cover:"CAN Protocol Cover.jpg", reactions: "1.1k" }
   ],
   analog: [
     {title:"Analog Filters", link:"https://www.linkedin.com/feed/update/urn:li:activity:7322107110169714688/", cover:"Analog Filters Cover.jpg" },
@@ -314,14 +320,14 @@ const bookData = {
     {title:"LED Drivers", link:"https://www.linkedin.com/feed/update/urn:li:activity:7329732474522021888/", cover:"LED Drivers Cover.jpg" },
     {title:"Power Design", link:"https://www.linkedin.com/feed/update/urn:li:activity:7315600498575785986/", cover:"Power Design Cover.jpg" },
     {title:"RF Theory", link:"https://www.linkedin.com/posts/shimic1978_rf-transmission-lines-activity-7343125726734290944-uMgr", cover:"Radio Frequency Cover.jpg" },
-    {title:"Ground Rules", link:"https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O", cover:"Ground Rules Cover.jpg", badge:true },
+    {title:"Ground Rules", link:"https://www.linkedin.com/posts/shimic1978_ground-rules-activity-7364123016575832065-z54O", cover:"Ground Rules Cover.jpg" },
     {title:"Battery Management", link:"https://www.linkedin.com/posts/shimic1978_battery-management-system-activity-7326196854382059521-rRNP", cover:"Battery Management Cover.jpg" },
-    {title:"Designing Signal Path", link:"https://www.linkedin.com/posts/shimic1978_designing-a-signal-path-ugcPost-7474961575637041152-HXJv/", cover:"Designing Signal Path Cover.jpg", badge:true, reactions: "834" }
+    {title:"Designing Signal Path", link:"https://www.linkedin.com/posts/shimic1978_designing-a-signal-path-ugcPost-7474961575637041152-HXJv/", cover:"Designing Signal Path Cover.jpg", reactions: "834" }
   ],
   pcb: [
-    {title:"PCB Design", link:"https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm", cover:"PCB Design Cover.jpg", badge:true },
+    {title:"PCB Design", link:"https://www.linkedin.com/posts/shimic1978_pcb-design-activity-7345315201342189570-2btm", cover:"PCB Design Cover.jpg" },
     {title:"Schematics Standard", link:"https://www.linkedin.com/posts/shimic1978_schematics-standard-ugcPost-7476646950604427265-_ksZ/", cover:"Schematics Standard Cover.jpg", reactions: "649" },
-    {title:"High Voltage Board", link:"https://www.linkedin.com/posts/shimic1978_high-voltage-board-design-ugcPost-7462289724402159616-bjzx/", cover:"High Voltage Cover.jpg", badge:true, reactions: "397" },
+    {title:"High Voltage Board", link:"https://www.linkedin.com/posts/shimic1978_high-voltage-board-design-ugcPost-7462289724402159616-bjzx/", cover:"High Voltage Cover.jpg", reactions: "397" },
     {title:"Design For Testability", link:"https://www.linkedin.com/feed/update/urn:li:activity:7334790814939734016/", cover:"Design For Testability Cover.jpg" },
     {title:"Protection Circuits", link:"https://www.linkedin.com/feed/update/urn:li:activity:7332995420471693312/", cover:"Protection Circuits Cover.jpg" },
     {title:"Thermal Management", link:"https://www.linkedin.com/feed/update/urn:li:activity:7338429850724016129/", cover:"Thermal Management Cover.jpg" },
@@ -329,8 +335,8 @@ const bookData = {
     {title:"Hardware Extended", link:"https://www.linkedin.com/feed/update/urn:li:activity:7307775205781725184/", cover:"Hardware Extended Cover.jpg" },
     {title:"Hardware Buffers", link:"https://www.linkedin.com/posts/shimic1978_hw-buffers-activity-7357636341859266561-H10N", cover:"Hardware Buffers Cover.jpg" },
     {title:"Current Sensing", link:"https://www.linkedin.com/feed/update/urn:li:activity:7317092987606392835/", cover:"Current Sensing Cover.jpg" },
-    {title:"ADC", link:"https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb", cover:"ADC Cover.jpg", badge:true },
-    {title:"Hardware Drivers", link:"https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu", cover:"Hardware Drivers Cover.jpg", badge:true, reactions: "3.3k" },
+    {title:"ADC", link:"https://www.linkedin.com/posts/shimic1978_adc-activity-7356152813267075072-T3Pb", cover:"ADC Cover.jpg" },
+    {title:"Hardware Drivers", link:"https://www.linkedin.com/posts/shimic1978_hw-drivers-activity-7390953373975347200-eeOu", cover:"Hardware Drivers Cover.jpg", reactions: "3.3k" },
     {title:"Precision Circuits", link:"https://www.linkedin.com/posts/shimic1978_precision-circuits-activity-7392040560758497281-JxlM", cover:"Precision Circuits Cover.jpg", reactions: "1.7k" },
     {title:"Hardware Protection", link:"https://www.linkedin.com/posts/shimic1978_board-design-protection-activity-7393852496705781760-NJ0Y", cover:"Hardware Protection Cover.jpg", reactions: "1.3k" }
   ],
@@ -344,16 +350,16 @@ const bookData = {
     {title:"MEMS Gyro", link:"https://www.linkedin.com/feed/update/urn:li:activity:7312723442057863168/", cover:"GYRO Comp Cover.jpg" },
     {title:"Resistors", link:"https://www.linkedin.com/posts/shimic1978_resistors-activity-7352562908532244480-gWFa", cover:"Resistors Comp Cover.jpg" },
     {title:"Connectors and Cables", link:"https://www.linkedin.com/posts/shimic1978_connectors-cables-activity-7336588127437795328-boN_", cover:"Connectors Comp Cover.jpg" },
-    {title:"Transformers", link:"https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC", cover:"Transformers Comp Cover.jpg", badge:true, reactions: "1.8k" },
+    {title:"Transformers", link:"https://www.linkedin.com/posts/shimic1978_transformer-book-activity-7384777697958301696-8HjC", cover:"Transformers Comp Cover.jpg", reactions: "1.8k" },
     {title:"Switches", link:"https://www.linkedin.com/posts/shimic1978_swithces-activity-7385868622092480512-Yaqc", cover:"Switches Comp Cover.jpg", reactions: "802" },
     {title:"Test Equipment", link:"https://www.linkedin.com/posts/shimic1978_test-equipment-activity-7360152832471105536-woZH", cover:"Test Equipment Cover.jpg" }
   ],
   systems: [
-    {title:"Automation", link:"https://www.linkedin.com/posts/shimic1978_automation-for-multi-disciplinary-systems-ugcPost-7498228319696420864-vKBs/", cover:"Automation Cover.jpg", badge:true, reactions: "342" },
-    {title:"Project 7-Stage Model", link:"https://www.linkedin.com/posts/shimic1978_project-7-stage-model-ugcPost-7482990348089221120-5ps4/", cover:"Project 7-Stage Model Cover.jpg", badge:true, reactions: "145" },
+    {title:"Automation", link:"https://www.linkedin.com/posts/shimic1978_automation-for-multi-disciplinary-systems-ugcPost-7498228319696420864-vKBs/", cover:"Automation Cover.jpg", reactions: "342" },
+    {title:"Project 7-Stage Model", link:"https://www.linkedin.com/posts/shimic1978_project-7-stage-model-ugcPost-7482990348089221120-5ps4/", cover:"Project 7-Stage Model Cover.jpg", reactions: "145" },
     {title:"Bring Up", link:"https://www.linkedin.com/posts/shimic1978_bring-up-plan-activity-7361263619063328768-nqmD", cover:"Bring Up Cover.jpg" },
     {title:"Power Tree", link:"https://www.linkedin.com/posts/shimic1978_power-tree-activity-7363041961038987265-xZNm", cover:"Power Tree Cover.jpg" },
-    {title:"Power Box Design", link:"https://www.linkedin.com/posts/shimic1978_power-box-activity-7412028936634863616-bjIX", cover:"Power Box Cover.jpg", badge:true, reactions: "544" },
+    {title:"Power Box Design", link:"https://www.linkedin.com/posts/shimic1978_power-box-activity-7412028936634863616-bjIX", cover:"Power Box Cover.jpg", reactions: "544" },
     {title:"Troubleshooting", link:"https://www.linkedin.com/posts/shimic1978_troubleshooting-guide-activity-7365571258408648704-8knq", cover:"Troubleshooting Cover.jpg" }
   ],
   series20: [
@@ -361,18 +367,18 @@ const bookData = {
     {title:"20 Resistors Apps", link:"https://www.linkedin.com/posts/shimic1978_resistors-applications-activity-7370319044857585665-_b11", cover:"Resistors Cover.jpg" },
     {title:"20 Active ICs", link:"https://www.linkedin.com/posts/shimic1978_active-components-activity-7369202559946764288-h1R8", cover:"Active ICs Cover.jpg" },
     {title:"20 Diodes Apps", link:"https://www.linkedin.com/posts/shimic1978_20-diode-applications-activity-7373181281012125696-kXpt", cover:"Diodes Cover.jpg" },
-    {title:"20 Transistors Apps", link:"https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO", cover:"Transistors Cover.jpg", badge:true },
+    {title:"20 Transistors Apps", link:"https://www.linkedin.com/posts/shimic1978_transistor-applications-activity-7374268891532771328-VOxO", cover:"Transistors Cover.jpg" },
     {title:"20 MCU Tips", link:"https://www.linkedin.com/posts/shimic1978_mcu-hardware-tips-activity-7375363144988213248-dPVe", cover:"MCU Tips Cover.jpg" },
-    {title:"20 Comm Problems", link:"https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_", cover:"COMM Problems Cover.jpg", badge:true, reactions: "2.8k" },
+    {title:"20 Comm Problems", link:"https://www.linkedin.com/posts/shimic1978_comm-issues-activity-7378254726267691008-yfD_", cover:"COMM Problems Cover.jpg", reactions: "2.8k" },
     {title:"20 Inductors Apps", link:"https://www.linkedin.com/posts/shimic1978_20-inductor-applications-activity-7378975592886472704-d30H", cover:"Inductors Cover.jpg", reactions: "1.6k" },
     {title:"20 OPAMP Apps", link:"https://www.linkedin.com/posts/shimic1978_20-opamp-apps-activity-7380791424390332417-1X9G", cover:"OPAMP Apps Cover.jpg", reactions: "1.5k" },
     {title:"20 DFM Tips", link:"https://www.linkedin.com/posts/shimic1978_20-dfm-tips-activity-7383328143820107776-5nmN", cover:"DFM Cover.jpg", reactions: "763" },
-    {title:"20 Signal Conversions", link:"https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm", cover:"Signal Conversions Cover.jpg", badge:true, reactions: "3.3k" }
+    {title:"20 Signal Conversions", link:"https://www.linkedin.com/posts/shimic1978_signal-conversions-activity-7388779051169067008-P2Bm", cover:"Signal Conversions Cover.jpg", reactions: "3.3k" }
   ],
   tutorials: [
-    {title:"LTSpice Tutorial Part1", link:"https://www.linkedin.com/posts/shimic1978_ltspice-from-scratch-activity-7398937815675371520-H3Fh", cover:"LTSpice Tutorial Part1 Cover.jpg", badge:true, reactions: "3.2k" },
-    {title:"LTSpice Tutorial Part2", link:"https://www.linkedin.com/posts/shimic1978_ltspice-part-2-activity-7402562212386553856-2lLW", cover:"LTSpice Tutorial Part2 Cover.jpg", badge:true, reactions: "1.7k" },
-    {title:"QSpice Tutorial", link:"https://www.linkedin.com/posts/shimic1978_qspice-tutorial-part-1-activity-7404383701314400256-laq3", cover:"QSpice Tutorial Guide.jpg", badge:true, reactions: "725" },
+    {title:"LTSpice Tutorial Part1", link:"https://www.linkedin.com/posts/shimic1978_ltspice-from-scratch-activity-7398937815675371520-H3Fh", cover:"LTSpice Tutorial Part1 Cover.jpg", reactions: "3.2k" },
+    {title:"LTSpice Tutorial Part2", link:"https://www.linkedin.com/posts/shimic1978_ltspice-part-2-activity-7402562212386553856-2lLW", cover:"LTSpice Tutorial Part2 Cover.jpg", reactions: "1.7k" },
+    {title:"QSpice Tutorial", link:"https://www.linkedin.com/posts/shimic1978_qspice-tutorial-part-1-activity-7404383701314400256-laq3", cover:"QSpice Tutorial Guide.jpg", reactions: "725" },
     {title:"EDA Free Tools", link:"https://www.linkedin.com/posts/shimic1978_free-eda-tools-activity-7397117746196512768-t1RO", cover:"EDA Cover.jpg", reactions: "835" },
     {title:"Q&A Power/Analog", link:"https://www.linkedin.com/posts/shimic1978_power-and-analog-qna-activity-7368111611502297088-BOSY", cover:"Q&A Power Analog Cover.jpg" }
   ]
@@ -399,6 +405,15 @@ const searchInput = document.getElementById("searchInput");
 const resultCount = document.getElementById("resultCount");
 const emptyState = document.getElementById("emptyState");
 let activeCategory = "all";
+
+// Helper: Convert "3.3k" to 3300 for numerical comparison
+function parseReactions(str) {
+  if (!str) return 0;
+  if (str.toLowerCase().includes('k')) {
+    return parseFloat(str.toLowerCase().replace('k', '')) * 1000;
+  }
+  return parseInt(str, 10) || 0;
+}
 
 // Modal Logic
 const profileModal = document.getElementById("profileModal");
@@ -486,14 +501,17 @@ function renderBooks() {
     };
     coverBox.appendChild(img);
     
-    if (book.badge) {
-      const badge = document.createElement("span");
-      badge.className = "top-pick";
-      badge.textContent = "Top Pick";
-      coverBox.appendChild(badge);
+    const reactionCount = parseReactions(book.reactions);
+
+    // If reactions >= 900, show a 🔥 Trending badge
+    if (reactionCount >= 900) {
+      const hotBadge = document.createElement("span");
+      hotBadge.className = "hot-pick";
+      hotBadge.innerHTML = "🔥 Trending";
+      coverBox.appendChild(hotBadge);
     }
 
-    // Only append engagement badge if the reactions data actually exists
+    // Always append engagement badge if the data exists
     if (book.reactions) {
       const engBadge = document.createElement("span");
       engBadge.className = "engagement-badge";
@@ -516,13 +534,11 @@ function renderBooks() {
   emptyState.style.display = filtered.length ? "none" : "block";
   grid.style.display = filtered.length ? "grid" : "none";
   
-  // Re-apply 3D tilt after rendering new elements
   apply3DTilt();
 }
 
 searchInput.addEventListener("input", renderBooks);
 
-// Add animation keyframes dynamically
 const style = document.createElement('style');
 style.innerHTML = `
   @keyframes fadeSlideIn {
@@ -532,7 +548,6 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
-// Init
 renderBooks();
 </script>
 </body>
