@@ -121,6 +121,19 @@ h1 span { color:var(--yellow); }
 .filter:hover { border-color:var(--yellow); color: var(--yellow); }
 .filter.active { background:var(--yellow); color:var(--black); border-color:var(--yellow); box-shadow: 0 0 15px rgba(255,181,46,0.3); }
 
+/* LinkedIn stats */
+.stats { padding: 0 0 38px; }
+.stats-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
+.stat {
+  border:1px solid var(--white-line); border-radius:12px; padding:18px 20px;
+  background:var(--white-faint); transition:border-color .3s, box-shadow .3s;
+}
+.stat:hover { border-color:var(--yellow); box-shadow:0 0 18px rgba(255,181,46,.16); }
+.stat-num { font:700 clamp(1.7rem,3.4vw,2.4rem)/1 "Space Grotesk",sans-serif; letter-spacing:-.04em; color:var(--yellow); }
+.stat-label { margin-top:8px; font-size:.78rem; color:var(--white-soft); line-height:1.35; }
+.stats-note { margin:12px 2px 0; font-size:.72rem; color:var(--white-soft); display:flex; align-items:center; gap:8px; }
+.stats-note i { color:var(--linkedin-blue); font-size:.95rem; }
+
 /* Book Grid */
 .book-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:17px; }
 
@@ -213,6 +226,7 @@ footer { padding:24px 0 35px; color:var(--white-soft); font-size:.78rem; border-
 .footer-inner { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 
 @media (max-width:1000px) { .book-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+@media (max-width:700px) { .stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; } .stat { padding:14px 15px; } }
 @media (max-width:700px) {
   .wrap { width:min(var(--max-width),calc(100% - 28px)); }
   .header-inner { min-height:68px; gap:10px; }
@@ -246,6 +260,13 @@ footer { padding:24px 0 35px; color:var(--white-soft); font-size:.78rem; border-
   <section class="hero">
     <div class="wrap">
       <h1>Hardware Design.<br><span>Book Library.</span></h1>
+    </div>
+  </section>
+
+  <section class="stats" id="stats" hidden>
+    <div class="wrap">
+      <div class="stats-grid" id="statsGrid"></div>
+      <p class="stats-note"><i class="fab fa-linkedin"></i><span id="statsNote"></span></p>
     </div>
   </section>
 
@@ -456,6 +477,32 @@ function renderBooks() {
 }
 
 searchInput.addEventListener("input", renderBooks);
+
+// LinkedIn stats (stats.json is refreshed by hand; the site never calls LinkedIn)
+(function () {
+  const fmt = n => n >= 1e6 ? (n/1e6).toFixed(2).replace(/\.?0+$/,"") + "M" : n >= 1e4 ? (n/1e3).toFixed(n >= 1e5 ? 0 : 1).replace(/\.0$/,"") + "K" : n.toLocaleString("en-US");
+  fetch("stats.json", { cache: "no-cache" })
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(d => {
+      const items = [
+        [fmt(d.followers), "LinkedIn followers"],
+        [fmt(d.impressions365d), "post impressions, last 12 months"],
+        [fmt(d.impressions7d), "post impressions, last 7 days"],
+        [fmt(d.bestPost.impressions), `best post: ${d.bestPost.title}`]
+      ];
+      const g = document.getElementById("statsGrid");
+      items.forEach(([num, label]) => {
+        const box = document.createElement("div"); box.className = "stat";
+        const n = document.createElement("div"); n.className = "stat-num"; n.textContent = num;
+        const l = document.createElement("div"); l.className = "stat-label"; l.textContent = label;
+        box.append(n, l); g.appendChild(box);
+      });
+      const when = new Date(d.updated + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      document.getElementById("statsNote").textContent = `${d.source}, updated ${when}`;
+      document.getElementById("stats").hidden = false;
+    })
+    .catch(() => {});
+})();
 
 fetch("books.json", { cache: "no-cache" })
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
