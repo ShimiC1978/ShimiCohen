@@ -178,15 +178,15 @@ h1 span { color:var(--yellow); }
   text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
-/* 🔥 Hot Pick (Trending) Badge */
-.hot-pick {
-  position: absolute; top: 10px; left: 10px; z-index: 3; padding: 5px 10px;
-  background: linear-gradient(135deg, #ff4b2b, #ff416c); color: var(--white); border-radius: 6px;
-  font-size: 0.65rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;
-  transform: translateZ(40px);
-  box-shadow: 0 4px 12px rgba(255, 75, 43, 0.6);
-  animation: pulseFire 2s infinite;
+/* Rank / NEW tags */
+.tag-row { position:absolute; top:6px; left:6px; z-index:3; display:flex; gap:5px; transform: translateZ(40px); }
+.tag {
+  font: 700 .62rem/1 "Space Grotesk",sans-serif; letter-spacing:.12em; text-transform:uppercase;
+  padding:5px 8px; border-radius:12px; background:rgba(5,5,5,.85); backdrop-filter:blur(4px);
+  color:var(--yellow); border:1px solid rgba(255,181,46,.4);
 }
+.tag-rank.r1 { background:var(--yellow); color:#050505; border-color:var(--yellow); }
+.tag-new { color:var(--white); border-color:rgba(255,255,255,.35); }
 @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .copy-tap { user-select: none; -webkit-user-select: none; }
 @keyframes pulseFire {
@@ -445,13 +445,20 @@ function renderBooks() {
     
     const reactionCount = parseReactions(book.reactions);
 
-    // If reactions >= 900, show a 🔥 Trending badge
-    if (reactionCount >= 1500) {
-      const hotBadge = document.createElement("span");
-      hotBadge.className = "hot-pick";
-      hotBadge.innerHTML = "🔥 Trending";
-      coverBox.appendChild(hotBadge);
+    // Rank tag (top 3 by likes) and NEW tag (book has "added" date within 30 days)
+    const tags = document.createElement("div");
+    tags.className = "tag-row";
+    if (book.rank) {
+      const t = document.createElement("span");
+      t.className = "tag tag-rank r" + book.rank; t.textContent = "#" + book.rank;
+      tags.appendChild(t);
     }
+    if (book.added && (Date.now() - new Date(book.added + "T00:00:00").getTime()) < 30 * 864e5) {
+      const t = document.createElement("span");
+      t.className = "tag tag-new"; t.textContent = "NEW";
+      tags.appendChild(t);
+    }
+    if (tags.childNodes.length) coverBox.appendChild(tags);
 
     // Always append engagement badge if the data exists
     if (book.reactions || book.reactionCount) {
@@ -519,6 +526,7 @@ fetch("books.json", { cache: "no-cache" })
     );
     // most likes first (the number shown on the badge); re-sorts itself whenever books.json is refreshed
     allBooks.sort((a, b) => (b.reactionCount || 0) - (a.reactionCount || 0));
+    allBooks.forEach((b, i) => { if (i < 3 && b.reactionCount) b.rank = i + 1; });
     renderBooks();
   })
   .catch(() => {
