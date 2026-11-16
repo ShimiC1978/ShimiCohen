@@ -178,15 +178,26 @@ h1 span { color:var(--yellow); }
   text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
-/* Rank / NEW tags */
-.tag-row { position:absolute; top:6px; left:6px; z-index:3; display:flex; gap:5px; transform: translateZ(40px); }
-.tag {
-  font: 700 .62rem/1 "Space Grotesk",sans-serif; letter-spacing:.12em; text-transform:uppercase;
-  padding:5px 8px; border-radius:12px; background:rgba(5,5,5,.85); backdrop-filter:blur(4px);
-  color:var(--yellow); border:1px solid rgba(255,181,46,.4);
-}
-.tag-rank.r1 { background:var(--yellow); color:#050505; border-color:var(--yellow); }
-.tag-new { color:var(--white); border-color:rgba(255,255,255,.35); }
+/* Winner medal (top 5 by likes) */
+.medal { position:absolute; top:5px; left:5px; z-index:4; width:46px; height:58px; transform: translateZ(55px);
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,.65)) drop-shadow(0 0 12px rgba(255,181,46,.35)); }
+.medal svg { width:100%; height:100%; display:block; }
+.medal .m-num { position:absolute; top:6px; left:0; width:100%; height:34px; display:flex; align-items:center; justify-content:center;
+  font:800 1.05rem/1 "Space Grotesk",sans-serif; color:#1a1200; letter-spacing:-.04em; }
+.medal::after { content:""; position:absolute; top:3px; left:3px; width:40px; height:40px; border-radius:50%; overflow:hidden;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.65) 50%,transparent 65%); background-size:250% 100%; background-position:150% 0;
+  animation: medalShine 4.5s ease-in-out infinite; mix-blend-mode:overlay; pointer-events:none; }
+@keyframes medalShine { 0%,55% { background-position:150% 0; } 100% { background-position:-50% 0; } }
+/* NEW: hanging paper tag on a string */
+.new-tag { position:absolute; top:0; left:calc(50% - 14px); z-index:4; width:34px; transform-origin:50% 0; transform: translateZ(50px) rotate(-5deg);
+  animation: tagSwing 3.6s ease-in-out infinite; filter: drop-shadow(0 6px 8px rgba(0,0,0,.6)); }
+.new-tag .string { width:1.5px; height:15px; background:rgba(255,255,255,.7); margin:0 auto; }
+.new-tag .paper { position:relative; background:linear-gradient(160deg,#ff4d3d,#d62a1c); color:#fff; text-align:center;
+  font:800 .64rem/1 "Space Grotesk",sans-serif; letter-spacing:.1em; padding:9px 0 7px;
+  clip-path: polygon(0 12%,22% 0,78% 0,100% 12%,100% 100%,0 100%); }
+.new-tag .paper::before { content:""; position:absolute; top:5px; left:50%; width:5px; height:5px; margin-left:-2.5px; border-radius:50%; background:#1a0603; box-shadow:0 0 0 1px rgba(255,255,255,.35); }
+.new-tag .paper span { display:block; margin-top:7px; }
+@keyframes tagSwing { 0%,100% { transform: translateZ(50px) rotate(-6deg); } 50% { transform: translateZ(50px) rotate(6deg); } }
 @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .copy-tap { user-select: none; -webkit-user-select: none; }
 @keyframes pulseFire {
@@ -327,6 +338,7 @@ footer { padding:24px 0 35px; color:var(--white-soft); font-size:.78rem; border-
 <script>
 // Book data lives in books.json (one line per book). Use the hidden admin tool or edit that file.
 let allBooks = [];
+const NEW_DAYS = 45;
 
 const categoryLabels = {
   all: "All Guides",
@@ -445,20 +457,19 @@ function renderBooks() {
     
     const reactionCount = parseReactions(book.reactions);
 
-    // Rank tag (top 3 by likes) and NEW tag (book has "added" date within 30 days)
-    const tags = document.createElement("div");
-    tags.className = "tag-row";
+    // Winner medal (top 5 by likes) and hanging NEW tag (launched within NEW_DAYS)
     if (book.rank) {
-      const t = document.createElement("span");
-      t.className = "tag tag-rank r" + book.rank; t.textContent = "#" + book.rank;
-      tags.appendChild(t);
+      const m = document.createElement("div");
+      m.className = "medal"; m.title = "#" + book.rank + " most liked";
+      m.innerHTML = `<svg viewBox="0 0 46 58" aria-hidden="true"><defs><linearGradient id="mg${book.rank}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset=".5" stop-color="#ffb52e"/><stop offset="1" stop-color="#c98500"/></linearGradient></defs><path d="M10 30 L5 56 L15 50 L22 57 L24 32Z" fill="#c98500"/><path d="M36 30 L41 56 L31 50 L24 57 L22 32Z" fill="#ffb52e"/><circle cx="23" cy="22" r="20" fill="url(#mg${book.rank})" stroke="#7a5200" stroke-width="1.2"/><circle cx="23" cy="22" r="15.5" fill="none" stroke="rgba(90,55,0,.55)" stroke-width="1"/></svg><span class="m-num">${book.rank}</span>`;
+      coverBox.appendChild(m);
     }
-    if (book.added && (Date.now() - new Date(book.added + "T00:00:00").getTime()) < 30 * 864e5) {
-      const t = document.createElement("span");
-      t.className = "tag tag-new"; t.textContent = "NEW";
-      tags.appendChild(t);
+    if (book.added && (Date.now() - new Date(book.added + "T00:00:00").getTime()) < NEW_DAYS * 864e5) {
+      const t = document.createElement("div");
+      t.className = "new-tag";
+      t.innerHTML = '<div class="string"></div><div class="paper"><span>NEW</span></div>';
+      coverBox.appendChild(t);
     }
-    if (tags.childNodes.length) coverBox.appendChild(tags);
 
     // Always append engagement badge if the data exists
     if (book.reactions || book.reactionCount) {
@@ -526,7 +537,7 @@ fetch("books.json", { cache: "no-cache" })
     );
     // most likes first (the number shown on the badge); re-sorts itself whenever books.json is refreshed
     allBooks.sort((a, b) => (b.reactionCount || 0) - (a.reactionCount || 0));
-    allBooks.forEach((b, i) => { if (i < 3 && b.reactionCount) b.rank = i + 1; });
+    allBooks.forEach((b, i) => { if (i < 5 && b.reactionCount) b.rank = i + 1; });
     renderBooks();
   })
   .catch(() => {
