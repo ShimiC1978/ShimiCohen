@@ -517,8 +517,8 @@ fetch("books.json", { cache: "no-cache" })
     allBooks = Object.entries(data).flatMap(([category, books]) =>
       books.map(book => ({...book, category, categoryLabel: categoryLabels[category] || category}))
     );
-    // highest engagement first; re-sorts itself whenever books.json is refreshed
-    allBooks.sort((a, b) => (b.engagement || parseReactions(b.reactions) || 0) - (a.engagement || parseReactions(a.reactions) || 0));
+    // most likes first (the number shown on the badge); re-sorts itself whenever books.json is refreshed
+    allBooks.sort((a, b) => (b.reactionCount || 0) - (a.reactionCount || 0));
     renderBooks();
   })
   .catch(() => {
