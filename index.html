@@ -123,7 +123,7 @@ h1 span { color:var(--yellow); }
 
 /* LinkedIn stats */
 .stats { padding: 0 0 38px; }
-.stats-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.stats-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
 .stat {
   border:1px solid var(--white-line); border-radius:12px; padding:18px 20px;
   background:var(--white-faint); transition:border-color .3s, box-shadow .3s;
@@ -132,6 +132,8 @@ h1 span { color:var(--yellow); }
 .stat-num { font:700 clamp(1.7rem,3.4vw,2.4rem)/1 "Space Grotesk",sans-serif; letter-spacing:-.04em; color:var(--yellow); }
 .stat-label { margin-top:8px; font-size:.78rem; color:var(--white-soft); line-height:1.35; }
 .stat-tag { font-size:.66rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--white-soft); margin-bottom:8px; }
+.stat-metrics { display:flex; flex-wrap:wrap; gap:6px 14px; align-items:baseline; font:700 clamp(1.15rem,3vw,1.7rem)/1.1 "Space Grotesk",sans-serif; letter-spacing:-.03em; color:var(--yellow); }
+.stat-metrics i { font-size:.7em; margin-right:5px; }
 .stat-sub { margin-top:8px; font-size:.78rem; color:var(--white); line-height:1.4; }
 .stats-note { margin:12px 2px 0; font-size:.72rem; color:var(--white-soft); display:flex; align-items:center; gap:8px; }
 .stats-note i { color:var(--linkedin-blue); font-size:.95rem; }
@@ -189,15 +191,14 @@ h1 span { color:var(--yellow); }
   animation: medalShine 4.5s ease-in-out infinite; mix-blend-mode:overlay; pointer-events:none; }
 @keyframes medalShine { 0%,55% { background-position:150% 0; } 100% { background-position:-50% 0; } }
 /* NEW: hanging paper tag on a string */
-.new-tag { position:absolute; top:0; left:calc(50% - 14px); z-index:4; width:34px; transform-origin:50% 0; transform: translateZ(50px) rotate(-5deg);
-  animation: tagSwing 3.6s ease-in-out infinite; filter: drop-shadow(0 6px 8px rgba(0,0,0,.6)); }
+.new-tag { position:absolute; top:0; left:12px; z-index:4; width:34px; transform-origin:50% 0; transform: translateZ(50px) rotate(-5deg); filter: drop-shadow(0 6px 8px rgba(0,0,0,.6)); }
+.new-tag.after-medal { left:60px; }
 .new-tag .string { width:1.5px; height:15px; background:rgba(255,255,255,.7); margin:0 auto; }
 .new-tag .paper { position:relative; background:linear-gradient(160deg,#ff4d3d,#d62a1c); color:#fff; text-align:center;
   font:800 .64rem/1 "Space Grotesk",sans-serif; letter-spacing:.1em; padding:9px 0 7px;
   clip-path: polygon(0 12%,22% 0,78% 0,100% 12%,100% 100%,0 100%); }
 .new-tag .paper::before { content:""; position:absolute; top:5px; left:50%; width:5px; height:5px; margin-left:-2.5px; border-radius:50%; background:#1a0603; box-shadow:0 0 0 1px rgba(255,255,255,.35); }
 .new-tag .paper span { display:block; margin-top:7px; }
-@keyframes tagSwing { 0%,100% { transform: translateZ(50px) rotate(-6deg); } 50% { transform: translateZ(50px) rotate(6deg); } }
 @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .copy-tap { user-select: none; -webkit-user-select: none; }
 @keyframes pulseFire {
@@ -239,7 +240,7 @@ footer { padding:24px 0 35px; color:var(--white-soft); font-size:.78rem; border-
 .footer-inner { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 
 @media (max-width:1000px) { .book-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
-@media (max-width:700px) { .stats-grid { grid-template-columns:1fr; gap:10px; } .stat { padding:14px 15px; } }
+@media (max-width:700px) { .hero { padding:40px 0 26px; } .stats { padding-bottom:10px; } .section { padding-top:24px !important; } .stats-grid { gap:8px; } .stat-tag { margin-bottom:6px; }  .stat { padding:14px 15px; } }
 @media (max-width:700px) {
   .wrap { width:min(var(--max-width),calc(100% - 28px)); }
   .header-inner { min-height:68px; gap:10px; }
@@ -305,7 +306,6 @@ footer { padding:24px 0 35px; color:var(--white-soft); font-size:.78rem; border-
 <footer>
   <div class="wrap footer-inner">
     <span><span id="copyTap" class="copy-tap">© 2026</span> Shimi Cohen · Hardware Knowledge Library</span>
-    <span>Black. White. <span style="color:var(--yellow)">Signal yellow.</span></span>
   </div>
 </footer>
 
@@ -466,7 +466,7 @@ function renderBooks() {
     }
     if (book.added && (Date.now() - new Date(book.added + "T00:00:00").getTime()) < NEW_DAYS * 864e5) {
       const t = document.createElement("div");
-      t.className = "new-tag";
+      t.className = "new-tag" + (book.rank ? " after-medal" : "");
       t.innerHTML = '<div class="string"></div><div class="paper"><span>NEW</span></div>';
       coverBox.appendChild(t);
     }
@@ -506,22 +506,14 @@ searchInput.addEventListener("input", renderBooks);
   fetch("stats.json", { cache: "no-cache" })
     .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(d => {
-      const L = (x) => `${fmt(x.impressions)} impressions · ${fmt(x.reactions)} reactions · ${fmt(x.comments)} comments`;
-      const items = [
-        ["Followers", fmt(d.followers), "LinkedIn", ""],
-        ["Latest post", fmt(d.latest.impressions), d.latest.title, L(d.latest) + (d.latest.followersGained ? ` · +${d.latest.followersGained} followers` : "")],
-        ["Best post", fmt(d.best.impressions), d.best.title, L(d.best)]
-      ];
       const g = document.getElementById("statsGrid");
-      items.forEach(([tag, num, label, sub]) => {
+      const mk = (tag, inner, label) => {
         const box = document.createElement("div"); box.className = "stat";
-        const t = document.createElement("div"); t.className = "stat-tag"; t.textContent = tag;
-        const n = document.createElement("div"); n.className = "stat-num"; n.textContent = num;
-        const l = document.createElement("div"); l.className = "stat-label"; l.textContent = label;
-        box.append(t, n, l);
-        if (sub) { const u = document.createElement("div"); u.className = "stat-sub"; u.textContent = sub; box.appendChild(u); }
+        box.innerHTML = `<div class="stat-tag">${tag}</div>${inner}<div class="stat-label">${label}</div>`;
         g.appendChild(box);
-      });
+      };
+      mk("Followers", `<div class="stat-num">${fmt(d.followers)}</div>`, "LinkedIn");
+      mk("Latest post", `<div class="stat-metrics"><span><i class="fas fa-thumbs-up"></i>${d.latest.reactions.toLocaleString("en-US")}</span><span><i class="fas fa-eye"></i>${fmt(d.latest.impressions)}</span></div>`, d.latest.title.replace(/[<>&]/g, ""));
       const when = new Date(d.updated + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
       document.getElementById("statsNote").textContent = `${d.source}, updated ${when}`;
       document.getElementById("stats").hidden = false;
