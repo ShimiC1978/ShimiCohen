@@ -123,7 +123,7 @@ h1 span { color:var(--yellow); }
 
 /* LinkedIn stats */
 .stats { padding: 0 0 38px; }
-.stats-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
+.stats-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
 .stat {
   border:1px solid var(--white-line); border-radius:12px; padding:18px 20px;
   background:var(--white-faint); transition:border-color .3s, box-shadow .3s;
@@ -131,6 +131,8 @@ h1 span { color:var(--yellow); }
 .stat:hover { border-color:var(--yellow); box-shadow:0 0 18px rgba(255,181,46,.16); }
 .stat-num { font:700 clamp(1.7rem,3.4vw,2.4rem)/1 "Space Grotesk",sans-serif; letter-spacing:-.04em; color:var(--yellow); }
 .stat-label { margin-top:8px; font-size:.78rem; color:var(--white-soft); line-height:1.35; }
+.stat-tag { font-size:.66rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--white-soft); margin-bottom:8px; }
+.stat-sub { margin-top:8px; font-size:.78rem; color:var(--white); line-height:1.4; }
 .stats-note { margin:12px 2px 0; font-size:.72rem; color:var(--white-soft); display:flex; align-items:center; gap:8px; }
 .stats-note i { color:var(--linkedin-blue); font-size:.95rem; }
 
@@ -197,9 +199,9 @@ h1 span { color:var(--yellow); }
 .engagement-badge {
   position: absolute; top: 10px; right: 10px; z-index: 3;
   background: rgba(5,5,5,0.85); color: var(--yellow);
-  font-size: 0.65rem; font-weight: 800; padding: 4px 8px; border-radius: 20px;
+  font-size: 0.65rem; font-weight: 800; padding: 4px 8px;
   border: 1px solid rgba(255,181,46,0.4); backdrop-filter: blur(4px);
-  display: flex; align-items: center; gap: 4px;
+  display: block; line-height:1.5; text-align:right; border-radius:12px; white-space:nowrap;
   transform: translateZ(40px);
 }
 .engagement-badge i { font-size: 0.7rem; }
@@ -226,7 +228,7 @@ footer { padding:24px 0 35px; color:var(--white-soft); font-size:.78rem; border-
 .footer-inner { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 
 @media (max-width:1000px) { .book-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
-@media (max-width:700px) { .stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; } .stat { padding:14px 15px; } }
+@media (max-width:700px) { .stats-grid { grid-template-columns:1fr; gap:10px; } .stat { padding:14px 15px; } }
 @media (max-width:700px) {
   .wrap { width:min(var(--max-width),calc(100% - 28px)); }
   .header-inner { min-height:68px; gap:10px; }
@@ -346,6 +348,7 @@ const emptyState = document.getElementById("emptyState");
 let activeCategory = "all";
 
 // Helper: Convert "3.3k" to 3300 for numerical comparison
+function fmtK(n){ return n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(n>=1e5?0:1).replace(/\.0$/,'')+'K':String(n); }
 function parseReactions(str) {
   if (!str) return 0;
   if (str.toLowerCase().includes('k')) {
@@ -443,7 +446,7 @@ function renderBooks() {
     const reactionCount = parseReactions(book.reactions);
 
     // If reactions >= 900, show a 🔥 Trending badge
-    if (reactionCount >= 900) {
+    if (reactionCount >= 1500) {
       const hotBadge = document.createElement("span");
       hotBadge.className = "hot-pick";
       hotBadge.innerHTML = "🔥 Trending";
@@ -454,7 +457,8 @@ function renderBooks() {
     if (book.reactions) {
       const engBadge = document.createElement("span");
       engBadge.className = "engagement-badge";
-      engBadge.innerHTML = `<i class="fas fa-fire"></i> ${book.reactions}`;
+      engBadge.innerHTML = `<i class="fas fa-fire"></i> ${book.reactions}` + (book.impressions ? `<br><i class="fas fa-eye"></i> ${fmtK(book.impressions)}` : "");
+      engBadge.title = `${(book.engagement||0).toLocaleString("en-US")} engagements · ${(book.impressions||0).toLocaleString("en-US")} impressions (LinkedIn)`;
       coverBox.appendChild(engBadge);
     }
 
@@ -484,18 +488,21 @@ searchInput.addEventListener("input", renderBooks);
   fetch("stats.json", { cache: "no-cache" })
     .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(d => {
+      const L = (x) => `${fmt(x.impressions)} impressions · ${fmt(x.reactions)} reactions · ${fmt(x.comments)} comments`;
       const items = [
-        [fmt(d.followers), "LinkedIn followers"],
-        [fmt(d.impressions365d), "post impressions, last 12 months"],
-        [fmt(d.impressions7d), "post impressions, last 7 days"],
-        [fmt(d.bestPost.impressions), `best post: ${d.bestPost.title}`]
+        ["Followers", fmt(d.followers), "LinkedIn", ""],
+        ["Latest post", fmt(d.latest.impressions), d.latest.title, L(d.latest) + (d.latest.followersGained ? ` · +${d.latest.followersGained} followers` : "")],
+        ["Best post", fmt(d.best.impressions), d.best.title, L(d.best)]
       ];
       const g = document.getElementById("statsGrid");
-      items.forEach(([num, label]) => {
+      items.forEach(([tag, num, label, sub]) => {
         const box = document.createElement("div"); box.className = "stat";
+        const t = document.createElement("div"); t.className = "stat-tag"; t.textContent = tag;
         const n = document.createElement("div"); n.className = "stat-num"; n.textContent = num;
         const l = document.createElement("div"); l.className = "stat-label"; l.textContent = label;
-        box.append(n, l); g.appendChild(box);
+        box.append(t, n, l);
+        if (sub) { const u = document.createElement("div"); u.className = "stat-sub"; u.textContent = sub; box.appendChild(u); }
+        g.appendChild(box);
       });
       const when = new Date(d.updated + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
       document.getElementById("statsNote").textContent = `${d.source}, updated ${when}`;

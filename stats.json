@@ -1,8 +1,19 @@
 {
-  "updated": "2026-11-16",
-  "source": "LinkedIn analytics",
-  "followers": 24820,
-  "impressions365d": 748790,
-  "impressions7d": 76592,
-  "bestPost": { "title": "LTSpice From Scratch", "impressions": 97273 }
+ "updated": "2026-11-16",
+ "source": "LinkedIn analytics",
+ "followers": 24820,
+ "latest": {
+  "title": "ADC riddle",
+  "impressions": 43404,
+  "reactions": 191,
+  "comments": 87,
+  "followersGained": 62
+ },
+ "best": {
+  "title": "PCB Design",
+  "impressions": 209923,
+  "reactions": 1886,
+  "comments": 226,
+  "engagements": 2393
+ }
 }
