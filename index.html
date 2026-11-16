@@ -197,7 +197,7 @@ h1 span { color:var(--yellow); }
 
 /* Engagement Badge */
 .engagement-badge {
-  position: absolute; top: 10px; right: 10px; z-index: 3;
+  position: absolute; top: 6px; right: 6px; z-index: 3;
   background: rgba(5,5,5,0.85); color: var(--yellow);
   font-size: 0.65rem; font-weight: 800; padding: 4px 8px;
   border: 1px solid rgba(255,181,46,0.4); backdrop-filter: blur(4px);
@@ -454,10 +454,10 @@ function renderBooks() {
     }
 
     // Always append engagement badge if the data exists
-    if (book.reactions) {
+    if (book.reactions || book.reactionCount) {
       const engBadge = document.createElement("span");
       engBadge.className = "engagement-badge";
-      engBadge.innerHTML = `<i class="fas fa-fire"></i> ${book.reactions}` + (book.impressions ? `<br><i class="fas fa-eye"></i> ${fmtK(book.impressions)}` : "");
+      engBadge.innerHTML = `<i class="fas fa-thumbs-up"></i> ${book.reactionCount ? book.reactionCount.toLocaleString("en-US") : book.reactions}` + (book.impressions ? `<br><i class="fas fa-eye"></i> ${fmtK(book.impressions)}` : "");
       engBadge.title = `${(book.engagement||0).toLocaleString("en-US")} engagements · ${(book.impressions||0).toLocaleString("en-US")} impressions (LinkedIn)`;
       coverBox.appendChild(engBadge);
     }
@@ -517,6 +517,8 @@ fetch("books.json", { cache: "no-cache" })
     allBooks = Object.entries(data).flatMap(([category, books]) =>
       books.map(book => ({...book, category, categoryLabel: categoryLabels[category] || category}))
     );
+    // highest engagement first; re-sorts itself whenever books.json is refreshed
+    allBooks.sort((a, b) => (b.engagement || parseReactions(b.reactions) || 0) - (a.engagement || parseReactions(a.reactions) || 0));
     renderBooks();
   })
   .catch(() => {
