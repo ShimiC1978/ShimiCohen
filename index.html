@@ -538,11 +538,6 @@ fetch("books.json", { cache: "no-cache" })
     // most likes first (the number shown on the badge); re-sorts itself whenever books.json is refreshed
     allBooks.sort((a, b) => (b.reactionCount || 0) - (a.reactionCount || 0));
     allBooks.forEach((b, i) => { if (i < 5 && b.reactionCount) b.rank = i + 1; });
-    // order: top 5 winners, then NEW books (newest first), then the rest by likes
-    const isNew = b => b.added && (Date.now() - new Date(b.added + "T00:00:00").getTime()) < NEW_DAYS * 864e5;
-    const winners = allBooks.filter(b => b.rank);
-    const fresh = allBooks.filter(b => !b.rank && isNew(b)).sort((a, b) => b.added.localeCompare(a.added));
-    allBooks = [...winners, ...fresh, ...allBooks.filter(b => !b.rank && !isNew(b))];
     renderBooks();
   })
   .catch(() => {
