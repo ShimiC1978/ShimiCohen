@@ -123,7 +123,7 @@ h1 span { color:var(--yellow); }
 
 /* LinkedIn stats */
 .stats { padding: 0 0 38px; }
-.stats-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.stats-grid { display:grid; grid-template-columns:repeat(2,minmax(0,240px)); gap:14px; justify-content:start; }
 .stat {
   border:1px solid var(--white-line); border-radius:12px; padding:18px 20px;
   background:var(--white-faint); transition:border-color .3s, box-shadow .3s;
@@ -132,6 +132,7 @@ h1 span { color:var(--yellow); }
 .stat-num { font:700 clamp(1.7rem,3.4vw,2.4rem)/1 "Space Grotesk",sans-serif; letter-spacing:-.04em; color:var(--yellow); }
 .stat-label { margin-top:8px; font-size:.78rem; color:var(--white-soft); line-height:1.35; }
 .stat-tag { font-size:.66rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--white-soft); margin-bottom:8px; }
+.stat { display:flex; flex-direction:column; justify-content:space-between; min-height:104px; }
 .stat-metrics { display:flex; flex-wrap:wrap; gap:6px 14px; align-items:baseline; font:700 clamp(1.15rem,3vw,1.7rem)/1.1 "Space Grotesk",sans-serif; letter-spacing:-.03em; color:var(--yellow); }
 .stat-metrics i { font-size:.7em; margin-right:5px; }
 .stat-sub { margin-top:8px; font-size:.78rem; color:var(--white); line-height:1.4; }
@@ -240,7 +241,7 @@ footer { padding:24px 0 35px; color:var(--white-soft); font-size:.78rem; border-
 .footer-inner { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 
 @media (max-width:1000px) { .book-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
-@media (max-width:700px) { .hero { padding:40px 0 26px; } .stats { padding-bottom:10px; } .section { padding-top:24px !important; } .stats-grid { gap:8px; } .stat-tag { margin-bottom:6px; }  .stat { padding:14px 15px; } }
+@media (max-width:700px) { .stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .stat { min-height:92px; } .hero { padding:40px 0 26px; } .stats { padding-bottom:10px; } .section { padding-top:24px !important; } .stats-grid { gap:8px; } .stat-tag { margin-bottom:6px; }  .stat { padding:14px 15px; } }
 @media (max-width:700px) {
   .wrap { width:min(var(--max-width),calc(100% - 28px)); }
   .header-inner { min-height:68px; gap:10px; }
@@ -512,7 +513,7 @@ searchInput.addEventListener("input", renderBooks);
         box.innerHTML = `<div class="stat-tag">${tag}</div>${inner}<div class="stat-label">${label}</div>`;
         g.appendChild(box);
       };
-      mk("Followers", `<div class="stat-num">${fmt(d.followers)}</div>`, "LinkedIn");
+      mk("Followers", `<div class="stat-metrics"><span><i class="fas fa-users"></i>${fmt(d.followers)}</span></div>`, "LinkedIn");
       mk("Latest post", `<div class="stat-metrics"><span><i class="fas fa-thumbs-up"></i>${d.latest.reactions.toLocaleString("en-US")}</span><span><i class="fas fa-eye"></i>${fmt(d.latest.impressions)}</span></div>`, d.latest.title.replace(/[<>&]/g, ""));
       const when = new Date(d.updated + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
       document.getElementById("statsNote").textContent = `${d.source}, updated ${when}`;
