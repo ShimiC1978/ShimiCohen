@@ -129,6 +129,8 @@ h1 span { color:var(--yellow); }
   background:var(--white-faint); transition:border-color .3s, box-shadow .3s;
 }
 .stat:hover { border-color:var(--yellow); box-shadow:0 0 18px rgba(255,181,46,.16); }
+a.stat { color:inherit; text-decoration:none; cursor:pointer; transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease; }
+a.stat:hover { transform:translateY(-2px); }
 .stat-num { font:700 clamp(1.7rem,3.4vw,2.4rem)/1 "Space Grotesk",sans-serif; letter-spacing:-.04em; color:var(--yellow); }
 .stat-label { margin-top:8px; font-size:.78rem; color:var(--white-soft); line-height:1.35; }
 .stat-tag { font-size:.66rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--white-soft); margin-bottom:8px; }
@@ -508,13 +510,15 @@ searchInput.addEventListener("input", renderBooks);
     .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(d => {
       const g = document.getElementById("statsGrid");
-      const mk = (tag, inner, label) => {
-        const box = document.createElement("div"); box.className = "stat";
+      const safe = u => /^https:\/\/(www\.)?linkedin\.com\//.test(u || "") ? u : "";
+      const mk = (tag, inner, label, url) => {
+        const box = document.createElement(url ? "a" : "div"); box.className = "stat";
+        if (url) { box.href = url; box.target = "_blank"; box.rel = "noopener"; }
         box.innerHTML = `<div class="stat-tag">${tag}</div>${inner}<div class="stat-label">${label}</div>`;
         g.appendChild(box);
       };
-      mk("Followers", `<div class="stat-metrics"><span><i class="fas fa-users"></i>${fmt(d.followers)}</span></div>`, "LinkedIn");
-      mk("Latest post", `<div class="stat-metrics"><span><i class="fas fa-thumbs-up"></i>${d.latest.reactions.toLocaleString("en-US")}</span><span><i class="fas fa-eye"></i>${fmt(d.latest.impressions)}</span></div>`, d.latest.title.replace(/[<>&]/g, ""));
+      mk("Followers", `<div class="stat-metrics"><span><i class="fas fa-users"></i>${fmt(d.followers)}</span></div>`, "LinkedIn", safe(d.profile));
+      mk("Latest post", `<div class="stat-metrics"><span><i class="fas fa-thumbs-up"></i>${d.latest.reactions.toLocaleString("en-US")}</span><span><i class="fas fa-eye"></i>${fmt(d.latest.impressions)}</span></div>`, d.latest.title.replace(/[<>&]/g, ""), safe(d.latest.url));
       const when = new Date(d.updated + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
       document.getElementById("statsNote").textContent = `${d.source}, updated ${when}`;
       document.getElementById("stats").hidden = false;
