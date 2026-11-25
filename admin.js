@@ -244,10 +244,13 @@
           await putFile(cover, await blobB64(blob), `Replace cover: ${cover}`, await fileSha(cover));
         }
         await updateBooks(data => {
-          const entry = { title, link, cover };
-          if (reactions) entry.reactions = reactions;
-          if (tags.length) entry.tags = tags;
+          // Edit keeps the fields the form doesn't show (LinkedIn numbers, added date)
+          const prev = e ? ((data[e.cat] || []).find(x => x.title === e.book.title && x.cover === e.book.cover) || {}) : {};
+          const entry = { ...prev, title, link, cover };
+          if (reactions) entry.reactions = reactions; else delete entry.reactions;
+          if (tags.length) entry.tags = tags; else delete entry.tags;
           entry.date = (e && b.date) || today();
+          entry.added = prev.added || today(); // drives the NEW tag on the site
           if (!data[cat]) data[cat] = [];
           if (e) {
             const list = data[e.cat] || [];
